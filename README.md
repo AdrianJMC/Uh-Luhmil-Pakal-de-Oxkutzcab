@@ -51,7 +51,13 @@ php artisan key:generate
 php artisan migrate
 ```
 
-6. Ejecutá el servidor de desarrollo:
+6. Una vez que hayas corrido las migraciones, ejecutá:
+
+```bash
+php artisan db:seed
+```
+
+7. Ejecutá el servidor de desarrollo:
 
 ```bash
 php artisan serve
