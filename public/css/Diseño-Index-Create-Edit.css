@@ -1,0 +1,363 @@
+/* Estilos específicos para la página de Slides */
+
+/* -----------------------------------------------------
+  Título de la sección y botón "Volver"
+------------------------------------------------------ */
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #2f7d32;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-circle {
+    width: 36px;
+    height: 36px;
+    background-color: #2f7d32;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.back-circle:hover {
+    background-color: #eda407;
+}
+
+.back-arrow-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* -----------------------------------------------------
+  Alertas personalizadas
+------------------------------------------------------ */
+.alert-success,
+.alert-danger {
+    border-radius: 0.375rem;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    margin-bottom: 1.25rem;
+}
+
+/* -----------------------------------------------------
+  Tarjeta de tabla personalizada
+------------------------------------------------------ */
+.page-edit-card {
+    border: 2px solid #000000;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.421);
+    background-color: #ffffff;
+    overflow: hidden; /* Añadir esto asegura que el contenido no salga de los bordes redondeados */
+}
+
+.page-edit-card .card-body {
+    padding: 0;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #f4f8f7;
+    color: #2f7d32;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.table img.img-preview {
+    max-width: 120px;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    object-fit: cover;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.table img.img-preview:hover {
+    transform: scale(1.05);
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
+/* -----------------------------------------------------
+  Botón "+ Nuevo Slide"
+------------------------------------------------------ */
+.btn-success {
+    background-color: #2f7d32;
+    border-color: #2f7d32;
+    font-weight: 600;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #eda407;
+    border-color: #eda407;
+}
+
+/* -----------------------------------------------------
+  Botones pequeños de acciones (editar/eliminar)
+------------------------------------------------------ */
+.btn-sm {
+    font-weight: 500;
+}
+
+.btn-warning {
+    background-color: #2f7d32;
+    border-color: #2f7d32;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-warning:hover {
+    background-color: #eda407;
+    border-color: #eda407;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-danger:hover {
+    background-color: #7e1822;
+    border-color: #7e1822;
+}
+
+/* -----------------------------------------------------
+  Botón flotante "+" en la esquina inferior derecha
+------------------------------------------------------ */
+.btn-create-plus {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #2f7d32;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.btn-create-plus:hover {
+    background-color: #eda407;
+    transform: translateY(-5px);
+}
+
+/* -----------------------------------------------------
+  Responsive ajustes
+------------------------------------------------------ */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .back-circle {
+        width: 32px;
+        height: 32px;
+    }
+
+    .back-arrow-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-create-plus {
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
+.table .btn-sm {
+    margin-right: 1.5rem; /* ajusta el valor según lo que desees */
+}
+
+/* Elimina el margen del último botón para evitar exceso de espacio */
+.table .btn-sm:last-child {
+    margin-right: 0;
+}
+.section-title .badge {
+    font-size: 0.85rem;        /* Reduce el tamaño del texto */
+    padding: 0.25rem 0.5rem;   /* Reduce el padding del badge */
+    background-color: #eda407 !important; /* Color de fondo personalizado */
+    color: #ffffff !important; /* Asegura texto blanco */
+    border-radius: 0.4rem;     /* Redondeado suave */
+}
+/* Botones centrados en fila horizontal */
+.btn-actions-horizontal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+
+/* DISEÑO PARA LA PANTALLA DE CREATE DE SLIDES */
+.container-fluid {
+  background-color: #f5f6f7;
+  padding: 1rem 0.5rem;
+}
+
+.slide-form-card {
+  max-width: 700px;
+  margin: 1.5rem auto;
+  border: 1px solid #ffffff;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.421);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-form-card-header {
+  background-color: #2f7d32;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5REM;
+}
+
+.slide-form-card-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.slide-form-card-body {
+  padding: 1rem;
+  overflow-y: visible;
+}
+
+.slide-form-label {
+  font-weight: 500;
+  color: #2f7d32;
+  display: block;
+  position: relative;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+}
+
+.slide-form-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 35px;
+  height: 3px;
+  background-color: #eda407;
+  border-radius: 2px;
+}
+
+.slide-form-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.8rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.slide-form-input:focus {
+  border-color: #2f7d32;
+  box-shadow: 0 0 0 0.15rem rgba(46, 125, 50, 0.2);
+  outline: none;
+}
+
+.slide-form-file {
+  display: block;
+  margin-top: 0.25rem;
+  margin-bottom: 0.8rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.slide-form-file:hover {
+  background-color: #e9ecef;
+}
+
+/* Botones */
+.slide-form-card-body .btn.btn-success {
+  background-color: #2f7d32;
+  border-color: #2f7d32;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.slide-form-card-body .btn.btn-success:hover,
+.slide-form-card-body .btn.btn-success:focus {
+  background-color: #eda407;
+  border-color: #eda407;
+  color: #ffffff;
+}
+
+.slide-form-card-body .btn.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.slide-form-card-body .btn.btn-secondary:hover,
+.slide-form-card-body .btn.btn-secondary:focus {
+  background-color: #5a6268;
+  border-color: #5a6268;
+  color: #ffffff;
+}
+
+.slide-form-card-body .btn + .btn {
+  margin-left: 0.75rem;
+}
+.badge-slide-limit {
+  background-color: #dc3545;       /* rojo Bootstrap */
+  color: #ffffff;                  /* texto blanco */
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.375rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.modal-body .btn + .btn {
+  margin-left: 0.75rem;
+}
+
+

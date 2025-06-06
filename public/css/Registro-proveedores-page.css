@@ -1,0 +1,295 @@
+/* Registro-proveedores-page.css */
+
+/* Colores base */
+:root {
+  --verde-base: #2f7d32;       /* el verde que usas */
+  --amarillo-hover: #eda407;   /* el amarillo “hover” que mencionas */
+  --gris-claro: #f5f5f5;
+  --gris-oscuro: #333;
+}
+
+/* Contenedor principal */
+.registro-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background-color: #ffffff;
+}
+
+/* Título */
+.registro-title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--verde-base);
+  margin-bottom: 1.5rem;
+}
+
+/* Layout de dos columnas */
+.registro-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Columnas */
+.registro-col {
+  background-color: var(--gris-claro);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* La columna izquierda ocupa 40%; la derecha 58% */
+.left-col {
+  flex: 0 0 40%;
+}
+
+.right-col {
+  flex: 0 0 58%;
+}
+
+/* Tarjetas internas */
+.card-box {
+  background-color: #ffffff;
+  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  color: var(--verde-base);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--verde-base);
+  padding-bottom: 0.5rem;
+}
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+/* Solo si insistes en usar "form-label" en Bootstrap 4 */
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+
+/* Input estándar (modificar si ya usas Bootstrap u otro) */
+.form-control {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Validación de errores */
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875rem;
+}
+
+/* Mapa */
+.map-box {
+  width: 100%;
+  height: 200px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Calendario y gráfico: placeholders */
+.calendar-box,
+.chart-box {
+  width: 100%;
+  min-height: 120px;
+  border: 1px dashed #bbb;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+}
+
+.small-text {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Botón para ver resultados */
+.btn-view-results {
+  background-color: var(--amarillo-hover);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-view-results:hover {
+  background-color: var(--verde-base);
+}
+
+/* Contenedor del botón final */
+.form-submit-container {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+/* Botón Registrar */
+.btn2.btn-primary {
+  background-color: #2f7d32;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn2.btn-primary:hover {
+  background-color: #eda407;
+}
+
+/* Responsive: en pantallas muy pequeñas, apila las columas */
+@media (max-width: 768px) {
+  .left-col,
+  .right-col {
+    flex: 0 0 100%;
+  }
+}
+/* Mejora de separación visual en la columna izquierda */
+.col-md-6.pl-0 {
+  padding-left: 1rem !important; /* o 1.5rem si quieres más aire */
+  padding-right: 1rem;
+}
+
+/* Espaciado adicional para imagen y mapa */
+.col-md-6 .border {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+.titulo-datos {
+  margin-bottom: 0.2rem; /* o 8px */
+}
+/* Separación entre los inputs superiores y los calendarios */
+#bloque-especificos .grupo-calendarios {
+  margin-top: 1rem; /* Ajusta el valor a tu gusto (0.5rem, 1.5rem, etc.) */
+}
+/* -----------------------------
+   Labels en negrita
+----------------------------- */
+label {
+  font-weight: 700;
+}
+
+/* Flatpickr calendar design personalizado */
+.flatpickr-calendar {
+  border: 1px solid var(--verde-base);
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Encabezado: mes y año */
+.flatpickr-months {
+  background-color: var(--verde-base);
+  color: white;
+  border-radius: 4px 4px 0 0;
+}
+
+/* Flechas de navegación */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+  fill: white !important;
+}
+
+/* Días normales */
+.flatpickr-day {
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Día seleccionado */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background-color: #eda407;
+  border-color: #eda407;
+  color: white;
+}
+
+/* Hover */
+.flatpickr-day:hover {
+  background-color: rgba(237, 164, 7, 0.3);
+}
+/* Cambiar color del mes y año a blanco */
+.flatpickr-current-month,
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month input.cur-year {
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Flecha desplegable del mes (▾) */
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  color: white !important;
+}
+
+/* Íconos de flecha izquierda/derecha */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+  fill: white !important;
+}
+
+/* Estilo del dropdown de meses */
+.flatpickr-monthDropdown-months {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 500;
+  border: none !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0.25rem 0.5rem;
+}
+
+/* Estilo del contenedor del dropdown */
+.flatpickr-monthDropdown-months option {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Opción seleccionada */
+.flatpickr-monthDropdown-months option:checked {
+  background-color: var(--amarillo-hover) !important;
+  color: white !important;
+}
+
+/* Hover visual (solo visible en algunos navegadores) */
+.flatpickr-monthDropdown-months option:hover {
+  background-color: var(--amarillo-hover) !important;
+  color: white !important;
+}
+/* El input donde se muestra el mes seleccionado */
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background-color: transparent !important;
+  color: white !important;
+  border: none !important;
+  z-index: 1;
+  position: relative;
+}
+#map{
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+
+

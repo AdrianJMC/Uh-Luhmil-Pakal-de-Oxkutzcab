@@ -1,0 +1,204 @@
+/* auth.css */
+
+/* Cuerpo full-screen centrado */
+body, body.bg-light {
+  background: #fff;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh !important;
+  font-family: 'Source Sans 3', sans-serif !important;
+  margin: 0;
+}
+
+/* Tarjeta en dos paneles */
+.auth-card {
+  display: flex !important;
+  flex-direction: row;
+  width: 1220px;
+  max-width: 1000px;
+  border-radius: 1rem;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,0.3);
+  overflow: hidden;
+  margin: 1rem;
+}
+
+/* Panel izquierdo: logo + título */
+.auth-card .card-left {
+  flex: 1;
+  background: #2e7d32;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.auth-card .card-left img {
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 1rem;
+  max-width: 180px;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.auth-card .card-left h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.auth-card .card-left p {
+  font-size: 1rem;
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 240px;
+}
+
+/* Panel derecho: formulario */
+.auth-card .card-right {
+  flex: 1;
+  background: #fff;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Campos centrados: label arriba (alineado a la izquierda) y input centrado */
+.auth-card .card-right .mb-4 {
+  width: 340px;
+  margin: 0 auto 1rem;
+}
+.auth-card .card-right .mb-4 label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.auth-card .card-right .mb-4 input {
+  width: 340px;
+  box-sizing: border-box;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+/* “Recuérdame” con checkbox al lado izquierdo */
+.auth-card .card-right .form-check {
+  width: 340px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.auth-card .card-right .form-check-input {
+  margin: 0 0.2rem 0 0;
+}
+.auth-card .card-right .form-check-label {
+  font-size: 0.9rem;
+}
+
+/* Botón “Entrar” mismo ancho que inputs y centrado */
+.btn-auth {
+  background-color: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  border-radius: 20px;
+  width: 340px;
+  margin: 1px;
+  transition: background-color .3s, color .3s;
+}
+.btn-auth:hover {
+  background-color: #eda407;
+  color: #fff;
+}
+
+/* Enlaces “Olvidé…” y “Regístrate” centrados */
+.auth-card .auth-forgot,
+.auth-card .link-register {
+  display: block;
+  margin: 1rem auto 0;
+  color: #000;
+  font-weight: 500;
+  text-decoration: underline;
+}
+.auth-card .auth-forgot:hover,
+.auth-card .link-register:hover {
+  color: #eda407;
+}
+/* “Recuérdame” con texto a la izquierda y checkbox a la derecha, en la misma línea */
+.auth-card .card-right .form-check {
+  width: 340px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* mantiene todo alineado a la izquierda */
+}
+
+/* forzamos que primero vaya el label y luego el input */
+.auth-card .card-right .form-check-label {
+  order: 0;
+  margin: 0;
+  margin-top: 5px;
+  margin-right: -9rem; /* espacio entre texto y checkbox */
+  text-align: left;
+}
+
+/* luego va el checkbox */
+.auth-card .card-right .form-check-input {
+  order: 1;
+  margin: 0;
+}
+/* Checkbox checked color */
+.auth-card .card-right .form-check-input:checked {
+  /* en Chrome/Edge/Firefox modernos */
+  accent-color: #2e7d32;
+}
+
+/* Texto “Recuérdame” más pequeño */
+.auth-card .card-right .form-check-label {
+  font-size: 0.9rem !important;
+}
+/* Enlaces “Olvidé tu contraseña?” y “Regístrate aquí” en negrita sin subrayado */
+.auth-card .auth-forgot,
+.auth-card .link-register {
+  font-weight: 600;        /* negrita */
+  text-decoration: none;   /* sin subrayado */
+}
+
+/* Si quieres cambiar el color al hover, por ejemplo */
+.auth-card .auth-forgot:hover,
+.auth-card .link-register:hover {
+  color: #eda407;          /* color naranja al pasar el ratón */
+}
+/* Animaciones de entrada sólo en contenido */
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes slideDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+/* Animar sólo los hijos de cada panel */
+.auth-card .card-left > * {
+  animation: slideUp 0.9s ease-out both;
+}
+.auth-card .card-right > * {
+  animation: slideDown 0.9s ease-out both;
+}
+
+.card-left img {
+  max-width: 120px; /* o el tamaño que quieras */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
