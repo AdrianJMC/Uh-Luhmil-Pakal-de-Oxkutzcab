@@ -201,4 +201,24 @@ body, body.bg-light {
   object-fit: contain;
   margin-bottom: 1rem;
 }
+.password-wrapper {
+  position: relative;
+  width: 340px;
+}
+
+.password-wrapper input {
+  padding-right: 2.5rem; /* espacio para el ícono */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-35%);
+  cursor: pointer;
+  color: #555;
+}
+.toggle-password:hover {
+  color: #2e7d32;
+}
 
