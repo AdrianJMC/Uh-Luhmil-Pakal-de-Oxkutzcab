@@ -21,6 +21,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Instalar dependencias del proyecto Laravel
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
+# Establecer el DocumentRoot a /public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
 # Ajustes de permisos
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage
