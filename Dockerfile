@@ -29,9 +29,9 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
-# 🔥 Ejecutar migraciones y seeders + limpiar caché
+# Ejecutar migraciones y seeders con fuerza
 RUN php artisan config:clear \
-    && php artisan migrate --seed \
+    && php artisan migrate --seed --force \
     && php artisan cache:clear
 
 # Puerto expuesto por Apache
