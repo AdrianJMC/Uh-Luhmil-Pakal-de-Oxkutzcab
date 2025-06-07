@@ -26,7 +26,13 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 
 # Ajustes de permisos
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage
+    && chmod -R 775 /var/www/html/storage \
+    && chmod -R 775 /var/www/html/bootstrap/cache
+
+# 🔥 Ejecutar migraciones y seeders + limpiar caché
+RUN php artisan config:clear \
+    && php artisan migrate --seed \
+    && php artisan cache:clear
 
 # Puerto expuesto por Apache
 EXPOSE 80
