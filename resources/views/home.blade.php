@@ -98,3 +98,8 @@
     @push('scripts')
         <script src="{{ asset('js/home.js') }}"></script>
     @endpush
+
+    {{-- PONER ESTO AL FINAL DE TU home.blade.php (SOLO TEMPORAL) --}}
+<pre>
+    {{ file_get_contents(storage_path('logs/laravel.log')) }}
+</pre>
