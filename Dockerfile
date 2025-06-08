@@ -27,12 +27,11 @@ RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /e
 # Ajustes de permisos
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache
+    && chmod -R 775 /var/www/html/bootstrap/cache \
+    && chmod +x /var/www/html/start.sh  # 👈 esta línea es la clave
 
-# Ejecutar migraciones y seeders con fuerza
-RUN php artisan config:clear \
-    && php artisan migrate --seed --force \
-    && php artisan cache:clear
+# Comando de inicio
+CMD ["./start.sh"]
 
 # Puerto expuesto por Apache
 EXPOSE 80
