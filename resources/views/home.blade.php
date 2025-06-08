@@ -39,17 +39,22 @@
         <section class="section section-md pt-0 mt-0 mt-md-0">
             <div class="container">
                 <h2 class="p-4 h2 text-center mb-4">Información importante</h2>
-                <div class="row g-3">
-                    @foreach ($infos as $info)
-                        @include('components.info-card', [
-                            'image' => $info->imagen_ruta,
-                            'title' => $info->titulo,
-                            'text' => $info->texto,
-                            'videoId' => $info->video_id,
-                            'delay' => $loop->index * 50,
-                        ])
-                    @endforeach
-                </div>
+                @if ($infos->isNotEmpty())
+                    <div class="row g-3">
+                        @foreach ($infos as $info)
+                            @include('components.info-card', [
+                                'image' => $info->imagen_ruta,
+                                'title' => $info->titulo,
+                                'text' => $info->texto,
+                                'videoId' => $info->video_id,
+                                'delay' => $loop->index * 50,
+                            ])
+                        @endforeach
+                    </div>
+                @else
+                    <p class="text-center text-muted">Aún no hay información publicada.</p>
+                @endif
+
             </div>
         </section>
 
