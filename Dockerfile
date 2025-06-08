@@ -4,7 +4,7 @@ FROM php:8.2-apache
 # Instalar extensiones requeridas por Laravel
 RUN apt-get update && apt-get install -y \
     libzip-dev unzip libpq-dev libonig-dev curl git \
-    && docker-php-ext-install pdo pdo_mysql zip
+    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
 
 # Habilitar el módulo de reescritura de Apache
 RUN a2enmod rewrite
