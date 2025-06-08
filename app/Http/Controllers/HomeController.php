@@ -11,21 +11,32 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Log para verificar si entra al controlador
-        Log::info('✅ Entró correctamente al HomeController@index');
+        try {
+            $log = "";
 
-        // También crea un archivo temporal por si no se escribe en laravel.log
-        file_put_contents(storage_path('logs/debug.txt'), "✅ Llega a HomeController@index\n", FILE_APPEND);
+            $log .= "✅ Entrando a HomeController@index\n";
 
-        // Sección "home"
-        $home   = Page::where('slug','home')->firstOrFail();
+            $home = \App\Models\Page::where('slug', 'home')->first();
+            if (!$home) throw new \Exception("❌ No se encontró la página 'home'");
 
-        // Slides para el slider
-        $slides = Slide::orderBy('orden')->get();
+            $log .= "✅ Página home encontrada\n";
 
-        // Trae todas las infos
-        $infos  = Info::orderBy('orden')->get();
+            $slides = \App\Models\Slide::orderBy('orden')->get();
+            $log .= "✅ Slides encontrados: " . $slides->count() . "\n";
 
-        return view('home', compact('home','slides','infos'));
+            $infos = \App\Models\Info::orderBy('orden')->get();
+            $log .= "✅ Infos encontrados: " . $infos->count() . "\n";
+
+            // Para ver logs temporalmente en la vista
+            file_put_contents(storage_path('logs/debug.txt'), $log);
+
+            return view('home', compact('home', 'slides', 'infos'));
+        } catch (\Throwable $e) {
+            // Si explota algo, log completo y lo mostramos
+            $errorLog = "❌ ERROR: " . $e->getMessage() . "\n" . $e->getTraceAsString();
+            file_put_contents(storage_path('logs/debug.txt'), $errorLog);
+
+            return response("<pre>$errorLog</pre>", 500);
+        }
     }
 }
