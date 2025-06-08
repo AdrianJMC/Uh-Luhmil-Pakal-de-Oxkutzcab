@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Uh Luhmil Pakal')</title>
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ secure_asset('images/logo.png') }}" type="image/png">
 
     <!-- ============================
          CSS DE TERCEROS
     ============================ -->
     <!-- Bootstrap framework -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/bootstrap.css') }}">
     <!-- Leaflet para mapas interactivos -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <!-- AOS para animaciones al hacer scroll -->
@@ -21,7 +21,7 @@
          FUENTES E ICONOS
     ============================ -->
     <!-- Tus fuentes personalizadas -->
-    <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/fonts.css') }}">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
@@ -33,18 +33,18 @@
          CSS COMPILADO DE LA APLICACIÓN
     ============================ -->
     <!-- app.css generado por Laravel Mix o tu proceso de build -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/app.css') }}">
 
     <!-- ============================
          CSS EXTRA (SOBREESCRIBIR O AÑADIR)
     ============================ -->
     <!-- style.css para reglas puntuales -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
 
     <!-- Css para el diseño de calendarios-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Diseño de pagina registro proveedores-->
-    <link rel="stylesheet" href="{{ asset('css/Registro-proveedores-page.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('css/Registro-proveedores-page.css') }}">
 
 
     <!-- Mapa con Leaflet -->
@@ -96,10 +96,10 @@
     ============================ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- app.js: tu bundle principal (Vue, Alpine, utilidades, etc.) -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ secure_asset('js/app.js') }}"></script>
     <!-- core.min.js y script.js: librerías adicionales y scripts globales -->
-    <script src="{{ asset('js/core.min.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ secure_asset('js/core.min.js') }}"></script>
+    <script src="{{ secure_asset('js/script.js') }}"></script>
 
     <!-- ============================
          LAZY-LOAD Y RETINA IMAGENES
