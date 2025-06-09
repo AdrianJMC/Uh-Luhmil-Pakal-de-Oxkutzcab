@@ -2,10 +2,12 @@ services:
   - type: web
     name: Uh-Luhmil-Pakal-de-Oxkutzcab
     env: php
-    buildCommand: "composer install"
-    startCommand: |
-      chown -R www-data:www-data storage bootstrap/cache
+    buildCommand: |
+      composer install
+      mkdir -p storage/logs
+      touch storage/logs/laravel.log
       chmod -R 775 storage bootstrap/cache
+    startCommand: |
       php artisan config:cache
       php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
