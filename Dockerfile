@@ -9,29 +9,31 @@ RUN apt-get update && apt-get install -y \
 # Habilitar el módulo de reescritura de Apache
 RUN a2enmod rewrite
 
-# Copiar los archivos del proyecto al directorio de Apache
+# Copiar los archivos del proyecto
 COPY . /var/www/html
 
-# Establecer el directorio de trabajo
+# Establecer directorio
 WORKDIR /var/www/html
 
 # Instalar Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Instalar dependencias del proyecto Laravel
+# Instalar dependencias
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# Establecer el DocumentRoot a /public
+# Crear archivo de log y asegurar permisos
+RUN touch /var/www/html/storage/logs/laravel.log && \
+    chown -R www-data:www-data /var/www/html && \
+    chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Establecer DocumentRoot
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Ajustes de permisos
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 /var/www/html/storage \
-    && chmod -R 775 /var/www/html/bootstrap/cache \
-    && chmod +x /var/www/html/start.sh  # 👈 esta línea es la clave
+# Hacer start.sh ejecutable
+RUN chmod +x /var/www/html/start.sh
 
 # Comando de inicio
 CMD ["./start.sh"]
 
-# Puerto expuesto por Apache
+# Puerto
 EXPOSE 80
