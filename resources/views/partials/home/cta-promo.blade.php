@@ -1,6 +1,6 @@
 {{-- resources/views/partials/cta-promo.blade.php --}}
 <section class="section text-center">
-  <div class="parallax-container" data-parallax-img="{{ asset('images/IMG_promover_compra.png') }}">
+  <div class="parallax-container" data-parallax-img="{{ secure_asset('images/IMG_promover_compra.png') }}">
     <div class="parallax-content section-xl section-inset-custom-1 context-dark bg-overlay-40">
       <div class="container">
         <h2 class="oh font-weight-normal">

@@ -6,7 +6,7 @@
       <div class="swiper-wrapper text-left">
         @foreach($slides as $slide)
           <div class="swiper-slide context-dark"
-               data-slide-bg="{{ asset('storage/'.$slide->imagen_ruta) }}">
+               data-slide-bg="{{ secure_asset('storage/'.$slide->imagen_ruta) }}">
             <div class="swiper-slide-caption">
               <div class="container">
                 <div class="row justify-content-center justify-content-xxl-start">

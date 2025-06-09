@@ -10,7 +10,7 @@
                         class="thumbnail thumbnail-mary thumbnail-sm wow {{ $loop->index % 2 ? 'slideInUp' : 'slideInLeft' }}"
                         data-wow-delay="0s">
                         <div class="thumbnail-mary-figure">
-                            <img src="{{ asset('images/' . $g['img']) }}" alt="{{ $g['title'] }}" loading="lazy"
+                            <img src="{{ secure_asset('images/' . $g['img']) }}" alt="{{ $g['title'] }}" loading="lazy"
                                 width="370" height="303" class="rounded" />
                         </div>
                         <div class="thumbnail-mary-caption text-center mt-2">
