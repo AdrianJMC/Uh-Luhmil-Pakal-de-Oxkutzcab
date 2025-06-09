@@ -3,7 +3,10 @@ services:
     name: Uh-Luhmil-Pakal-de-Oxkutzcab
     env: php
     buildCommand: "composer install"
-    startCommand: "php artisan serve --host 0.0.0.0 --port $PORT"
+    startCommand: |
+      chmod -R 775 storage bootstrap/cache
+      php artisan config:cache
+      php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
       - key: APP_ENV
         value: production
