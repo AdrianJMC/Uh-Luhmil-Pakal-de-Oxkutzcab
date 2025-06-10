@@ -11,6 +11,9 @@ touch storage/logs/laravel.log
 chmod 664 storage/logs/laravel.log
 chown www-data:www-data storage/logs/laravel.log
 
+# 🔗 Crear enlace simbólico de storage
+php artisan storage:link
+
 # Ejecutar comandos Laravel
 php artisan config:clear
 php artisan migrate --seed --force
