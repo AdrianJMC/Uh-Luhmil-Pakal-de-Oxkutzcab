@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y \
     libzip-dev unzip libpq-dev libonig-dev curl git \
     && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
 
+# Aumentar límites de carga de archivos
+RUN echo "upload_max_filesize=50M\npost_max_size=50M" > /usr/local/etc/php/conf.d/uploads.ini
+
 # Habilitar el módulo de reescritura de Apache
 RUN a2enmod rewrite
 
