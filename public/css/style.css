@@ -12972,6 +12972,11 @@ body.no-scroll {
     color: #fff !important;
   }
 }
-
+/* Solo aplica en escritorio */
+@media (min-width: 768px) {
+  .btn-login-desktop {
+    margin-top: 15px; /* o el valor que veas que queda mejor (6-10px aprox) */
+  }
+}
 
 

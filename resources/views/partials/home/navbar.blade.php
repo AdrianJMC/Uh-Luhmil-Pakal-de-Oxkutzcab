@@ -117,15 +117,14 @@
                                     </li>
                                     <li
                                         class="rd-nav-item {{ request()->routeIs('proveedores.create') ? 'active' : '' }}">
-                                        <a class="rd-nav-link" href="{{ route('proveedores.create') }}">¿Eres
-                                            proveedor?</a>
+                                        <a class="rd-nav-link" href="{{ route('proveedores.create') }}">Registro de Productores</a>
                                     </li>
 
                                     @guest
                                         {{-- Versión escritorio: botón estilo “btn” --}}
                                         <li class="rd-nav-item d-none d-md-block">
                                             <a href="{{ route('login') }}"
-                                                class="btn btn-primary rounded-pill px-3 py-2">
+                                                class="btn btn-primary rounded-pill px-3 py-2 btn-login-desktop">
                                                 Iniciar Sesión
                                             </a>
                                         </li>

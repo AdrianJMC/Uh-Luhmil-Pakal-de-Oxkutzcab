@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container-fluid py-5">
-        <h2 class="text-center">Únete como Proveedor</h2>
+        <h2 class="text-center">Únete a la Agrupación de Productores</h2>
 
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
