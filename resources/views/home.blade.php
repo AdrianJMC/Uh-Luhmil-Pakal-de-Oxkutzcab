@@ -96,5 +96,5 @@
     @endsection
 
     @push('scripts')
-        <script src="{{ secure_asset('js/home.js') }}"></script>
+        <script src="@assetAuto('js/home.js')"></script>
     @endpush

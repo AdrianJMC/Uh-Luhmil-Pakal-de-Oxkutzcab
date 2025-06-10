@@ -7,7 +7,7 @@
     @endphp
 
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="{{ secure_asset('storage/' . $logoPath) }}" alt="Logo"
+        <img src="@assetAuto('storage/' . $logoPath)" alt="Logo"
             class="brand-image img-circle elevation-3 bg-white p-1" style="opacity: .8">
         <span class="brand-text font-weight-light">Administrador</span>
     </a>
@@ -18,7 +18,7 @@
         @auth
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="{{ secure_asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                    <img src="@assetAuto('adminlte/dist/img/user2-160x160.jpg')" class="img-circle elevation-2"
                         alt="User Image">
                 </div>
                 <div class="info">

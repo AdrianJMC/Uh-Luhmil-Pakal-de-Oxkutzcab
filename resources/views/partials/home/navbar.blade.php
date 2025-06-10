@@ -39,7 +39,7 @@
                                                 <div class="unit align-items-center">
                                                     <div class="unit-left"><a class="cart-inline-figure"
                                                             href="{{ url('#') }}"><img
-                                                                src="{{ secure_asset('/images/product-mini-1-108x100.png') }}"
+                                                                src="@assetAuto('/images/product-mini-1-108x100.png')"
                                                                 alt="" width="108" height="100" /></a>
                                                     </div>
                                                     <div class="unit-body">
@@ -62,7 +62,7 @@
                                                 <div class="unit align-items-center">
                                                     <div class="unit-left"><a class="cart-inline-figure"
                                                             href="{{ url('#') }}"><img
-                                                                src="{{ secure_asset('/images/product-mini-2-108x100.png') }}"
+                                                                src="@assetAuto('/images/product-mini-2-108x100.png')"
                                                                 alt="" width="108" height="100" /></a>
                                                     </div>
                                                     <div class="unit-body">
@@ -192,7 +192,7 @@
                                     <div class="heading-6 subtitle">Our Contacts</div>
                                     <div class="row row-10 gutters-10">
                                         <div class="col-12"><img
-                                                src="{{ secure_asset('/images/home-sidebar-394x255.jpg') }}" alt=""
+                                                src="@assetAuto('/images/home-sidebar-394x255.jpg')" alt=""
                                                 width="394" height="255" />
                                         </div>
                                     </div>

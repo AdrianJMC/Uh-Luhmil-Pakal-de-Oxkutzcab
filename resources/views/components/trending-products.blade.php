@@ -13,9 +13,9 @@
       <div class="col-sm-8 col-md-7 col-lg-6 wow fadeInLeft" data-wow-delay="0s">
         {{-- Banner o contenido fijo --}}
         <div class="product-banner">
-          <img src="{{ secure_asset('images/home-banner-1-570x715.jpg') }}" alt="" width="570" height="715">
+          <img src="@assetAuto('images/home-banner-1-570x715.jpg')" alt="" width="570" height="715">
           <div class="product-banner-content">
-            <div class="product-banner-inner" style="background-image: url('{{ secure_asset('images/bg-brush.png') }}')">
+            <div class="product-banner-inner" style="background-image: url('@assetAuto('images/bg-brush.png')')">
               <h3 class="text-secondary-1">organic</h3>
               <h2 class="text-primary">Vegetables</h2>
             </div>
@@ -41,7 +41,7 @@
                   <div class="unit flex-row flex-lg-column">
                     <div class="unit-left">
                       <div class="product-figure">
-                        <img src="{{ secure_asset('images/'.$p->img) }}" alt="{{ $p->name }}" width="270" height="280">
+                        <img src="@assetAuto('images/'.$p->img)" alt="{{ $p->name }}" width="270" height="280">
                         <div class="product-button">
                           <a class="button button-md button-white button-ujarak" href="#">Add to cart</a>
                         </div>
