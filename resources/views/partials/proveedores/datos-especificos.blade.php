@@ -19,8 +19,7 @@
 
         <div class="form-group col-md-6 mb-0">
             <label for="horas_trabajo">Horas trabajo semanal</label>
-            <input type="number" name="horas_trabajo" id="horas_trabajo" class="form-control"
-                placeholder="Ej. 40">
+            <input type="number" name="horas_trabajo" id="horas_trabajo" class="form-control" placeholder="Ej. 40">
         </div>
 
         <div class="form-group col-md-6 mb-0">
@@ -46,8 +45,9 @@
         </div>
     </div>
 
-    <div class="border border-secondary rounded text-center"
-        style="width: 100%; height: 175px; background-color: #f0f0f0; display: flex; align-items: center; ju1stify-content: center;">
-        <span style="color: #888;">[ Gráfica de producción ]</span>
+    <div class="border border-secondary rounded p-2" style="width: 100%; height: 175px; background-color: #f0f0f0;">
+        <canvas id="graficaProduccion" style="height: 100%; width: 100%;"></canvas>
     </div>
 </div>
+
+

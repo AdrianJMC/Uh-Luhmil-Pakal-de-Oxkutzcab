@@ -84,7 +84,7 @@
 
                     {{-- Botones --}}
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-success me-2">Guardar cambios</button>
+                        <button type="submit" class="btn btn-warning me-2">Guardar cambios</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </form>

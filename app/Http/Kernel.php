@@ -60,7 +60,6 @@ class Kernel extends HttpKernel
         'throttle'            => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'            => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ensure.superadmin' => \App\Http\Middleware\EnsureSuperAdmin::class,
-
         // Middleware de Spatie
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission'          => \Spatie\Permission\Middleware\PermissionMiddleware::class,

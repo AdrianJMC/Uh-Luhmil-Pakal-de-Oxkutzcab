@@ -3,6 +3,7 @@
     color: #2f7d32;
     font-weight: 600;
     margin-bottom: 1.5rem;
+    font-size: 1.25rem;
 }
 
 /* ----------- Alerta de éxito ----------- */
@@ -20,8 +21,25 @@
 .gestion-card {
     background-color: #fff;
     border-radius: 0.5rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: none;
     overflow: hidden;
+     border: 1px solid #ddd; /* para que se vea el contorno */
+}
+#usuarios{
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+#perfiles{
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .gestion-usuarios-table thead {
@@ -156,3 +174,76 @@
 .btn-close-role:hover {
     color: #dc3545;
 }
+/* Tabs personalizados */
+.custom-tab {
+    background-color: white;
+    color: #000000;
+    border: 1px solid #000000 !important;
+    border-bottom: none !important; /* Elimina SOLO el borde inferior */
+    border-radius: 6px 6px 0 0 !important;
+    margin-right: 0.5rem; /* Espaciado entre tabs */
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hover */
+.custom-tab:hover {
+    background-color: #eda407 !important;
+    color: white !important;
+}
+
+/* Activa (verde con borde negro sin fondo abajo) */
+.custom-tab.active {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border: 1px solid #000000 !important;
+    border-bottom: none !important; /* También quitarlo del activo */
+    z-index: 2;
+}
+
+/* Línea inferior general de las pestañas */
+.nav-tabs {
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+}
+
+/* diseño para el botón de buscar */
+/* Estilo general del contenedor de sugerencias*/
+#sugerencias.list-group {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 0;            /* SIN padding lateral */
+  margin: 0;             /* asegura sin margen */
+  z-index: 99;
+}
+
+/* Estilo de cada ítem de sugerencia */
+#sugerencias .list-group-item {
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;             /* sin borde redondeado */
+  width: 100%;                  /* ocupar todo el ancho */
+  margin: 0;                    /* sin margen */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Último ítem sin línea inferior */
+#sugerencias .list-group-item:last-child {
+  border-bottom: none;
+}
+
+/* Hover que cubre todo */
+#sugerencias .list-group-item:hover {
+  background-color: #eda407;
+  color: #ffffff;
+}
+

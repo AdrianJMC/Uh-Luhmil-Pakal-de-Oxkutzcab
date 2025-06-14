@@ -56,13 +56,13 @@
                                     </td>
                                     <td class="text-center align-middle">
                                         <div class="btn-actions-horizontal">
-                                            <button class="btn btn-sm btn-warning" data-toggle="modal"
-                                                data-target="#modalEditarSlide" data-id="{{ $slide->id }}"
-                                                data-titulo="{{ $slide->titulo }}"
+                                            <button type="button" class="btn-editar-verde btn btn-sm"
+                                                data-toggle="modal" data-target="#modalEditarSlide"
+                                                data-id="{{ $slide->id }}" data-titulo="{{ $slide->titulo }}"
                                                 data-descripcion="{{ $slide->descripcion }}"
                                                 data-orden="{{ $slide->orden }}"
                                                 data-imagen="{{ asset('storage/' . $slide->imagen_ruta) }}">
-                                                Editar
+                                                <i class="fas fa-pencil-alt"></i>
                                             </button>
                                             <form action="{{ route('admin.slides.destroy', $slide) }}" method="POST"
                                                 onsubmit="return confirm('¿Eliminar este slide?')">
@@ -70,8 +70,7 @@
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-sm btn-danger btn-open-delete-modal"
                                                     data-toggle="modal" data-target="#modalEliminarSlide"
-                                                    data-id="{{ $slide->id }}">
-                                                    Eliminar
+                                                    data-id="{{ $slide->id }}"><i class="fas fa-trash-alt"></i>
                                                 </button>
                                             </form>
                                         </div>

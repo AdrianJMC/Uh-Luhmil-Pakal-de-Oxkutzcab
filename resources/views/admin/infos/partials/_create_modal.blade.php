@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end mt-3">
-                        <button type="submit" class="btn btn-success me-2">Crear Info</button>
+                        <button type="submit" class="btn btn-warning me-2">Crear Info</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 
                     </div>

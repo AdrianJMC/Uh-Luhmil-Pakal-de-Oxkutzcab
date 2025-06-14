@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,9 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
+    {   
+        // Registrar middlewares de Spatie
+        Route::aliasMiddleware('permission', PermissionMiddleware::class);
         // Forzar el registro si Laravel no lo reconoce
         Route::aliasMiddleware('role', RoleMiddleware::class);
 

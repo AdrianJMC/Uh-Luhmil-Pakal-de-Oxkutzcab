@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/admin-custom.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Diseño-Index-Create-Edit.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Gestion-de-usuarios.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/Gestion-de-Perfiles.css') }}">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">

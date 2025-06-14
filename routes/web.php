@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\SettingController as AdminSetting;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\SlideController;
 use App\Http\Controllers\Admin\InfoController;
+use App\Http\Controllers\Admin\RoleController;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
 Auth::routes();
 
@@ -30,10 +32,16 @@ Route::prefix('admin')
           Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
           Route::redirect('/', 'admin/dashboard');
 
-          // 2) Gestión de usuarios → solo super-admin
-          Route::middleware('role:super-admin')->group(function () {
+          Route::middleware('permission:ver_usuarios')->group(function () {
                Route::get('users', [UserController::class, 'index'])->name('users.index');
+               Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
                Route::post('users/{user}/roles', [UserController::class, 'updateRoles'])->name('users.roles');
+
+               // 🔐 Gestión de roles y permisos
+               Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+               Route::put('/roles/{role}/permissions', [RoleController::class, 'updatePermissions'])->name('roles.update-permissions');
+
+               Route::resource('roles', RoleController::class)->except('show');
           });
 
           // 3) CMS (páginas, slides, infos) → solo content-editor o super-admin
@@ -74,6 +82,6 @@ Route::post('proveedores', [ProveedorController::class, 'store'])
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
-Route::get('/test-role', function () {
-    return '✔️ Middleware de role funciona correctamente.';
-})->middleware(['auth', 'role:super-admin']);
+Route::get('/test-permiso', function () {
+    return '¡Tenés permiso!';
+})->middleware('permission:ver_usuarios');

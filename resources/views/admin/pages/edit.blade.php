@@ -18,7 +18,7 @@
         @endif
 
         {{-- Card principal alrededor del formulario --}}
-        <div class="card page-edit-card">
+        <div class="card page-content-card">
             <div class="card-body">
                 <form action="{{ route('admin.pages.update', $page) }}" method="POST" enctype="multipart/form-data"
                     novalidate>
@@ -113,7 +113,7 @@
 
                     {{-- Botones --}}
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-success me-2">Guardar cambios</button>
+                        <button class="btn btn-warning me-2">Guardar cambios</button>
                         <a href="{{ route('admin.pages.index') }}#pane-inicio" class="btn btn-secondary">Volver</a>
                     </div>
                 </form>

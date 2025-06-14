@@ -1,39 +1,39 @@
 /* public/css/admin-custom.css */
 
 /* ===========================
-   Estilos para las pestañas admin
+   Estilos para las pestañas de secciones web
    =========================== */
 
 /* Contenedor de pestañas */
 #sectionTabs {
-  border-bottom: 2px solid rgb(222, 226, 230);
+  border-bottom: 2px solid rgb(0, 0, 0);
   margin-bottom: 1.5rem;
 }
 
 /* Pestañas */
 #sectionTabs .nav-link {
-  color: rgb(46,125,50);
-  background-color: #fff;
-  border: 1px solid transparent;
-  border-top-left-radius: .25rem;
-  border-top-right-radius: .25rem;
-  margin-right: .25rem;
-  padding: .6rem 1.2rem;
-  font-weight: 500;
-  transition: background .2s, color .2s;
+  color: rgb(0, 0, 0);        /* Verde institucional */
+  background-color: #fff;       /* Fondo blanco */
+  font-weight: 600;             /* Texto en negrita */
+  border: 1px solid #000000;
+  border-radius: .25rem .25rem 0 0;
+  box-shadow: none !important;
+  margin-right: 0.5rem; /* Espaciado entre tabs */
+  border-bottom: none;     /* Elimina el borde inferior */
 }
 
 /* Pestaña activa */
 #sectionTabs .nav-link.active {
   color: #fff;
-  background-color: rgb(46,125,50);
+  background-color: rgb(46,125,50); /* Verde activo */
   border-color: rgb(46,125,50);
   border-bottom-color: transparent;
+  box-shadow: none !important;
 }
 
 /* Hover sobre pestaña inactiva */
 #sectionTabs .nav-link:not(.active):hover {
-  background-color: #eda407;
+  background-color: #eda407; /* Naranja al pasar mouse */
   color: #fff;
 }
 
@@ -43,6 +43,8 @@
   background-color: #fff;
   border: 1px solid rgb(222,226,230);
   border-top: none;
+  border-top-left-radius: 0;        /* Sin redondeo superior izquierdo */
+  border-top-right-radius: 0;       /* Sin redondeo superior derecho */
   border-bottom-left-radius: .25rem;
   border-bottom-right-radius: .25rem;
 }
@@ -122,8 +124,11 @@
 }
 #pane-logo {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  background-color: #fff; /* asegúrate que fondo sea blanco */
-    border-radius: .75rem; /* esquinas redondeadas */
+  background-color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 #logo-pane-controls .btn:hover {
   background-color: #eda407;
@@ -213,8 +218,20 @@
    Sombra alrededor del panel “Página Inicio” completo
    ================================================== */
 #pane-inicio {
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  border-radius: 0.75rem;  /* mismas esquinas que los “cards” */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+#pane-quienes{
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 /* Evitar que los “cards” queden recortados por el contenedor */
 .tab-content > .tab-pane {
@@ -559,22 +576,20 @@
   Diseño de la pagina para cambiar el texto y noticas importntes
 ------------------------------------------------------ */
 /* -----------------------------------------------------
-  Card principal de edición de página
+  Card principal de edición de página de donde estamos.
 ------------------------------------------------------ */
-.page-edit-card {
+.page-content-card {
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   background-color: #fff;
 }
 
-.page-edit-card .card-body {
+.page-content-card .card-body {
   padding: 2rem;
 }
 
-/* -----------------------------------------------------
-  Título de sección
------------------------------------------------------- */
+/* Título exclusivo para esta sección (opcional) */
 .page-header .page-title {
   font-size: 1.75rem;
   font-weight: 600;
@@ -673,6 +688,8 @@
 .btn.btn-success:hover {
   background-color: #eda407;
   border-color: #eda407;
+  transform: translateY(-5px);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 /* Ajustes del botón “Volver” */
@@ -697,7 +714,7 @@
   box-shadow: 0 0 0 0.15rem rgba(220, 53, 69, 0.25);
 }
 /* Si quieres una separación consistente entre CUALQUIER par de botones */
-.page-edit-card .card-body .btn + .btn {
+.page-content-card .card-body .btn + .btn {
   margin-left: 0.5rem;
 }
 /* -----------------------------------------------------
@@ -1137,3 +1154,5 @@
 .btn-close-custom:hover {
     color: #ffdddd;
 }
+
+
