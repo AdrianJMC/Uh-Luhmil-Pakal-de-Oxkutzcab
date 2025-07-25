@@ -7,11 +7,11 @@ Sistema web de gestión interna para la agrupación de productores agrícolas "U
 ## 🚀 Tecnologías utilizadas
 
 - **PHP 8+**
-- **Laravel 10**
+- **Laravel 12**
 - **MySQL**
 - **Blade (motor de plantillas)**
 - **AdminLTE** (para el panel administrativo)
-- **Bootstrap 5**
+- **Bootstrap 4**
 - **JavaScript / jQuery**
 - **Leaflet.js** (para mapas)
 - **Git** y **GitHub**
