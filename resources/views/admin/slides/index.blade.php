@@ -1,5 +1,12 @@
 @extends('layouts.admin')
 
+@cannot('ver_slides')
+    <div class="alert alert-danger p-4">
+        No tienes permiso para ver esta sección.
+    </div>
+    @php exit; @endphp
+@endcannot
+
 @section('content')
     <div class="container-fluid py-4 position-relative">
         <h2 class="page-title mb-4 d-flex align-items-center gap-2 flex-wrap">
@@ -50,28 +57,32 @@
                                     </td>
                                     <td class="align-middle">
                                         @if ($slide->imagen_ruta)
-                                            <img src="{{ asset('storage/' . $slide->imagen_ruta) }}" alt="slide"
-                                                class="img-preview">
+                                            <img src="{{ $slide->imagen_ruta }}" alt="slide" class="img-preview">
                                         @endif
                                     </td>
                                     <td class="text-center align-middle">
                                         <div class="btn-actions-horizontal">
-                                            <button type="button" class="btn-editar-verde btn btn-sm"
-                                                data-toggle="modal" data-target="#modalEditarSlide"
-                                                data-id="{{ $slide->id }}" data-titulo="{{ $slide->titulo }}"
-                                                data-descripcion="{{ $slide->descripcion }}"
-                                                data-orden="{{ $slide->orden }}"
-                                                data-imagen="{{ asset('storage/' . $slide->imagen_ruta) }}">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
+                                            @can('editar_slides')
+                                                <button type="button" class="btn-editar-verde btn btn-sm" data-toggle="modal"
+                                                    data-target="#modalEditarSlide" data-id="{{ $slide->id }}"
+                                                    data-titulo="{{ $slide->titulo }}"
+                                                    data-descripcion="{{ $slide->descripcion }}"
+                                                    data-orden="{{ $slide->orden }}" data-imagen="{{ $slide->imagen_ruta }}">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </button>
+                                            @endcan
+
+
                                             <form action="{{ route('admin.slides.destroy', $slide) }}" method="POST"
                                                 onsubmit="return confirm('¿Eliminar este slide?')">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="button" class="btn btn-sm btn-danger btn-open-delete-modal"
-                                                    data-toggle="modal" data-target="#modalEliminarSlide"
-                                                    data-id="{{ $slide->id }}"><i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                @can('eliminar_slides')
+                                                    <button type="button" class="btn btn-sm btn-danger btn-open-delete-modal"
+                                                        data-toggle="modal" data-target="#modalEliminarSlide"
+                                                        data-id="{{ $slide->id }}"><i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                @endcan
                                             </form>
                                         </div>
                                     </td>
@@ -88,18 +99,28 @@
         </div>
 
         {{-- Botón flotante para agregar slide --}}
-        @if ($slides->count() < 6)
-            <button class="btn btn-success rounded-circle shadow-lg position-fixed"
-                style="bottom: 20px; right: 20px; width: 55px; height: 55px; z-index: 1050;" data-toggle="modal"
-                data-target="#modalCrearSlide" title="Nuevo Slide">
-                <i class="fas fa-plus"></i>
-            </button>
-        @endif
+        @can('crear_slides')
+            @if ($slides->count() < 6)
+                <button class="btn btn-success rounded-circle shadow-lg position-fixed"
+                    style="bottom: 20px; right: 20px; width: 55px; height: 55px; z-index: 1050;" data-toggle="modal"
+                    data-target="#modalCrearSlide" title="Nuevo Slide">
+                    <i class="fas fa-plus"></i>
+                </button>
+            @endif
+        @endcan
 
         {{-- Modales --}}
-        @include('admin.slides.partials._create_modal')
-        @include('admin.slides.partials._edit_modal')
-        @include('admin.slides.partials._delete_modal')
+        @can('crear_slides')
+            @include('admin.slides.partials._create_modal')
+        @endcan
+
+        @can('editar_slides')
+            @include('admin.slides.partials._edit_modal')
+        @endcan
+
+        @can('eliminar_slides')
+            @include('admin.slides.partials._delete_modal')
+        @endcan
 
     </div>
 @endsection

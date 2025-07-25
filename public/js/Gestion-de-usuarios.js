@@ -151,3 +151,17 @@ window.limpiarBusqueda = function () {
     url.searchParams.delete('page'); // por si tenés paginación
     window.location.href = url.toString(); // redirige sin filtros
 }
+
+// ======================================
+// 7. Alertas con duracion de 5 segundos para la creacion de 5 perfiles
+// ======================================
+document.addEventListener('DOMContentLoaded', function () {
+    const alerta = document.querySelector('.gestion-alert-success');
+    if (alerta) {
+        setTimeout(() => {
+            alerta.style.transition = 'opacity 0.5s ease';
+            alerta.style.opacity = '0';
+            setTimeout(() => alerta.remove(), 500); // elimina del DOM después de ocultarse
+        }, 5000); // espera 5 segundos antes de ocultar
+    }
+});

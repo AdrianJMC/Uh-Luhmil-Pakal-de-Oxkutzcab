@@ -1,3 +1,5 @@
+@php $mostrarLoader = true; @endphp
+
 @extends('layouts.app')
 
 @section('title', 'Quiénes somos | Uh Luhmil Pakal')
@@ -185,7 +187,7 @@
                         </span>
                     </h2>
                     <a class="button button-primary button-icon button-icon-left button-ujarak wow fadeInUp"
-                        href="{{ route('proveedores.create') }}" data-wow-delay=".1s">
+                        href="{{ route('agrupaciones.create') }}" data-wow-delay=".1s">
                         Únete
                     </a>
                 </div>
@@ -244,3 +246,7 @@
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('js/loader.js') }}"></script>
+@endpush

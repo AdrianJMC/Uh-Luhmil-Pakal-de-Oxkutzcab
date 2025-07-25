@@ -1,0 +1,527 @@
+/* Título y texto de la sección */
+.cart-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin-bottom: 0.2rem !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cart-header p {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #666666;
+    margin-bottom: 1rem;
+}
+
+/* Contenedor general del carrito */
+.cart-items {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.05);
+}
+
+/* Imagen del producto */
+.product-image {
+    width: 120px;         /* ancho fijo */
+    height: 100px;        /* altura fija */
+    object-fit: cover;    /* recorta para que encaje sin deformarse */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    display: block;
+}
+
+
+/* Cada producto */
+.cart-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+/* Imagen del producto */
+.cart-item img {
+    border-radius: 8px;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+}
+
+/* Nombre y agrupación */
+.cart-item h5 {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.2rem;
+}
+
+.cart-item p {
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #777777;
+    margin-bottom: 0.3rem;
+}
+
+.agrupacion-nombre {
+    display: inline-block;
+    max-width: 150px; /* ajusta según diseño */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+}
+
+/* Badge disponible */
+.badge.bg-success {
+    background-color: #2f7d32 !important;
+    color:white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 8px;
+}
+
+/* Controles de cantidad */
+.ton-selector {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-update-cart {
+    width: 40px;
+    height: 30px;
+    color: white;
+    background-color: #2f7d32;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    padding: 0;
+}
+
+.btn-update-cart:hover {
+    background-color: #eda407;
+    color: white;
+}
+
+/* Input cantidad readonly estilo */
+.quantity-display {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    height: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #000;
+    background-color: #f9f9f9;
+    border: 1px solid #000;
+    text-align: center;
+    padding: 0;
+    border-radius: 4px;
+}
+.product-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
+/* Precio total por producto */
+.item-total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1b1b1b;
+    margin-left: 4rem;
+}
+
+.cart-item .row.align-items-center {
+    min-height: 100px; /* o el alto que necesites */
+}
+
+.cart-item small.text-muted {
+    font-weight: 700;
+    font-size: .95rem;
+    color: #888;
+}
+
+/* Precio unitario */
+small.text-muted {
+    color: #888888 !important;
+    font-size: 0.85rem;
+}
+
+/* Botón eliminar */
+.btn-danger.btn-sm {
+    background-color: #d32f2f;
+    border: none;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger.btn-sm:hover {
+    background-color: #a12323;
+}
+
+/* Botón elimiar del carrito mas a la derecha */
+.cart-item .btn-eliminar-carrito {
+    margin-right: 10px; /* separa un poco del borde derecho */
+    float: right;
+}
+
+/* Contenedor resumen */
+.cart-summary {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.1);
+}
+
+/* Título resumen */
+.cart-summary h4.card-title {
+    font-size: 1.4rem;
+    text-align: center;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin-bottom: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Resumen item */
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #000000;
+    padding: 8px 0;
+}
+
+.summary-item.total {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2f7d32;
+}
+
+/* Botones grandes */
+.d-grid .btn-primary.btn-lg {
+    background-color: #2f7d32;
+    border: none;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.d-grid .btn-primary.btn-lg:hover {
+    background-color: #eda407;
+    color: #fff;
+}
+
+.d-grid .btn-outline-primary {
+    border-color: #2f7d32;
+    color: #2f7d32;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.d-grid .btn-outline-primary:hover {
+    background-color: #eda407;
+    border-color: #eda407;
+    color: white;
+}
+
+/* Responsive ajustes */
+@media (max-width: 767px) {
+    .cart-item .row > div {
+        margin-bottom: 12px;
+    }
+
+    .cart-summary {
+        margin-top: 30px;
+    }
+}
+
+.row {
+    display: flex;
+    align-items: stretch; /* para que estiren igual */
+}
+
+.btn-eliminar-carrito {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-eliminar-carrito:hover {
+    background-color: #a12323;
+}
+
+form .btn-eliminar-carrito i.fas.fa-trash-alt {
+    color: #ffffff !important;
+}
+.icono-blanco {
+    color: #ffffff !important;
+}
+
+/* Hace que el icono aparezca en el botón, si se elimina ya no aparece por problemas de Font Awesome */
+.fas.fa-trash-alt::before {
+  content: "\f2ed" !important;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+}
+.cart-summary .d-grid {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px; /* espacio entre botones */
+}
+
+.cart-summary .d-grid .btn {
+  width: 90%; /* que ocupen más ancho */
+  max-width: 350px; /* para que no crezcan demasiado en pantallas grandes */
+}
+
+
+/* Ajustes para movil */
+@media (max-width: 767px) {
+    /* Oculta layout por defecto en móvil */
+    .cart-item .row {
+        display: none;
+    }
+    .cart-header h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: #1b1b1b;
+    margin-top: 2rem !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .cart-header p {
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    color: #504f4f;
+    margin-top: 1rem;
+    }
+
+    /* Nuevo layout optimizado solo para móvil */
+    .cart-item .mobile-stack {
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        padding: 5px 0;
+    }
+
+    /* Imagen + botones debajo */
+    .mobile-stack .left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        width: 110px;
+    }
+
+    .mobile-stack .left img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* Botones de cantidad debajo de la imagen */
+    .update-form {
+        display: flex;
+        flex-direction: row;
+        gap: 6px;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .quantity-display {
+        width: 50px;
+        text-align: center;
+        padding: 4px 0;
+    }
+
+    /* Contenido a la derecha: nombre, agrupacion, precio */
+    .mobile-stack .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .mobile-stack h5,
+    .mobile-stack p,
+    .mobile-stack small.text-muted {
+        font-size: 0.95rem;
+        margin: 0;
+        text-align: left;
+    }
+
+    /* Botón eliminar y total al fondo a la derecha */
+    .mobile-stack .actions-row {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .btn-eliminar-carrito {
+    background-color: #d32f2f; /* color rojo claro como feedback */
+    border: 1px solid #d32f2f;
+    color: #d32f2f;
+    font-size: 1.1rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.2s ease;
+    }
+
+    .btn-eliminar-carrito:hover {
+    background-color: #a12323;
+    }
+
+    .item-total {
+        font-weight: bold;
+        font-size: 1.1rem;
+        white-space: nowrap;
+    }
+    .cart-summary {
+        width: 90%;
+        background: #fff;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        padding: 25px 30px;
+        box-shadow: 0 4px 16px rgb(0 0 0 / 0.1);
+    }
+}
+
+/* Tap bar fijo SOLO en móvil */
+#sticky-mobile-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 10px 16px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+}
+
+#sticky-mobile-bar .sticky-total {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #1b1b1b;
+}
+
+#sticky-mobile-bar .btn-sm {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: #2f7d32;
+    border-radius: 6px;
+}
+#sticky-mobile-bar .btn-sm:hover {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background-color: #eda407;
+    border-radius: 6px;
+}
+.sticky-bar-inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* esto separa los hijos */
+    align-items: center;
+}
+
+/* Ajustes para el modal de confirmación del pedido */
+.btn-confirmar {
+    background-color: #2f7d32;
+    color: #ffffff;
+    width: 100%; /* botón más largo */
+    padding: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-confirmar:hover {
+    background-color: #eda407;
+    color: #ffffff;
+}
+
+/* diseño para el agradecimiento del pedido */
+.thank-you-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: white;
+        border-radius: 10px;
+        border: 2px solid black; /* Contorno negro */
+        box-shadow: 35px 35px 16px rgb(0 0 0 / 0.1);
+    }
+    
+    .btn-custom {
+        background-color: #2f7d32;
+        color: white;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-custom:hover {
+        background-color: #eda407;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .folio-container {
+        border: 1px solid #000000;
+    }
+    
+    /* Nuevo estilo para el folio */
+    .folio-container strong {
+        font-size: 1.1rem; /* Tamaño moderado */
+        font-weight: 600; /* Negrita moderada */
+    }
+
+/* estilo de pantalla de agradecimiento para movil */
+@media (max-width: 767px) {
+    .thank-you-container {
+        margin-top: 10rem;
+    }
+}

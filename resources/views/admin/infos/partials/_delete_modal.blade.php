@@ -1,3 +1,5 @@
+{{-- Modal para eliminar información importantes --}}
+
 <div class="modal fade" id="modalEliminarInfo-{{ $info->id }}" tabindex="-1" role="dialog"
     aria-labelledby="modalEliminarLabel-{{ $info->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

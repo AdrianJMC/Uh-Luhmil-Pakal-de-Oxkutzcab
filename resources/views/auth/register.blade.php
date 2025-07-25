@@ -1,5 +1,6 @@
 @extends('layouts.auth')
 @section('title', 'Crear Cuenta')
+@section('body-class', 'registro-page')
 
 @section('content')
     <div class="card auth-card">

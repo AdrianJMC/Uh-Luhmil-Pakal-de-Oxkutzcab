@@ -60,9 +60,11 @@ class Kernel extends HttpKernel
         'throttle'            => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'            => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ensure.superadmin' => \App\Http\Middleware\EnsureSuperAdmin::class,
+        'auth.agrupacion' => \App\Http\Middleware\RedirectIfNotAgrupacion::class,
         // Middleware de Spatie
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission'          => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         'role_or_permission'  => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        'tiene_rol' => \App\Http\Middleware\TieneRolMiddleware::class,
     ];
 }

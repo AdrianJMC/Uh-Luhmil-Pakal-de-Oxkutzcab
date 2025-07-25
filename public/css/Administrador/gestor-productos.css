@@ -1,0 +1,407 @@
+/* ----------- Encabezado ----------- */
+.productos-title {
+    color: #2f7d32;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+/* ----------- Alerta de éxito ----------- */
+.productos-alert-success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border-radius: 0.375rem;
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+    border-left: 5px solid #2f7d32;
+    margin-bottom: 1.5rem;
+}
+
+/* ----------- Contenedor de tabla ----------- */
+.productos-tabla-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* ----------- Tabla estilizada ----------- */
+.productos-tabla-estilizada thead {
+    background-color: #2f7d32;
+    color: white;
+    font-weight: 600;
+}
+
+.productos-tabla-estilizada th,
+.productos-tabla-estilizada td {
+    vertical-align: middle;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* ----------- Tabs personalizados ----------- */
+.productos-tab {
+    background-color: white;
+    color: #000000;
+    border: 1px solid #000000 !important;
+    border-bottom: none !important;
+    border-radius: 6px 6px 0 0 !important;
+    margin-right: 0.5rem;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.productos-tab:hover {
+    background-color: #eda407 !important;
+    color: white !important;
+}
+
+.productos-tab.active {
+    background-color: #2e7d32 !important;
+    color: white !important;
+    border: 1px solid #000000 !important;
+    border-bottom: none !important;
+    z-index: 2;
+}
+
+/* ----------- Contador de pendientes ----------- */
+.badge-pendientes-count {
+    position: absolute;
+    top: 0;
+    right: -0px;
+    transform: translate(50%, -50%);
+    background-color: #f0ad4e;
+    color: white;
+    border-radius: 9999px;
+    padding: 0.3em 0.6em;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    box-shadow: 0 0 0 2px white;
+}
+
+/* ----------- Acciones: detalles, editar, eliminar ----------- */
+.acciones-productos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.btn-icon-detalles {
+    background: #e0e0e0;
+    border: none;
+    width: 37px;
+    height: 37px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.btn-icon-detalles:hover {
+    background-color: #bdbdbd;
+    cursor: pointer;
+}
+
+.btn-icon-detalles svg {
+    color: #000000;
+}
+
+/* Botones rectangulares editar/eliminar */
+.btn-editar-producto {
+    background-color: #2f7d32;
+    color: white;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.375rem;
+    border: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-editar-producto:hover {
+    background-color: #eda407;
+    color: white;
+}
+
+.btn-eliminar-producto {
+    background-color: #dc3545;
+    color: white;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.375rem;
+    border: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-eliminar-producto:hover {
+    background-color: #7e1822;
+    color: white;
+}
+
+/* ----------- Estados ----------- */
+.badge-pendiente {
+    background-color: #f0ad4e;
+    color: white;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    display: inline-block;
+    line-height: 1;
+}
+
+.badge-aprobado {
+    background-color: #2e7d32;
+    color: white;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    display: inline-block;
+}
+
+/* ----------- Buscador sugerencias ----------- */
+#sugerenciasProductoAprobados.list-group,
+#sugerenciasProductoPendientes.list-group {
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    max-height: 220px;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    z-index: 99;
+}
+
+#sugerenciasProductoAprobados .list-group-item,
+#sugerenciasProductoPendientes .list-group-item {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+    width: 100%;
+    margin: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#sugerenciasProductoAprobados .list-group-item:last-child,
+#sugerenciasProductoPendientes .list-group-item:last-child {
+    border-bottom: none;
+}
+
+#sugerenciasProductoAprobados .list-group-item:hover,
+#sugerenciasProductoPendientes .list-group-item:hover {
+    background-color: #eda407;
+    color: #ffffff;
+}
+
+/* ----------- Responsive ----------- */
+@media (max-width: 768px) {
+    .productos-tabla-estilizada th,
+    .productos-tabla-estilizada td {
+        font-size: 0.875rem;
+        padding: 0.5rem;
+    }
+
+    .btn-editar-producto,
+    .btn-eliminar-producto {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+}
+/* ----------- botones de aprobar y rechazar ----------- */
+.btn-icon-aprobar,
+.btn-icon-rechazar {
+    background: none;
+    border: none;
+    padding: 8px;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    border-radius: 50%;
+    margin: 0 2px;
+}
+
+.btn-icon-aprobar i,
+.btn-icon-rechazar i {
+    font-size: 20px;
+}
+
+.btn-icon-aprobar i {
+    color: #28a745;
+}
+
+.btn-icon-rechazar i {
+    color: #dc3545;
+}
+
+.btn-icon-aprobar:hover,
+.btn-icon-rechazar:hover {
+    background-color: rgba(0, 0, 0, 0.06);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+/* Botón Aprobar seleccionados */
+.btn-aprobar-multiples {
+  background-color: #2e7d32;
+  color: #fff;
+  border: none;
+  border-radius: .375rem;
+  padding: .5rem 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color .2s ease, transform .1s ease;
+  margin-right: .5rem;
+}
+.btn-aprobar-multiples:hover {
+  background-color: #eda407;
+  transform: translateY(-1px);
+}
+
+/* Botón Rechazar seleccionados */
+.btn-rechazar-multiples {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: .375rem;
+  padding: .5rem 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: background-color .2s ease, transform .1s ease;
+}
+.btn-rechazar-multiples:hover {
+  background-color: #7e1822;
+  transform: translateY(-1px);
+}
+
+
+
+/* Diseños para el ver detalles y editar producto */
+/* Contenedor principal */
+.producto-detail-container {
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  padding: 0;
+}
+
+/* Cabecera */
+.producto-detail-header {
+  background-color: #2f7d32;
+  padding: 0.75rem 1rem;
+}
+.producto-detail-header h2 {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Cuerpo */
+.producto-detail-body {
+  padding: 1.25rem;
+}
+
+/* Labels */
+.producto-detail-label {
+  font-weight: 500;
+  color: #2f7d32;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  position: relative;
+  display: block;
+}
+.producto-detail-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 35px;
+  height: 3px;
+  background-color: #eda407;
+  border-radius: 2px;
+}
+
+/* Inputs y textarea */
+.producto-detail-field {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.8rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #f9f9f9;
+}
+.producto-detail-field:focus {
+  border-color: #2f7d32;
+  box-shadow: 0 0 0 0.15rem rgba(46, 125, 50, 0.2);
+  outline: none;
+}
+/* readonly */
+.producto-detail-field[readonly],
+.producto-detail-textarea[readonly] {
+  background-color: #f5f5f5;
+  color: #555;
+  cursor: not-allowed;
+}
+.producto-detail-textarea {
+  resize: none;
+}
+
+/* Imagen */
+.producto-detail-image-wrap {
+  margin-bottom: 1.5rem;
+}
+.producto-detail-image {
+  max-height: 250px;
+  border-radius: 0.5rem;
+}
+
+/* Botones */
+.producto-detail-btn-group .btn + .btn {
+  margin-left: 1rem;
+}
+.producto-detail-back-btn {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.producto-detail-back-btn:hover {
+  background-color: #525658;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Botón Guardar Cambios: verde con hover amarillo */
+/* Botón Guardar Cambios (verde con hover amarillo) */
+.producto-detail-save-btn {
+  background-color: #2e7d32;  /* verde */
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s ease;
+}
+.producto-detail-save-btn:hover {
+  background-color: #eda407;  /* amarillo */
+  color: #ffffff;             /* texto oscuro */
+}

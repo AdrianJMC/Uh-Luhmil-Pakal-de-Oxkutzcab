@@ -1,0 +1,22 @@
+/* Solo en pantallas grandes: altura fija */
+@media (min-width: 992px) {
+    .product-img-wrapper {
+        height: 380px;
+    }
+
+    .product-img-wrapper img {
+        height: 100%;
+    }
+}
+
+/* En móviles: altura automática (proporcional) */
+@media (max-width: 991.98px) {
+    .product-img-wrapper img {
+        height: auto;
+        aspect-ratio: 4 / 3; /* o 1 / 1 si prefieres cuadradas */
+    }
+    .catalogo-titulo {
+    padding-top: 2rem;
+    font-size: 3.5rem;
+}
+}

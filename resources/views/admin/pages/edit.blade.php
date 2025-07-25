@@ -1,4 +1,24 @@
 {{-- resources/views/admin/pages/edit.blade.php --}}
+@php
+    $puedeEditar = false;
+
+    if ($page->slug === 'home' && auth()->user()->can('editar_pagina_inicio')) {
+        $puedeEditar = true;
+    } elseif ($page->slug === 'quienes-somos' && auth()->user()->can('editar_pagina_quienes')) {
+        $puedeEditar = true;
+    } elseif ($page->slug === 'informacion-importante' && auth()->user()->can('editar_infos')) {
+        $puedeEditar = true;
+    }
+@endphp
+
+@if (! $puedeEditar)
+    <div class="alert alert-danger">
+        No tienes permisos para editar esta sección.
+    </div>
+    @php exit; @endphp
+@endif
+
+
 @extends('layouts.admin')
 
 @section('content')
@@ -123,7 +143,7 @@
 @endsection
 
 @push('scripts')
-    <!-- Ahora usa la versión local: -->
+    <script src="{{ asset('js/Gestiones-web.js') }}"></script>
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -135,17 +155,6 @@
             extended_valid_elements: 'div[class],h2[class],p[class],ul[class],li[class],i[class],strong,em,svg[*],path[*]',
             forced_root_block: false,
             content_css: false
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const alertEl = document.getElementById('success-alert');
-            if (alertEl) {
-                setTimeout(function() {
-                    alertEl.classList.remove('show'); // quita la clase .show para desvanecer
-                    setTimeout(() => alertEl.remove(), 300); // espera 300ms para quitar del DOM
-                }, 3000);
-            }
         });
     </script>
 @endpush

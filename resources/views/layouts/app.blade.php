@@ -1,11 +1,28 @@
+@php
+    $faviconPath = \App\Models\Setting::getValue('logo', 'images/logo.png');
+@endphp
+
 <!DOCTYPE html>
 <html lang="es" class="wide wow-animation">
+
+<style>
+    #loadingOverlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+</style>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Uh Luhmil Pakal')</title>
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset($faviconPath) }}" type="image/png">
 
     <!-- ============================
          CSS DE TERCEROS
@@ -22,12 +39,20 @@
     ============================ -->
     <!-- Tus fuentes personalizadas -->
     <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Web/Agrupaciones-asociadas.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Web/catalogo.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Web/Catalogo-inicio.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Web/Registro-proveedores-page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Web/carrito-compras.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+
+
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
     <!-- Font Awesome para iconos adicionales -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-        integrity="sha384-DyZ88mC6Up2uqS0h/KRqU6mD3nhN2T6vJhFse5VkPMY5wUKVExlZU5/useYC5HE5" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+
+
 
     <!-- ============================
          CSS COMPILADO DE LA APLICACIÓN
@@ -36,20 +61,23 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- ============================
-         CSS EXTRA (SOBREESCRIBIR O AÑADIR)
+        CSS PARA TODO LO RELACIONA CON EL HOME
     ============================ -->
-    <!-- style.css para reglas puntuales -->
+    <!-- CSS RELACIONADO CON LA PLANTILLA -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
-
-    <!-- Css para el diseño de calendarios-->
+    <!-- MIS CSS PROPIOS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- Diseño de pagina registro proveedores-->
-    <link rel="stylesheet" href="{{ asset('css/Registro-proveedores-page.css') }}">
+
 
 
     <!-- Mapa con Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="route-cart-add" content="{{ route('cart.add') }}">
+    <meta name="route-login" content="{{ route('seleccion.login') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
     <!-- ============================
@@ -73,12 +101,24 @@
     {{-- ============================
          FOOTER GLOBAL
     ============================ --}}
-    @include('partials.home.footer')
+    @if (empty($ocultarFooter))
+        @include('partials.home.footer')
+    @endif
+
+    {{-- Loader --}}
+    @if (!empty($mostrarLoader))
+        @include('components.loader')
+    @endif
 
 
     <!-- ============================
          JS DE TERCEROS
     ============================ -->
+
+    <!-- Loader -->
+    @if (!empty($mostrarLoader))
+        <script src="{{ asset('js/loader.js') }}"></script>
+    @endif
     <!-- Leaflet JS para mapas -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <!-- AOS para animaciones -->
@@ -143,6 +183,7 @@
 
     <!-- JS PARA GRAFICOS-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     @stack('scripts')
 </body>

@@ -1,14 +1,27 @@
 /* auth.css */
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 /* Cuerpo full-screen centrado */
 body, body.bg-light {
   background: #fff;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh !important;
   font-family: 'Source Sans 3', sans-serif !important;
   margin: 0;
+  padding: 0;
+}
+
+/* Centrado SOLO en escritorio */
+@media (min-width: 577px) {
+  body.layout-auth {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow: hidden;
+  }
 }
 
 /* Tarjeta en dos paneles */
@@ -109,6 +122,7 @@ body, body.bg-light {
   padding: 0.75rem 1rem;
   font-size: 1.1rem;
   border-radius: 20px;
+  font-weight: 700;
   width: 340px;
   margin: 1px;
   transition: background-color .3s, color .3s;
@@ -150,10 +164,22 @@ body, body.bg-light {
 }
 
 /* luego va el checkbox */
-.auth-card .card-right .form-check-input {
-  order: 1;
-  margin: 0;
+/* Móvil (pantallas menores a 577px) */
+@media (max-width: 576px) {
+  .auth-card .card-right .form-check-input {
+    order: 1;
+    margin: 30px;
+  }
 }
+
+/* Escritorio (pantallas mayores o iguales a 577px) */
+@media (min-width: 577px) {
+  .auth-card .card-right .form-check-input {
+    margin: 0px;
+    order: 1;
+  }
+}
+
 /* Checkbox checked color */
 .auth-card .card-right .form-check-input:checked {
   /* en Chrome/Edge/Firefox modernos */
@@ -220,4 +246,580 @@ body, body.bg-light {
 }
 .toggle-password:hover {
   color: #2e7d32;
+}
+@media (min-width: 577px) {
+  body.layout-auth.registro-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .registro-page .auth-card {
+    width: 960px;
+    max-height: 95vh;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .registro-page .auth-card .card-left,
+  .registro-page .auth-card .card-right {
+    padding: 1.5rem 1rem;
+  }
+
+  .registro-page .auth-card .card-left img {
+    max-width: 200px;
+    margin-bottom: 1rem;
+  }
+
+  .registro-page .auth-card .card-left h2 {
+    font-size: 2rem;
+    margin-bottom: 0.0rem;
+  }
+
+  .registro-page .auth-card .card-left p {
+    font-size: 1rem;
+    max-width: 200px;
+  }
+
+  .registro-page .auth-card .card-right .mb-4,
+  .registro-page .auth-card .card-right .form-check,
+  .registro-page .password-wrapper {
+    width: 350px !important;
+    margin-bottom: 0.8rem;
+  }
+
+  .registro-page .auth-card .card-right input {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .registro-page .btn-auth {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 20px;
+    width: 350px;
+  }
+
+  .registro-page .auth-card .link-register {
+    font-size: 0.85rem;
+    margin-top: 0.8rem;
+  }
+}
+
+.btn-back-selector {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #2e7d32;
+  text-decoration: none;
+  z-index: 20;
+  transition: transform 0.2s ease;
+}
+.btn-back-selector:hover {
+  transform: scale(1.1);
+  color: #eda407;
+}
+
+.btn-back-selector svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* En móvil, que esté más centrado y accesible */
+@media (max-width: 576px) {
+  .btn-back-selector {
+    top: 2rem;
+    left: -0.5rem;
+  }
+}
+.auth-card {
+  position: relative; /* ← necesario para posicionar la flecha */
+}
+/* SOLO para el card de agrupaciones */
+.auth-card.auth-card-agrupaciones {
+ height: 500px;
+  max-width: 1000px;
+}
+
+
+/* Estilos responsivos para login y registro de usuarios moviles */
+/* GENERAL: asegúrate que el body nunca limite el contenido */
+@media (max-width: 576px) {
+  html, body {
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    background-color: #fff !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* ❌ NO usar flex aquí, eso es lo que lo corta */
+    /* ❌ NO usar height: 100dvh */
+  }
+
+  .auth-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem 1.5rem 4rem;
+    background-color: #fff;
+    min-height: auto;
+    box-shadow: none;
+    margin: 0 auto;
+  }
+
+  .auth-card .card-left {
+    display: none !important;
+  }
+
+  .auth-card .card-right {
+    width: 100%;
+  }
+
+  .auth-card .card-right form {
+    width: 100%;
+  }
+
+  .auth-card .card-right h2 {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .auth-card .card-right .form-label,
+  .auth-card .card-right .form-control,
+  .auth-card .card-right .mb-4,
+  .auth-card .card-right .form-check,
+  .auth-card .card-right .btn-auth {
+    width: 100%;
+  }
+
+  .btn-auth {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: 999px;
+  }
+
+  .auth-forgot,
+  .link-register {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .password-wrapper {
+    width: 100%;
+  }
+
+  .mobile-logo {
+    display: block;
+    width: 140px;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+  }
+
+  .mobile-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  .auth-card .card-left {
+  display: none !important;
+  flex: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+.auth-card {
+  background-color: #fff !important;
+  width: 100vw;
+  max-width: 100vw;
+}
+}
+
+/* ESCRITORIO */
+@media (min-width: 577px) {
+  .mobile-logo {
+    display: none !important;
+  }
+
+  body.layout-auth {
+    min-height: 100vh;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 577px) {
+  .auth-card .card-right .form-check-label {
+    margin-right: -9rem; /* solo aplica en escritorio */
+  }
+}
+
+
+@media (max-width: 576px) {
+  .auth-card .card-right .mb-4,
+  .auth-card .card-right .mb-4 input,
+  .auth-card .card-right .form-check,
+  .password-wrapper,
+  .password-wrapper input,
+  .btn-auth {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
+/* responsivo de iniciar sesión de agrupaciones */
+@media (max-width: 576px) {
+  html, body {
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    background-color: #fff !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .auth-card {
+    min-height: 100dvh;         /* ✅ fuerza a cubrir toda la pantalla */
+    height: 100dvh;
+    background-color: #fff !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    width: 100vw;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .auth-card .card-left {
+    display: none !important;
+    flex: 0 !important;
+    width: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .auth-card .card-right {
+    width: 100%;
+  }
+
+  .auth-card .card-right form {
+    width: 100%;
+  }
+
+  .auth-card .card-right h2 {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+}
+
+/* Parametros para hacer scroll vertical */
+@media (max-width: 576px) {
+  .auth-card {
+    min-height: 100dvh;
+    max-height: none;
+    overflow-y: auto;         /* ✅ permite scroll interno si el contenido se desborda */
+  }
+
+  html, body {
+    overflow-y: auto;         /* ✅ asegúrate que el scroll funcione en todo el documento */
+    -webkit-overflow-scrolling: touch; /* ✅ scroll fluido en iOS */
+  }
+}
+
+/* DISEÑO DE LA PANTALLA DEL SELECTOR DE LOGIN */
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2e7d32 0%, #388e3c 40%, #00c853 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 1;
+}
+
+body::before {
+  animation: none; /* o reduce la animación */
+}
+
+@keyframes floatWaves {
+  0%, 100% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(20px, -20px);
+  }
+}
+
+/* Contenedor principal */
+.selector-container {
+  background: #ffffff;
+  border-radius: 1rem;
+  position: relative; /* ✅ necesario para posicionar los círculos */
+  box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12);
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+   transform: translateZ(0); /* fuerza render limpio */
+}
+
+/* Encabezado claro con logo */
+.selector-header {
+  background-color: transparent;
+  padding: 1rem 0 0.5rem;
+  border-bottom: none;
+}
+
+.logo-wrapper {
+  background: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+.logo-wrapper img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Título y subtítulo */
+.selector-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.selector-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 0.5rem;
+}
+
+
+
+/* Cuerpo */
+.selector-body {
+  padding:  0rem 1.5rem 2rem;
+}
+
+.selector-question {
+  font-size: 1.2rem;
+  margin: 1.5rem 0 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Botones */
+.selector-buttons-horizontal {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-selector {
+  flex: 1 1 45%;
+  min-width: 120px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.3s ease;
+
+}
+
+/* Cliente */
+.btn-cliente {
+  background-color: #2e7d32;
+  color: #ffffff;
+  border-color: #2e7d32;
+}
+.btn-cliente:hover {
+  background-color: #eda407;
+  border-color: #eda407;
+  color: #fff;
+}
+
+/* Agrupación */
+.btn-agrupacion {
+  background-color: #2e7d32;
+  color: #ffffff;
+  border-color: #2e7d32;
+}
+.btn-agrupacion:hover {
+  background-color: #eda407;
+  border-color: #eda407;
+  color: #fff;
+}
+/* Separador "o" entre botones */
+.selector-separator {
+  width: 100%;
+  text-align: center;
+  margin: 0.5rem 0;
+  font-weight: 500;
+  color: #666;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.selector-separator::before,
+.selector-separator::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #ccc;
+  margin: 0 0.75rem;
+}
+
+/* Íconos dentro del botón */
+.btn-selector i {
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+/* Botón con ícono alineado a la derecha y texto centrado visualmente */
+.btn-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.btn-text {
+  flex-grow: 1;
+}
+
+/* Ícono a la derecha sin afectar el centrado del texto */
+.btn-selector i {
+  margin-left: auto;
+  font-size: 1rem;
+}
+.selector-container::before,
+.selector-container::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-color: #2e7d32; /* color verde institucional */
+  border-radius: 50%;
+  top: -20px;
+  z-index: 2;
+}
+
+.selector-container::before {
+  left: -20px;
+}
+
+.selector-container::after {
+  right: -20px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .selector-container {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0; /* Elimina bordes redondeados */
+    box-shadow: none; /* Elimina sombra */
+  }
+
+  .selector-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .selector-body {
+    padding: 1.5rem 1rem;
+  }
+
+  .selector-title {
+    font-size: 1.5rem;
+  }
+
+  .btn-selector {
+    flex: 1 1 100%;
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+
+  .selector-buttons-horizontal {
+    gap: 0.95rem;
+  }
+}
+/* Mostrar círculos solo en pantallas grandes */
+@media (min-width: 577px) {
+  .selector-container::before,
+  .selector-container::after {
+    content: "";
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background-color: #2e7d32;
+    border-radius: 50%;
+    top: -30px;
+    z-index: 2;
+  }
+
+  .selector-container::before {
+    left: -30px;
+  }
+
+  .selector-container::after {
+    right: -35px;
+  }
+}
+
+/* Elimina los círculos en móvil */
+@media (max-width: 576px) {
+  .selector-container::before,
+  .selector-container::after {
+    display: none !important;
+  }
+}
+
+/* Forzar render limpio del texto */
+.btn-selector, .btn-cliente, .btn-agrupacion {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  backface-visibility: hidden;
 }

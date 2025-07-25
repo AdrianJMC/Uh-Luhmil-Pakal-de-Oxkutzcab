@@ -1,0 +1,125 @@
+/* Estilo principal del modal */
+  #modalAgrupaciones .modal-content {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
+
+  /* Header del modal */
+  #modalAgrupaciones .modal-header {
+    background-color: #2f7d32;
+    color: white;
+    padding: 1.2rem 1.5rem;
+    border-bottom: none;
+  }
+
+  #modalAgrupaciones .modal-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+  }
+
+  /* Botón de cerrar */
+  #modalAgrupaciones .btn-close {
+    filter: invert(1);
+    opacity: 0.8;
+    transition: all 0.2s ease;
+  }
+
+  #modalAgrupaciones .btn-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  /* Cuerpo del modal */
+  #modalAgrupaciones .modal-body {
+    padding: 1.5rem;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Footer del modal */
+  #modalAgrupaciones .modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+    padding: 1rem 1.5rem;
+  }
+
+  /* Botón personalizado */
+  #modalAgrupaciones #btnCloseModal {
+    background-color: #2f7d32;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  #modalAgrupaciones #btnCloseModal:hover {
+    background-color: #eda407;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Efectos de transición para el modal */
+  #modalAgrupaciones.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out, opacity 0.3s ease;
+    transform: translate(0, -20px);
+  }
+
+  #modalAgrupaciones.modal.show .modal-dialog {
+    transform: translate(0, 0);
+  }
+
+  /* Scroll personalizado */
+  #modalAgrupaciones .modal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #modalAgrupaciones .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  #modalAgrupaciones .modal-body::-webkit-scrollbar-thumb {
+    background-color: #2f7d32;
+    border-radius: 4px;
+  }
+
+  #modalAgrupaciones .modal-body::-webkit-scrollbar-thumb:hover {
+    background-color: #eda407;
+  }
+  .pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.pagination-button {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination-button.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

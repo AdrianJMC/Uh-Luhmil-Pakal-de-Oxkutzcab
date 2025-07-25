@@ -29,7 +29,7 @@
               {{ old('is_video') ? 'checked' : '' }}
             >
             <label class="form-check-label" for="is_video">
-              Contenido tipo <strong>Video</strong> (YouTube/Vimeo)
+              Desea subir un <strong>Video informativo</strong>Marca la casilla (YouTube/Vimeo)
             </label>
           </div>
         </div>

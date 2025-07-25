@@ -1,3 +1,5 @@
+{{-- Modal para eliminar video --}}
+
 <div class="modal fade" id="modalEliminar-video-{{ $info->id }}" tabindex="-1" role="dialog"
     aria-labelledby="modalEliminarLabel-video-{{ $info->id }}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

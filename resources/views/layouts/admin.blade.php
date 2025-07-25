@@ -1,3 +1,7 @@
+@php
+    $faviconPath = \App\Models\Setting::getValue('logo', 'images/logo.png');
+@endphp
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'AdminLTE')</title>
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
+    <link rel="icon" href="{{ asset($faviconPath) }}" type="image/png">
 
     <!-- Google Font -->
     <link rel="stylesheet"
@@ -25,10 +29,14 @@
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
     <!-- Tus estilos personalizados para Admin -->
-    <link rel="stylesheet" href="{{ asset('css/admin-custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Diseño-Index-Create-Edit.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Gestion-de-usuarios.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Gestion-de-Perfiles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/admin-custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/Diseño-Index-Create-Edit.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestion-de-usuarios.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestion-de-Perfiles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/gestor-agrupaciones.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/gestor-productos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestor-Catalogos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Administrador/Pedidos.css') }}">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">

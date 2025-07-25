@@ -1,0 +1,40 @@
+#loadingOverlay {
+    position: fixed;
+    inset: 0;
+    background: white;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+#loadingOverlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.spinner-custom {
+    width: 3rem;
+    height: 3rem;
+    border: 0.35rem solid transparent;
+    border-top-color: #2f7d32;
+    border-radius: 50%;
+    animation: spin-color 1s linear infinite;
+}
+
+@keyframes spin-color {
+    0% {
+        transform: rotate(0deg);
+        border-top-color: #2f7d32;
+    }
+    50% {
+        border-top-color: #eda407;
+    }
+    100% {
+        transform: rotate(360deg);
+        border-top-color: #2f7d32;
+    }
+}

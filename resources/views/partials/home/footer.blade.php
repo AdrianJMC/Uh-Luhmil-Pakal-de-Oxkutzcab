@@ -7,11 +7,10 @@
                 <!-- 1) Brand y Contactos -->
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="oh-desktop wow slideInRight" data-wow-delay="0s">
-                        <div class="footer-brand mb-2 d-flex align-items-center">
+                        <div class="footer-brand mb-2 text-center">
                             <a href="{{ url('/') }}">
                                 @include('partials.home.logo')
                             </a>
-                            <span class="ms-3 h3 mb-0 text-success">Uh Luhmil Pakal</span>
                         </div>
                         <p>
                             Uh Luhmil Pakal es la agrupación de productores de Oxkutzcab especializada en la siembra

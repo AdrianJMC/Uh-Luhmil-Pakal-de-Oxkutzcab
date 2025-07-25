@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,12 +24,18 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {   
+    {
         // Registrar middlewares de Spatie
         Route::aliasMiddleware('permission', PermissionMiddleware::class);
         // Forzar el registro si Laravel no lo reconoce
         Route::aliasMiddleware('role', RoleMiddleware::class);
 
         Blade::component('components.info-card', 'info-card');
+
+        View::composer('*', function ($view) {
+            $cart = session()->get('cart', []);
+            $productCount = count($cart);
+            $view->with('cartCount', $productCount > 5 ? '5+' : $productCount);
+        });
     }
 }

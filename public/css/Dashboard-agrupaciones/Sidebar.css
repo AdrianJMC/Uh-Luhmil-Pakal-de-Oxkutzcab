@@ -1,0 +1,93 @@
+/* Fondo blanco al sidebar */
+.main-sidebar.sidebar-dark-success {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Texto negro y negrita en enlaces inactivos */
+.main-sidebar .nav-sidebar .nav-link {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+/* Iconos negros en enlaces inactivos */
+.main-sidebar .nav-sidebar .nav-link .nav-icon {
+    color: #000000 !important;
+}
+
+/* Hover amarillo con texto e icono blanco */
+.main-sidebar .nav-sidebar .nav-link:hover {
+    background-color: #eda407 !important;
+    color: #ffffff !important;
+}
+.main-sidebar .nav-sidebar .nav-link:hover .nav-icon {
+    color: #ffffff !important;
+}
+
+/* Enlace activo: fondo verde, texto blanco, icono blanco */
+.main-sidebar .nav-sidebar .nav-link.active {
+    background-color: #2f7d32 !important;
+    color: #ffffff !important;
+}
+.main-sidebar .nav-sidebar .nav-link.active .nav-icon {
+    color: #ffffff !important;
+}
+
+/* ==== NUEVO ==== */
+
+/* Texto "Administrador" en negro y negritas */
+.main-sidebar .brand-link .brand-text {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+
+/* Nombre del representante en negro y negritas */
+.main-sidebar .user-panel .info a {
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+/* Fondo verde y texto blanco en la cabecera (logo + "Administrador") */
+.main-sidebar .brand-link {
+    background-color: #2f7d32 !important; /* verde */
+    color: #ffffff !important;
+}
+
+/* Texto "Administrador" en blanco y en negrita */
+.main-sidebar .brand-link .brand-text {
+    color: #ffffff !important;
+    font-weight: bold !important;
+}
+
+/* ==== BOTÓN DE CERRAR SESIÓN ==== */
+.nav-link.logout-button {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover */
+.nav-link.logout-button:hover {
+    background-color: #a01b28 !important;
+}
+
+/* Ícono blanco */
+.nav-link.logout-button .nav-icon {
+    color: #ffffff !important;
+    margin-right: 0.5rem;
+}
+
+/* Ocultar el texto al colapsar sidebar */
+.sidebar-collapse .logout-text,
+.sidebar-mini .logout-text {
+    display: none;
+}
+
+/* Mostrar texto cuando el sidebar está expandido */
+.sidebar-open .logout-text,
+body:not(.sidebar-collapse):not(.sidebar-mini) .logout-text {
+    display: inline;
+}
+
+

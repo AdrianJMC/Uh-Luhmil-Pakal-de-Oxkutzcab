@@ -12,14 +12,26 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::all();
-        $roles = Role::all();
+        $query = User::orderBy('created_at', 'desc');
+
+        if ($request->filled('buscar')) {
+            $busqueda = strtolower($request->input('buscar'));
+            $query->where(function ($q) use ($busqueda) {
+                $q->whereRaw('LOWER(id) LIKE ?', ["%$busqueda%"])
+                    ->orWhereRaw('LOWER(name) LIKE ?', ["%$busqueda%"])
+                    ->orWhereRaw('LOWER(apellido) LIKE ?', ["%$busqueda%"])
+                    ->orWhereRaw('LOWER(email) LIKE ?', ["%$busqueda%"]);
+            });     
+        }
+
+        $users = $query->paginate(25, ['*'], 'usuarios_page'); // usa 25 reales
+        $roles = Role::orderBy('name')->paginate(10, ['*'], 'roles_page');
         $allPermissions = Permission::all();
-        // Este array es el que el script JS necesita para autocompletar
-        $usuariosData = $users->map(function ($u) {
+
+        $usuariosData = $users->getCollection()->map(function ($u) {
             return [
                 'id' => $u->id,
-                'nombre' => $u->name,
+                'nombre' => $u->name,   
                 'apellido' => $u->apellido ?? '',
                 'email' => $u->email,
             ];
@@ -28,7 +40,9 @@ class UserController extends Controller
         return view('admin.users.Gestion-de-Usuarios', compact('users', 'roles', 'usuariosData', 'allPermissions'));
     }
 
-    
+
+
+
     public function destroy(User $user)
     {
         $user->delete();

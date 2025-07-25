@@ -1,0 +1,83 @@
+/* Estilos exclusivos para el formulario de productos para crear y editar */
+
+.producto-form-full {
+  width: 100%;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+}
+
+/* Encabezado verde */
+.producto-form-card-header {
+  background-color: #2f7d32;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.producto-form-card-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Cuerpo */
+.producto-form-card-body {
+  padding: 1rem;
+}
+
+/* Etiquetas */
+.producto-form-label {
+  font-weight: 500;
+  color: #2f7d32;
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  position: relative;
+  display: block;
+}
+
+.producto-form-label::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 35px;
+  height: 3px;
+  background-color: #eda407;
+  border-radius: 2px;
+}
+/* Quitar padding solo cuando tenga clase .sin-padding */
+.content-wrapper > .sin-padding {
+  padding: 0 !important;
+}
+@media (max-width: 767px) {
+  .input-sm-mobile {
+    max-width: 200px;
+  }
+}
+@media (max-width: 767px) {
+  .flex-mobile-2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .flex-mobile-2 > .form-group {
+    flex: 1 1 calc(50% - 0.5rem);
+    margin-bottom: 0.8rem;
+  }
+}
+@media (max-width: 767px) {
+  .flex-mobile-2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .flex-mobile-2 > .form-group,
+  .flex-mobile-2 > [class*="col-"] {
+    flex: 1 1 calc(50% - 0.5rem);
+    margin-bottom: 0.8rem;
+  }
+}
+

@@ -682,14 +682,11 @@
 .btn.btn-success {
   background-color: #2f7d32;
   border-color: #2f7d32;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .btn.btn-success:hover {
   background-color: #eda407;
   border-color: #eda407;
-  transform: translateY(-5px);
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
 /* Ajustes del botón “Volver” */

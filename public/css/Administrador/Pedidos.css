@@ -1,0 +1,108 @@
+/* ==== Productos del Pedido - Estilos únicos ==== */
+.pedido-title {
+    color: #2f7d32;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.pedido-show-container {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.pedido-show-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.pedido-show-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pedido-show-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pedido-show-img {
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+}
+
+.pedido-show-no-image {
+    height: 180px;
+    background-color: #f8f9fa;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.pedido-show-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #333;
+    text-align: center;
+}
+
+.pedido-show-body p {
+    font-size: 0.9rem;
+}
+
+/* Negritas para agrupación y precio unitario */
+.pedido-show-agrupacion,
+.pedido-show-precio {
+    font-weight: bold;
+    font-size: .90rem;
+    color: #444; /* Puedes ajustar el color si no quieres que sea tan claro como text-muted */
+}
+
+
+.pedido-show-back-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 6px;
+}
+
+@media (max-width: 576px) {
+    .pedido-show-img,
+    .pedido-show-no-image {
+        height: 150px;
+    }
+}
+
+/* Estilo para el ícono */
+.icono-ver-productos {
+    color: #2f7d32;
+    font-size: 1.2rem;
+    transition: color 0.2s ease;
+}
+
+/* Hover sobre todo el botón */
+.btn-ver-productos:hover .icono-ver-productos {
+    color: #eda407;
+}
+
+/* Texto debajo del ícono */
+.btn-ver-productos-text {
+    font-size: 0.8rem;
+    color: #333;
+
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+/* Estilo general del botón */
+.btn-ver-productos {
+    text-decoration: none;
+}
+
