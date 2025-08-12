@@ -3,8 +3,14 @@ FROM php:8.2-apache
 
 # Instalar extensiones requeridas por Laravel
 RUN apt-get update && apt-get install -y \
-    libzip-dev unzip libpq-dev libonig-dev curl git \
-    && docker-php-ext-install pdo pdo_mysql pdo_pgsql zip
+    libzip-dev unzip libpq-dev curl git \
+ && docker-php-ext-install \
+    bcmath \
+    mbstring \
+    pdo \
+    pdo_mysql \
+    pdo_pgsql \
+    zip
 
 # Aumentar límites de carga de archivos
 RUN echo "upload_max_filesize=50M\npost_max_size=50M" > /usr/local/etc/php/conf.d/uploads.ini
