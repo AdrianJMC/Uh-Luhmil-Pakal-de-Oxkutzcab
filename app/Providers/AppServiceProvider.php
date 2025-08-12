@@ -24,7 +24,11 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
+    {   
+        if (env('APP_ENV') !== 'local' && isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+            URL::forceScheme('https');
+        }
+        
         // Registrar middlewares de Spatie
         Route::aliasMiddleware('permission', PermissionMiddleware::class);
         // Forzar el registro si Laravel no lo reconoce
