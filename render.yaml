@@ -17,3 +17,5 @@ services:
         value: https://uh-luhmil-pakal.onrender.com
       - key: FORCE_HTTPS
         value: true
+      - key: DATABASE_URL
+        value: postgres://user:pass@host:5432/db?sslmode=require
