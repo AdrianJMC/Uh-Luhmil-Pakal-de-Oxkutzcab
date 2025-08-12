@@ -5,8 +5,8 @@ FROM php:8.2-apache
 RUN apt-get update && apt-get install -y \
     libzip-dev \
     libpq-dev \
-    libonig-dev \        # <- Oniguruma para mbstring
-    pkg-config \         # <- para detección de libs
+    libonig-dev \
+    pkg-config \
     unzip \
     curl \
     git \
