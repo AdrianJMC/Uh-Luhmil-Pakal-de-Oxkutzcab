@@ -11,7 +11,6 @@ use App\Services\BrevoService; // Asegúrate de que este servicio esté correcta
 use Illuminate\Support\Facades\Http;
 use App\Services\SupabaseStorageService;
 
-
 class AgrupacionController extends Controller
 {
 
@@ -54,46 +53,85 @@ class AgrupacionController extends Controller
 
     public function store(Request $request)
     {
-        sleep(5); // Simula que tarda 2 segundos en procesar
+        $request->validate(
+            [
+                // Datos Generales
+                'nombre_agrupacion'     => 'required|string|max:255',
+                'nombre_representante'  => 'required|string|max:255',
+                'email_representante' => 'required|email|max:255|unique:agrupaciones,email_representante',
+                'curp_representante' => 'required|string|size:18|regex:/^[A-Z0-9]{18}$/|unique:agrupaciones,curp_representante',
+                'rfc_agrupacion' => 'required|string|size:12|regex:/^[A-Z0-9]{12}$/|unique:agrupaciones,rfc_agrupacion',
+                'direccion_agrupacion'  => 'required|string|max:255',
+                'superficie_cosecha'    => 'required|numeric|min:0.1|max:50',
+                'tipo_suelo'            => 'required|string|max:255',
 
-        $request->validate([
-            'nombre_agrupacion'     => 'required|string|max:255',
-            'nombre_representante'  => 'required|string|max:255',
-            'email_representante'   => 'required|email|max:255',
-            'certificaciones.*'     => 'file|mimes:pdf,doc,docx|max:5120',
-        ]);
+                // Datos Específicos
+                'num_trabajadores'      => 'required|integer|min:1|max:5000',
+                'horas_trabajo'         => 'required|integer|min:1|max:168',
+                'fecha_inicio'          => 'required|date|after_or_equal:2020-01-01|before_or_equal:2030-12-31',
+                'fecha_cosecha'         => 'required|date|after_or_equal:fecha_inicio|before_or_equal:2030-12-31',
+                'tipo_maquinaria' => 'required|array|min:1',
+                'tipo_maquinaria.*' => 'in:Tractores,Aspersores,Sembradoras,Cosechadoras,Fumigadoras,Camiones,Mangueras de riego,Motores de riego',
+            ],
+            [
+                // Mensajes personalizados
+                'required' => 'El :attribute es obligatorio.',
+                'string' => 'El campo :attribute debe ser texto.',
+                'max' => 'El campo :attribute no debe exceder los :max caracteres.',
+                'min' => 'El campo :attribute debe tener al menos :min.',
+                'email' => 'El campo :attribute debe ser un correo válido.',
+                'size' => 'El campo :attribute debe tener exactamente :size caracteres.',
+                'regex' => 'El campo :attribute tiene un formato inválido.',
+                'numeric' => 'El campo :attribute debe ser numérico.',
+                'integer' => 'El campo :attribute debe ser un número entero.',
+                'date' => 'El campo :attribute debe ser una fecha válida.',
+                'after_or_equal' => 'La fecha de cosecha debe ser posterior o igual a la fecha de siembra.',
 
-        if ($request->hasFile('certificaciones') && count($request->file('certificaciones')) > 5) {
-            return back()->withErrors([
-                'certificados' => 'Solo puedes subir hasta 5 documentos como máximo.',
-            ])->withInput();
-        }
+                // Excepciones femeninas específicas
+                'horas_trabajo.required' => 'Las :attribute es obligatoria.',
+                'fecha_inicio.required' => 'La :attribute es obligatoria.',
+                'fecha_cosecha.required' => 'La :attribute es obligatoria.',
+                'superficie_cosecha.required' => 'La :attribute es obligatoria.',
+                'num_trabajadores.min' => 'Los :attribute no pueden ser menores a :min.',
+                'num_trabajadores.max' => 'Los :attribute no pueden exceder los :max.',
+                'horas_trabajo.min' => 'Las :attribute no pueden ser menores a :min horas.',
+                'horas_trabajo.max' => 'Las :attribute no pueden exceder las :max horas.',
+                'email_representante.unique' => 'El correo electrónico ya ha sido registrado.',
+                'curp_representante.unique' => 'El CURP ya está registrado.',
+                'rfc_agrupacion.unique' => 'El RFC ya está registrado.',
 
-        $storage     = new SupabaseStorageService();
-        $urlsBase64  = [];
 
-        if ($request->hasFile('certificaciones')) {
-            foreach ($request->file('certificaciones') as $archivo) {
-                try {
-                    $nombreFinal    = uniqid('cert_', true) . '.' . $archivo->getClientOriginalExtension();
-                    $url            = $storage->subirArchivo($archivo, $nombreFinal);
-                    $urlsBase64[]   = base64_encode($url);
-                } catch (\Exception $e) {
-                    return back()->withErrors([
-                        'certificados' => 'Error al subir uno de los archivos: ' . $e->getMessage(),
-                    ])->withInput();
-                }
-            }
-        }
+                'fecha_inicio.after_or_equal' => 'La fecha de siembra no puede ser anterior al año 2020.',
+                'fecha_inicio.before_or_equal' => 'La fecha de siembra no puede ser posterior al año 2030.',
+                'fecha_cosecha.before_or_equal' => 'La fecha de cosecha no puede ser posterior al año 2030.',
+            ],
+            [
+                // Atributos personalizados
+                'nombre_agrupacion' => 'nombre de la unidad',
+                'nombre_representante' => 'nombre del representante',
+                'email_representante' => 'correo electrónico',
+                'curp_representante' => 'CURP del representante',
+                'rfc_agrupacion' => 'RFC de la unidad',
+                'direccion_agrupacion' => 'dirección de la unidad',
+                'superficie_cosecha' => 'superficie de cosecha',
+                'tipo_suelo' => 'tipo de suelo',
+                'num_trabajadores' => 'número de trabajadores',
+                'tipo_maquinaria' => 'tipo de maquinaria',
+                'horas_trabajo' => 'horas de trabajo semanal',
+                'fecha_inicio' => 'fecha de siembra',
+                'fecha_cosecha' => 'fecha de cosecha',
+            ]
+        );
 
-        Agrupacion::create([
-            ...$request->except('certificaciones'),
-            // Aquí Eloquent convertirá automáticamente $urlsBase64 en JSON válido
-            'certificaciones' => $urlsBase64,
-        ]);
+        // Convertir el array de tipo_maquinaria en string separado por comas
+        $maquinarias = $request->input('tipo_maquinaria', []);
+        $tipoMaquinariaStr = implode(', ', $maquinarias);
+        $request->merge(['tipo_maquinaria' => $tipoMaquinariaStr]);
 
+        Agrupacion::create($request->all());
         return redirect()->route('agrupaciones.create')->with('success', true);
     }
+
 
     //aprobar agurpaciones
     public function aprobar($id)
@@ -183,64 +221,4 @@ class AgrupacionController extends Controller
         $agrupacion = Agrupacion::findOrFail($id);
         return view('admin.agrupaciones.detalles_agrupaciones', compact('agrupacion'));
     }
-
-    /*
-    private function subirDocumentoCloudinary($file)
-    {
-        // Validar por MIME TYPE real (más seguro que la extensión)
-        if ($file->getClientMimeType() !== 'application/pdf') {
-            throw new \Exception('Solo se permiten archivos PDF.');
-        }
-
-        $folder = 'uh-luhmil-pakal/certificaciones';
-        $timestamp = time();
-        $apiSecret = env('CLOUDINARY_API_SECRET');
-
-        $nombreOriginal = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $publicId = $nombreOriginal . '-' . uniqid(); // sin extensión
-
-        // Firma SIN 'resource_type'
-        $params_to_sign = "folder={$folder}&public_id={$publicId}&timestamp={$timestamp}";
-        $signature = sha1($params_to_sign . $apiSecret);
-
-        $http = \Illuminate\Support\Facades\Http::asMultipart();
-        if (app()->environment('local')) {
-            $http = $http->withoutVerifying();
-        }
-
-        $response = $http->post("https://api.cloudinary.com/v1_1/" . env('CLOUDINARY_CLOUD_NAME') . "/raw/upload", [ // ✅ auto/upload
-            ['name' => 'file', 'contents' => fopen($file->getRealPath(), 'r')],
-            ['name' => 'api_key', 'contents' => env('CLOUDINARY_API_KEY')],
-            ['name' => 'timestamp', 'contents' => $timestamp],
-            ['name' => 'signature', 'contents' => $signature],
-            ['name' => 'folder', 'contents' => $folder],
-            ['name' => 'public_id', 'contents' => $publicId],
-            // ❌ NO pongas 'resource_type', Cloudinary lo detecta automáticamente
-        ]);
-
-        if ($response->failed()) {
-            throw new \Exception('Error al subir a Cloudinary: ' . $response->body());
-        }
-
-        return $response->json()['secure_url']; // URL directa y visualizable
-    }
-
-    //metodo para descargar certificaciónes
-    public function descargarCertificacion($encoded)
-    {
-        $url = base64_decode($encoded);
-
-        // Descargar el archivo temporalmente
-        $contenido = file_get_contents($url);
-
-        if ($contenido === false) {
-            abort(404, 'No se pudo obtener el archivo.');
-        }
-
-        $nombre = basename(parse_url($url, PHP_URL_PATH));
-
-        return response($contenido)
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'attachment; filename="' . $nombre . '"');
-    }*/
 }

@@ -4,14 +4,14 @@
         <img src="{{ $item['image'] }}" alt="{{ $item['name'] }}">
         <form action="{{ route('cart.update', $item['id']) }}" method="POST" class="update-form">
             @csrf
-            <button type="button" class="btn btn-outline-secondary btn-update-cart" data-action="decrease"
+            <button type="button" class="btn  btn-update-cart" data-action="decrease"
                 data-id="{{ $key }}">
                 <i class="fas fa-minus"></i>
             </button>
             <input type="text" class="quantity-display"
                 value="{{ fmod($item['quantity'], 1) === 0.0 ? (int) $item['quantity'] : number_format($item['quantity'], 1) }}"
                 readonly>
-            <button type="button" class="btn btn-outline-secondary btn-update-cart" data-action="increase"
+            <button type="button" class="btn  btn-update-cart" data-action="increase"
                 data-id="{{ $key }}">
                 <i class="fas fa-plus"></i>
             </button>

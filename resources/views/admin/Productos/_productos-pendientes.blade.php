@@ -28,6 +28,11 @@
         @endcan
     </div>
 
+    @if (session('success') && request('tab') === 'pendientes')
+        <div id="alerta-producto" class="agrupaciones-alert-success" role="alert">
+            <strong>Éxito:</strong> {{ session('success') }}
+        </div>
+    @endif
 
     {{-- CONTENEDOR ÚNICO PARA BOTONES --}}
     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -132,7 +137,8 @@
                                                     method="POST" class="m-0 p-0 d-inline">
                                                     @csrf
                                                     <button type="button" class="btn-icon-rechazar" title="Rechazar"
-                                                        data-toggle="modal" data-target="#modalRechazo{{ $producto->id }}">
+                                                        data-toggle="modal"
+                                                        data-target="#modalRechazo{{ $producto->id }}">
                                                         <i class="fas fa-times-circle"></i>
                                                     </button>
                                                 </form>

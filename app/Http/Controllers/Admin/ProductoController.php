@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Producto;
 use App\Models\Agrupacion;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Catalogo;
 
 class ProductoController extends Controller
 {
@@ -132,45 +133,7 @@ class ProductoController extends Controller
     {
         $producto     = Producto::findOrFail($id);
         $agrupaciones = Agrupacion::orderBy('nombre_agrupacion')->get();
-
-        // Tus listas de categorías y unidades
-        $categorias = [
-            'Hortalizas',
-            'Frutas',
-            'Cítricos',
-            'Legumbres',
-            'Tubérculos',
-            'Hierbas aromáticas',
-            'Verduras de hoja',
-            'Chiles y pimientos',
-            'Melones y sandías',
-            'Raíces comestibles',
-            'Flores comestibles',
-            'Granos básicos',
-            'Productos procesados',
-            'Semillas',
-            'Plantas medicinales',
-            'Otros'
-        ];
-
-        $unidades = [
-            'kg',
-            'gramos',
-            'tonelada',
-            'litro',
-            'mililitro',
-            'pieza',
-            'docena',
-            'manojo',
-            'caja',
-            'bulto',
-            'saco',
-            'paquete',
-            'botella',
-            'canastilla',
-            'bandeja',
-            'otros'
-        ];
+        $catalogos = Catalogo::all();
 
         // Recupera la pestaña actual para que, al cancelar o guardar, regreses donde viniste
         $tab = request('tab', 'aprobados');
@@ -178,9 +141,8 @@ class ProductoController extends Controller
         return view('admin.Productos.edit-productos', compact(
             'producto',
             'agrupaciones',
-            'categorias',
-            'unidades',
-            'tab'
+            'tab',
+            'catalogos'
         ));
     }
 
@@ -190,10 +152,8 @@ class ProductoController extends Controller
         $request->validate([
             'agrupacion_id' => 'nullable|exists:agrupaciones,id',
             'nombre'        => 'required|string|max:255',
-            'categoria'     => 'required|string|max:255',
             'precio'        => 'required|numeric|min:0',
-            'stock'         => 'required|integer|min:0',
-            'unidad'        => 'required|string|max:50',
+            'categoria' => 'required|string|max:255',
             'descripcion'   => 'nullable|string',
             'estado'        => 'required|in:pendiente_aprobacion,aprobado,rechazado',
             'imagen'        => 'nullable|image|max:2048',
@@ -213,10 +173,8 @@ class ProductoController extends Controller
         // asignar campos
         $producto->agrupacion_id = $request->input('agrupacion_id');
         $producto->nombre        = $request->input('nombre');
-        $producto->categoria     = $request->input('categoria');
         $producto->precio        = $request->input('precio');
-        $producto->stock         = $request->input('stock');
-        $producto->unidad        = $request->input('unidad');
+        $producto->categoria = $request->input('categoria');
         $producto->descripcion   = $request->input('descripcion');
         $producto->estado        = $request->input('estado');
         $producto->save();
@@ -233,8 +191,7 @@ class ProductoController extends Controller
     //eliminar un producto
     public function destroy($id)
     {
-        $producto = Producto::findOrFail($id);
-
+        $producto = Producto::with('catalogo')->findOrFail($id);
         // Opcional: borrar imagen del disco
         if ($producto->imagen) {
             Storage::disk('public')->delete(parse_url($producto->imagen, PHP_URL_PATH));

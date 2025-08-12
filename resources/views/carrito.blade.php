@@ -49,7 +49,7 @@
                                                 class="update-form">
                                                 @csrf
                                                 <button type="button"
-                                                    class="btn btn-outline-secondary btn-update-cart mb-1"
+                                                    class="btn  btn-update-cart mb-1"
                                                     data-action="increase" data-id="{{ $key }}">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
@@ -57,7 +57,7 @@
                                                     data-quantity="{{ $item['quantity'] }}"
                                                     value="{{ fmod($item['quantity'], 1) === 0.0 ? (int) $item['quantity'] : number_format($item['quantity'], 1) }}"
                                                     readonly>
-                                                <button type="button" class="btn btn-outline-secondary btn-update-cart"
+                                                <button type="button" class="btn btn-update-cart"
                                                     data-action="decrease" data-id="{{ $key }}">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
@@ -138,7 +138,7 @@
                                     </button>
                                 @endif
 
-                                <a href="{{ route('agrupaciones.public.index') }}" class="btn btn-outline-primary">
+                                <a href="{{ route('catalogo') }}" class="btn btn-outline-primary">
                                     Seguir Comprando
                                 </a>
                             </div>
@@ -166,6 +166,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/carrito-compras.js') }}"></script>
+    <script src="{{ asset('js/Web/carrito-compras.js') }}"></script>
     <script src="{{ asset('js/loader.js') }}"></script>
 @endpush

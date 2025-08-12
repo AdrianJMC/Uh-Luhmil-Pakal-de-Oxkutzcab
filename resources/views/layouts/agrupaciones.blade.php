@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="{{ asset('css/Dashboard-agrupaciones/Page-MisProductos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Dashboard-agrupaciones/page-crearProducto.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Dashboard-agrupaciones/page-pedidos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/Dashboard-agrupaciones/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -102,6 +104,8 @@
         {{-- Sidebar --}}
         @include('partials.agrupaciones.sidebar')
 
+        @include('components.loader')
+
         {{-- Contenido principal --}}
         <div class="content-wrapper">
             @yield('content')
@@ -110,6 +114,8 @@
     </div> {{-- /.wrapper --}}
     {{-- /.wrapper --}}
 
+    {{-- Loader --}}
+    <script src="{{ asset('js/loader.js') }}"></script>
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
     <!-- jQuery UI -->

@@ -43,8 +43,7 @@
 
                 <div class="col-md-6">
                     <label class="agrupacion-form-label" for="direccion_agrupacion">Dirección</label>
-                    <input type="text" name="direccion_agrupacion" class="agrupacion-form-input"
-                        value="{{ $agrupacion->direccion_agrupacion }}">
+                    <textarea name="direccion_agrupacion" class="agrupacion-form-input form-control" rows="2">{{ $agrupacion->direccion_agrupacion }}</textarea>
                 </div>
 
                 <div class="col-md-4">
@@ -67,20 +66,13 @@
 
                 <div class="col-md-6">
                     <label class="agrupacion-form-label" for="tipo_maquinaria">Tipo de maquinaria</label>
-                    <input type="text" name="tipo_maquinaria" class="agrupacion-form-input"
-                        value="{{ $agrupacion->tipo_maquinaria }}">
+                    <textarea name="tipo_maquinaria" class="agrupacion-form-input form-control" rows="2">{{ $agrupacion->tipo_maquinaria }}</textarea>
                 </div>
 
                 <div class="col-md-6">
                     <label class="agrupacion-form-label" for="horas_trabajo">Horas de trabajo por semana</label>
                     <input type="number" name="horas_trabajo" class="agrupacion-form-input"
                         value="{{ $agrupacion->horas_trabajo }}">
-                </div>
-
-                <div class="col-md-6">
-                    <label class="agrupacion-form-label" for="certificaciones">Certificaciones</label>
-                    <input type="text" name="certificaciones" class="agrupacion-form-input"
-                        value="{{ $agrupacion->certificaciones }}">
                 </div>
 
                 <div class="col-md-3">

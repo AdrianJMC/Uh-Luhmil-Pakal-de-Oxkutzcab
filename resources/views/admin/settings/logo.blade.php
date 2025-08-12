@@ -52,7 +52,7 @@
                                 style="max-width: 250px;" required>
 
                             <small class="text-muted d-block text-center mt-1">
-                                Recomendado: imagen cuadrada de 500x500 px, máximo 20 MB.
+                                Recomendado: imagen cuadrada de 500x500 px, máximo 5 MB.
                             </small>
 
                             <small id="file-name-display" class="text-secondary d-block text-center mt-2"></small>

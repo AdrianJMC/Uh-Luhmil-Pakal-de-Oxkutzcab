@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container py-4">
-        <h2 class="mb-4">Productos del cliente {{ $pedido->nombre_cliente }}</h2>
+        <h2 class="mb-4">Productos del cliente - {{ $pedido->nombre_cliente }}</h2>
 
         @if ($productosPedido->isEmpty())
             <div class="alert alert-info">No se encontraron productos para este pedido.</div>

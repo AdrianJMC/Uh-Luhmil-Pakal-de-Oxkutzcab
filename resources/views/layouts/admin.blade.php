@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{ asset('css/Administrador/gestor-productos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Administrador/Gestor-Catalogos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/Administrador/Pedidos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
 
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -57,6 +58,9 @@
         {{-- Sidebar --}}
         @include('partials.admin.sidebar')
 
+        @include('components.loader')
+
+
         {{-- Contenido principal --}}
         <div class="content-wrapper">
             @yield('content')
@@ -65,6 +69,11 @@
 
     </div>
     {{-- /.wrapper --}}
+
+    {{-- Loader --}}
+
+    <script src="{{ asset('js/loader.js') }}"></script>
+
 
     <!-- jQuery -->
     <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>

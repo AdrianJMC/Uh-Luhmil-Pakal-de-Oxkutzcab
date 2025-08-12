@@ -7,7 +7,7 @@
         <form action="{{ route('agrupaciones.productos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="card card-success producto-form-full">
+            <div class="card-2 card-success producto-form-full">
                 <div class="producto-form-card-header">
                     <h2>Registrar nuevo producto</h2>
                 </div>
@@ -29,19 +29,24 @@
                     {{-- Fila 3: Categoría y Unidad --}}
                     <div class="row flex-mobile-2">
                         <div class="col-md-6 form-group">
-                            <label for="catalogo_id" class="producto-form-label">
-                                Categoria <span class="text-danger">*</span>
-                            </label>
+                            <label for="catalogo_id" class="producto-form-label">Categoría <span
+                                    class="text-danger">*</span></label>
                             <select name="catalogo_id" id="catalogo_id" class="form-control" required>
-                                <option value="">-- Selecciona una categoria --</option>
+                                <option value="" disabled selected>Selecciona una categoría</option>
                                 @foreach ($catalogos as $cat)
-                                    <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+                                    <option value="{{ $cat->nombre }}"
+                                        {{ old('catalogo_id') === $cat->nombre ? 'selected' : '' }}>
+                                        {{ $cat->nombre }}
+                                    </option>
                                 @endforeach
                             </select>
+                            @error('catalogo_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <label for="precio" class="producto-form-label">Precio por Tonelada ($ MXN) <span
+                            <label for="precio" class="producto-form-label">Precio por Tonelada<span
                                     class="text-danger">*</span></label>
                             <input type="number" name="precio" class="form-control" step="0.01" required>
                         </div>

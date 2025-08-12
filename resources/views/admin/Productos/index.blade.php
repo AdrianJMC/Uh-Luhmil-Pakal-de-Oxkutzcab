@@ -49,8 +49,10 @@
                     @endcan
                 </div>
 
-                @if (session('success') && request('tab') === null)
-                    <div class="productos-alert-success">Registro actualizado correctamente.</div>
+                @if (session('success') && request('tab', 'aprobados') === 'aprobados')
+                    <div class="agrupaciones-alert-success" role="alert" id="alerta-exito">
+                        {{ session('success') }}
+                    </div>
                 @endif
 
                 {{-- TABLA APROBADOS --}}
@@ -171,5 +173,5 @@
     </script>
 
     <!-- Cargamos el bundle solo en esta página -->
-    <script src="{{ asset('js/Gestor-Productos.js') }}"></script>
+    <script src="{{ asset('js/Administrador/Gestor-Productos.js') }}"></script>
 @endpush

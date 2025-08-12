@@ -58,10 +58,22 @@ class InfoController extends Controller
 
         if ($esVideo) {
             $data = $request->validate([
-                'video_id'     => 'required|string|max:255',
-                'imagen_video' => 'nullable|image|max:5120',
-                'orden'        => 'required|integer',
+                'video_id'      => 'required|string|regex:/^[a-zA-Z0-9_-]{11}$/',
+                'imagen_video'  => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
+                'orden'         => 'required|integer|min:1|max:10',
+            ], [
+                'video_id.required' => 'El ID del video es obligatorio.',
+                'video_id.regex' => 'El formato del ID del video no es válido.',
+                'imagen_video.image' => 'La miniatura debe ser una imagen válida.',
+                'imagen_video.max' => 'La miniatura no debe superar los 5 MB.',
+                'imagen_video.mimes' => 'Solo se permiten imágenes JPEG, PNG o WEBP.',
+                'imagen_video.dimensions' => 'La imagen debe tener entre 300x300 y 1500x1500 píxeles.',
+                'orden.required' => 'El campo orden es obligatorio.',
+                'orden.integer' => 'El orden debe ser un número entero.',
+                'orden.min' => 'El orden mínimo permitido es :min.',
+                'orden.max' => 'El orden máximo permitido es :max.',
             ]);
+
 
             $imagenUrl = null;
             if ($request->hasFile('imagen_video')) {
@@ -77,11 +89,26 @@ class InfoController extends Controller
             ]);
         } else {
             $data = $request->validate([
-                'titulo'        => 'required|string|max:255',
-                'texto'         => 'required|string',
-                'imagen_normal' => 'required|image|max:5120',
-                'orden'         => 'required|integer',
+                'titulo'        => 'required|string|min:5|max:255',
+                'texto'         => 'required|string|min:10',
+                'imagen_normal' => 'required|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
+                'orden'         => 'required|integer|min:1|max:10',
+            ], [
+                'titulo.required' => 'El título es obligatorio.',
+                'titulo.min' => 'El título debe tener al menos :min caracteres.',
+                'texto.required' => 'El texto es obligatorio.',
+                'texto.min' => 'El texto debe tener al menos :min caracteres.',
+                'imagen_normal.required' => 'Debes subir una imagen.',
+                'imagen_normal.image' => 'El archivo debe ser una imagen válida.',
+                'imagen_normal.max' => 'La imagen no debe superar los 5 MB.',
+                'imagen_normal.mimes' => 'Solo se permiten imágenes JPEG, PNG o WEBP.',
+                'imagen_normal.dimensions' => 'La imagen debe tener entre 300x300 y 1500x1500 píxeles.',
+                'orden.required' => 'El campo orden es obligatorio.',
+                'orden.integer' => 'El orden debe ser un número entero.',
+                'orden.min' => 'El orden mínimo permitido es :min.',
+                'orden.max' => 'El orden máximo permitido es :max.',
             ]);
+
 
             $imagenUrl = $this->subirACloudinary($request->file('imagen_normal'));
 
@@ -109,8 +136,8 @@ class InfoController extends Controller
         if ($esVideo) {
             $data = $request->validate([
                 'video_id'     => 'required|string|max:255',
-                'imagen_video' => 'nullable|image|max:5120',
                 'orden'        => 'required|integer',
+                'imagen_video' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
             ]);
 
             $imagenUrl = $info->imagen_ruta;
@@ -130,8 +157,8 @@ class InfoController extends Controller
             $data = $request->validate([
                 'titulo'        => 'required|string|max:255',
                 'texto'         => 'required|string',
-                'imagen_normal' => 'nullable|image|max:5120',
                 'orden'         => 'required|integer',
+                'imagen_normal' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
             ]);
 
             $imagenUrl = $info->imagen_ruta;

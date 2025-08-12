@@ -27,7 +27,9 @@
 
     {{-- ALERTA --}}
     @if (session('success') && request('tab') === 'pendientes')
-        <div class="agrupaciones-alert-success">Registro actualizado correctamente.</div>
+        <div class="agrupaciones-alert-success" id="alertaAgrupacion">
+            {{ session('success') }}
+        </div>
     @endif
 
     {{-- TABLA AGRUPACIONES PENDIENTES --}}
@@ -56,7 +58,7 @@
                                 <td><span class="badge-pendiente">Pendiente</span></td>
                                 <td>{{ $agrupacion->created_at->format('d/m/Y') }}</td>
                                 <td class="text-center">
-                                    @can('ver_agrupacion_detalles')
+                                    @can('ver_detalles_agrupacion')
                                         <a href="{{ route('admin.agrupaciones.detalles_agrupaciones', ['id' => $agrupacion->id, 'tab' => 'pendientes']) }}"
                                             class="btn-icon-detalles" title="Ver detalles">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"

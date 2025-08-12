@@ -1,8 +1,8 @@
 {{-- =========================================
      COLUMNA DERECHA (Datos Específicos)
 ========================================= --}}
-<div class="col-md-6" id="bloque-especificos">
-    <h3 class="font-weight-bold titulo-datos mb-2" style="font-size: 3.5rem;">Datos Específicos</h3>
+<div id="seccion-especificos" class="col-md-6 d-none d-md-block">
+    <h3 class="font-weight-bold titulo-datos mb-2">Datos Específicos</h3>
 
     <div class="row">
         <div class="form-group col-md-6 mb-0">
@@ -18,15 +18,69 @@
         </div>
 
 
-        <div class="form-group col-md-6 mb-0">
+        <div class="form-group col-md-6">
             <label for="tipo_maquinaria">Tipo de maquinaria usada</label>
-            <input type="text" name="tipo_maquinaria" id="tipo_maquinaria"
-                class="form-control @error('tipo_maquinaria') is-invalid @enderror"
-                placeholder="Ej. Tractores, aspersores..." value="{{ old('tipo_maquinaria') }}">
+
+            <div class="dropdown">
+                <button class="form-control text-left dropdown-toggle" type="button" id="dropdownMaquinaria"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Selecciona tipo de maquinaria
+                </button>
+                <div class="dropdown-menu p-3" aria-labelledby="dropdownMaquinaria"
+                    style="max-height: 250px; overflow-y: auto;">
+                    @php
+                        $opcionesMaquinaria = [
+                            'Tractores',
+                            'Sembradoras',
+                            'Cosechadoras',
+                            'Arados',
+                            'Rastras',
+                            'Subsoladores',
+                            'Cultivadoras',
+                            'Rodillos agrícolas',
+                            'Surcadoras',
+                            'Empacadoras',
+                            'Fumigadoras',
+                            'Aspersores',
+                            'Pulverizadoras',
+                            'Sistemas de riego por goteo',
+                            'Sistemas de riego por aspersión',
+                            'Mangueras de riego',
+                            'Motores de riego',
+                            'Tanques de riego',
+                            'Camiones',
+                            'Remolques agrícolas',
+                            'Motocultores',
+                            'Desbrozadoras',
+                            'Trituradoras de ramas',
+                            'Plataformas de recolección',
+                            'Elevadores hidráulicos',
+                            'Sistemas de fertilización',
+                            'Equipos de labranza mínima',
+                            'Túneles o invernaderos móviles',
+                        ];
+                        $seleccionadas = old('tipo_maquinaria', []);
+                    @endphp
+
+                    @foreach ($opcionesMaquinaria as $maquinaria)
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="tipo_maquinaria[]"
+                                value="{{ $maquinaria }}" id="chk_{{ Str::slug($maquinaria, '_') }}"
+                                {{ in_array($maquinaria, $seleccionadas) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="chk_{{ Str::slug($maquinaria, '_') }}">
+                                {{ $maquinaria }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             @error('tipo_maquinaria')
-                <div class="invalid-feedback">{{ $message }}</div>
+                <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
+
+
 
         <div class="form-group col-md-6 mb-0">
             <label for="horas_trabajo">Horas trabajo semanal</label>
@@ -40,20 +94,9 @@
             @enderror
         </div>
 
-        <div class="form-group col-md-12 mb-0">
-            <label for="certificados">Subir Certificaciones (PDF o Word, máximo 5)</label>
-            <input type="file" name="certificaciones[]" id="certificados"
-                class="form-control @error('certificados') is-invalid @enderror"
-                accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                multiple>
-
-            @error('certificados')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
     </div>
 
-    <div class="row mb-0 grupo-calendarios">
+    <div class="calendario-box row mb-0 grupo-calendarios">
         <div class="form-group col-md-6">
             <label for="fecha_inicio">Fecha de Siembra</label>
             <input type="text" name="fecha_inicio" id="fecha_inicio"
@@ -77,7 +120,9 @@
         </div>
     </div>
 
-    <div class="border border-secondary rounded p-2" style="width: 100%; height: 175px; background-color: #f0f0f0;">
-        <canvas id="graficaProduccion" style="height: 100%; width: 100%;"></canvas>
+    {{-- Botones "Regresar" y "Registrar" solo en móvil --}}
+    <div class="d-block d-md-none text-center mt-4">
+        <button type="button" class="btn btn-outline-secondary btn-registro mr-2" id="btn-regresar">Regresar</button>
+        <button type="submit" class="btn btn-primary btn-registro ml-2">Registrar</button>
     </div>
 </div>

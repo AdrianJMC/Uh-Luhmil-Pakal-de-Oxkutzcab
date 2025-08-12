@@ -53,47 +53,29 @@
                             value="{{ old('nombre', $producto->nombre) }}">
                     </div>
 
-                    {{-- Categoría --}}
+                    {{-- Nueva categoría basada en catálogo --}}
                     <div class="col-md-6">
                         <label class="producto-detail-label">Categoría <span class="text-danger">*</span></label>
                         <select name="categoria" class="producto-detail-field" required>
                             <option value="">— Selecciona una categoría —</option>
-                            @foreach ($categorias as $cat)
-                                <option value="{{ $cat }}"
-                                    {{ old('categoria', $producto->categoria) === $cat ? 'selected' : '' }}>
-                                    {{ $cat }}
+                            @foreach ($catalogos as $cat)
+                                <option value="{{ $cat->nombre }}"
+                                    {{ old('categoria', $producto->categoria) === $cat->nombre ? 'selected' : '' }}>
+                                    {{ $cat->nombre }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
 
+
                     <div class="col-md-6">
                         <label class="producto-detail-label">
-                            Precio (por {{ Str::title($producto->unidad) }})
+                            Precio por Tonelada
                         </label>
                         <input type="number" step="0.01" name="precio" class="producto-detail-field"
                             value="{{ old('precio', $producto->precio) }}">
                     </div>
 
-                    <div class="col-md-6">
-                        <label class="producto-detail-label">Stock</label>
-                        <input type="number" name="stock" class="producto-detail-field"
-                            value="{{ old('stock', $producto->stock) }}">
-                    </div>
-
-                    {{-- Unidad --}}
-                    <div class="col-md-6">
-                        <label class="producto-detail-label">Unidad de medida <span class="text-danger">*</span></label>
-                        <select name="unidad" class="producto-detail-field" required>
-                            <option value="">— Selecciona unidad —</option>
-                            @foreach ($unidades as $u)
-                                <option value="{{ $u }}"
-                                    {{ old('unidad', $producto->unidad) === $u ? 'selected' : '' }}>
-                                    {{ $u }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
 
                     <div class="col-12">
                         <label class="producto-detail-label">Descripción</label>

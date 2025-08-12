@@ -72,13 +72,15 @@ class CatalogoController extends Controller
                 ->withInput();
         }
 
-        // Si suben nueva imagen, primero borra la anterior
+        // ✅ Siempre inicializamos $data con los datos validados
+        $data = ['nombre' => $request->input('nombre')];
+
+        // ✅ Solo sobreescribimos si se sube nueva imagen
         if ($request->hasFile('imagen') && $catalogo->imagen_public_id) {
             $this->borrarDeCloudinary($catalogo->imagen_public_id);
 
-            // luego sube la nueva
             $upload = $this->subirACloudinary($request->file('imagen'));
-            $data['imagen_url']       = $upload['url'];
+            $data['imagen_url'] = $upload['url'];
             $data['imagen_public_id'] = $upload['public_id'];
         }
 
@@ -86,6 +88,7 @@ class CatalogoController extends Controller
 
         return back()->with('catalogo_success', 'Catálogo actualizado correctamente.');
     }
+
 
     public function destroy(Catalogo $catalogo)
     {

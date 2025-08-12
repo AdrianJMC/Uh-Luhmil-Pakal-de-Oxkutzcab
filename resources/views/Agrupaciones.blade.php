@@ -1,4 +1,5 @@
 @php $mostrarLoader = true; @endphp
+
 @extends('layouts.app')
 
 @section('title', 'Agrupaciones Registradas')

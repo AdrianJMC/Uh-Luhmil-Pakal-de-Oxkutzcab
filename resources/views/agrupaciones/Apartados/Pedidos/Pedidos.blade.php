@@ -10,7 +10,7 @@
     <div class="container py-4">
 
         {{-- TABS --}}
-        <ul class="nav nav-tabs mb-4 pedidos-tab" id="pedidosTabs" role="tablist">
+        <ul class="nav nav-tabs  pedidos-tab" id="pedidosTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" href="#">Pedidos Recibidos</a>
             </li>
@@ -34,7 +34,7 @@
                                     <th>Folio</th>
                                     <th>Cliente</th>
                                     <th>Teléfono</th>
-                                    <th class="text-center">Ver Productos</th>
+                                    <th class="text-center">Productos</th>
                                     <th>Total</th>
                                 </tr>
                             </thead>
@@ -44,15 +44,23 @@
                                         <td>{{ $pedido->folio }}</td>
                                         <td>{{ $pedido->nombre_cliente }}</td>
                                         <td>{{ $pedido->telefono }}</td>
+                                        @php
+                                            // Obtener la cantidad de productos por pedido
+                                            $cantidad = \App\Models\PedidoProducto::where(
+                                                'pedido_id',
+                                                $pedido->pedido_id,
+                                            )
+                                                ->where('agrupacion_id', Auth::guard('agrupacion')->id())
+                                                ->count();
+                                        @endphp
+
                                         <td class="text-center">
-                                            <i class="fas fa-info-circle ms-2 mr-5 text-muted"
-                                                title="Consulta los productos del pedido. Contacta directamente al cliente."></i>
                                             <a href="{{ route('agrupaciones.pedidos.ver', $pedido->pedido_id) }}"
-                                                class="btn btn-sm btn-ver-pedido">
-                                                <i class="fas fa-eye me-1"></i>
+                                                class="link-productos-agrupacion" title="Ver productos del pedido">
+                                                [{{ $cantidad }}] Productos
                                             </a>
                                         </td>
-                                        <td>${{ number_format($pedido->total, 2) }}</td>
+                                        <td>${{ number_format($pedido->total, 2) }} MXN</td>
                                     </tr>
                                 @endforeach
                             </tbody>

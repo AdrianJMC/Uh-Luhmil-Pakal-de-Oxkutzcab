@@ -48,7 +48,19 @@ class SettingController extends Controller
     {
         try {
             $req->validate([
-                'logo' => ['required', 'image', 'max:2048', 'dimensions:max_width=500,max_height=500'],
+                'logo' => [
+                    'required',
+                    'image',
+                    'max:5120', // 5MB
+                    'mimes:jpeg,png,webp',
+                    'dimensions:min_width=200,min_height=200,max_width=500,max_height=500',
+                ],
+            ], [
+                'logo.required' => 'Debes seleccionar un logo.',
+                'logo.image' => 'El archivo debe ser una imagen válida.',
+                'logo.max' => 'La imagen no debe pesar más de 5MB.',
+                'logo.mimes' => 'Solo se permiten formatos JPEG, PNG o WEBP.',
+                'logo.dimensions' => 'El tamaño de la imagen debe ser entre 200x200 y 500x500 píxeles.',
             ]);
 
             $file = $req->file('logo');

@@ -15,6 +15,21 @@
         </div>
     </div>
 
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong><i class="fas fa-check-circle"></i></strong> {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong><i class="fas fa-exclamation-triangle"></i></strong> {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -123,5 +138,11 @@
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
         });
+    </script>
+    <script>
+        // Ocultar automáticamente las alertas después de 5 segundos
+        setTimeout(() => {
+            $('.alert-dismissible').fadeOut('slow');
+        }, 5000);
     </script>
 @endsection

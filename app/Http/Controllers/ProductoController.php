@@ -23,31 +23,12 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $unidades = [
-            'kg',
-            'gramos',
-            'tonelada',
-            'litro',
-            'mililitro',
-            'pieza',
-            'docena',
-            'manojo',
-            'caja',
-            'bulto',
-            'saco',
-            'paquete',
-            'botella',
-            'canastilla',
-            'bandeja',
-            'otros'
-        ];
-
         // 1) Trae todos los catálogos
         $catalogos = Catalogo::orderBy('nombre')->get(['id', 'nombre']);
 
         return view(
             'agrupaciones.Apartados.Productos.Acciones.crear-producto',
-            compact('unidades', 'catalogos')
+            compact('catalogos')
         );
     }
 
@@ -59,7 +40,7 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'catalogo_id' => 'required|exists:catalogos,id',
+            'catalogo_id' => 'required|exists:catalogos,nombre',
             'precio' => 'required|numeric|min:0.01',
             'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ], [
@@ -77,7 +58,7 @@ class ProductoController extends Controller
             $imagenUrl = $this->subirACloudinary($request->file('foto'));
 
             // 🟢 Obtiene el nombre del catálogo
-            $catalogo = Catalogo::findOrFail($request->catalogo_id);
+            $catalogo = Catalogo::where('nombre', $request->catalogo_id)->firstOrFail();
 
             Producto::create([
                 'nombre' => $request->nombre,
@@ -90,7 +71,7 @@ class ProductoController extends Controller
                 'estado' => 'pendiente_aprobacion',
             ]);
 
-            return redirect()->route('agrupaciones.productos.index')->with('success', 'Producto registrado correctamente.');
+            return redirect()->route('agrupaciones.productos.index')->with('success', 'Producto creado y enviado a revision correctamente.');
         } catch (\Exception $e) {
             return back()->withErrors(['foto' => 'Ocurrió un error al subir la imagen: ' . $e->getMessage()])->withInput();
         }
@@ -109,29 +90,11 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        $unidades = [
-            'kg',
-            'gramos',
-            'tonelada',
-            'litro',
-            'mililitro',
-            'pieza',
-            'docena',
-            'manojo',
-            'caja',
-            'bulto',
-            'saco',
-            'paquete',
-            'botella',
-            'canastilla',
-            'bandeja',
-            'otros'
-        ];
 
         // Catálogos para el dropdown
         $catalogos = Catalogo::orderBy('nombre')->get(['id', 'nombre']);
 
-        return view('agrupaciones.Apartados.Productos.Acciones.editar-producto', compact('producto', 'catalogos', 'unidades'));
+        return view('agrupaciones.Apartados.Productos.Acciones.editar-producto', compact('producto', 'catalogos'));
     }
 
 
@@ -144,7 +107,7 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0.01',
-            'catalogo_id' => 'required|exists:catalogos,id',
+            'catalogo_id' => 'nullable|exists:catalogos,nombre',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ], [
             'foto.image' => 'El archivo debe ser una imagen válida.',
@@ -153,13 +116,17 @@ class ProductoController extends Controller
         ]);
 
         try {
-            // 🟢 Obtener el catálogo seleccionado
-            $catalogo = Catalogo::findOrFail($request->catalogo_id);
+            $catalogoNombre = $request->catalogo_id ?? $producto->categoria;
+            $catalogo = Catalogo::where('nombre', $catalogoNombre)->first();
+
+            if (!$catalogo) {
+                return back()->withErrors(['catalogo_id' => 'La categoría seleccionada no existe.'])->withInput();
+            }
 
             $data = [
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
-                'categoria' => $catalogo->nombre, // 🟢 Aquí se guarda el nombre
+                'categoria' => $catalogo->nombre,
                 'precio' => $request->precio,
                 'catalogo_id' => $catalogo->id,
             ];
@@ -169,14 +136,20 @@ class ProductoController extends Controller
                 $data['imagen'] = $this->subirACloudinary($request->file('foto'));
             }
 
+            $mensaje = 'Producto actualizado correctamente.';
+
             if ($producto->estado === 'rechazado') {
                 $data['estado'] = 'pendiente_aprobacion';
                 $data['motivo_rechazo'] = null;
+                $mensaje = 'Producto actualizado y enviado a revisión.';
+            } elseif ($producto->estado === 'pendiente_aprobacion') {
+                $mensaje = 'Producto actualizado y seguirá en revisión.';
             }
+
 
             $producto->update($data);
 
-            return redirect()->route('agrupaciones.productos.index')->with('success', 'Producto actualizado y enviado a revisión.');
+            return redirect()->route('agrupaciones.productos.index')->with('success', $mensaje);
         } catch (\Exception $e) {
             return back()->withErrors(['foto' => 'Ocurrió un error: ' . $e->getMessage()])->withInput();
         }

@@ -51,20 +51,25 @@
                                 </a>
                             </div>
 
-                            <!-- RD Navbar Search-->
-                            <div class="rd-navbar-search d-none d-md-block mt-2">
-                                <button class="rd-navbar-search-toggle"
-                                    data-rd-navbar-toggle=".rd-navbar-search"><span></span></button>
-                                <form class="rd-search" action="#">
-                                    <div class="form-wrap">
-                                        <label class="form-label" for="rd-navbar-search-form-input">Search...</label>
-                                        <input class="rd-navbar-search-form-input form-input"
-                                            id="rd-navbar-search-form-input" type="text" name="search">
-                                        <button class="rd-search-form-submit fl-bigmug-line-search74"
-                                            type="submit"></button>
-                                    </div>
-                                </form>
-                            </div>
+                            @if (request()->routeIs('catalogo'))
+                                <!-- RD Navbar Search solo en catálogo -->
+                                <div class="rd-navbar-search d-none d-md-block mt-2">
+                                    <button class="rd-navbar-search-toggle"
+                                        data-rd-navbar-toggle=".rd-navbar-search"><span></span></button>
+                                    <form class="rd-search" action="{{ route('catalogo') }}" method="GET">
+                                        <div class="form-wrap">
+                                            <label class="form-label" for="rd-navbar-search-form-input">Buscar
+                                                producto...</label>
+                                            <input class="rd-navbar-search-form-input form-input"
+                                                id="rd-navbar-search-form-input" type="text" name="search"
+                                                value="{{ request('search') }}">
+                                            <button class="rd-search-form-submit fl-bigmug-line-search74"
+                                                type="submit"></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
+
                             <!-- RD Navbar Nav-->
                             <ul class="rd-navbar-nav">
                                 <li class="rd-nav-item {{ request()->routeIs('inicio') ? 'active' : '' }}">
@@ -160,7 +165,7 @@
                                     </form>
                                 @else
                                     {{-- Invitado --}}
-                                    <li class="rd-nav-item d-none d-md-block">
+                                    <li class="rd-nav-item d-none d-md-block ml-2">
                                         <a href="{{ route('seleccion.login') }}"
                                             class="btn btn-primary rounded-pill px-3 py-2 btn-login-desktop">
                                             Iniciar Sesión

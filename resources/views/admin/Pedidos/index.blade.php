@@ -42,7 +42,7 @@
                                         <th>Cliente</th>
                                         <th>Teléfono</th>
                                         <th>Total</th>
-                                        <th class="text-center">Acciones</th>
+                                        <th class="text-center">Productos</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -54,16 +54,20 @@
                                             <td class="align-middle">${{ number_format($pedido->total, 2) }}</td>
                                             <td class="align-middle text-center">
 
+                                                @php
+                                                    $totalProductos = $pedido->productos->count();
+                                                @endphp
+
                                                 @can('ver_productos_pedido')
-                                                    <a href="{{ route('admin.pedidos.ver-productos', $pedido->id) }}"
-                                                        class="btn-ver-productos btn-sm d-flex flex-column align-items-center"
+                                                    <a href="javascript:void(0);" class="btn-productos-link"data-toggle="modal"
+                                                        data-target="#modalProductosPedido{{ $pedido->id }}"
                                                         title="Ver productos del pedido">
-                                                        <i class="fas fa-box-open icono-ver-productos mb-1"></i>
-                                                        <span class="btn-ver-productos-text">Productos</span>
+                                                        [{{ $totalProductos }}] Productos
                                                     </a>
                                                 @endcan
                                             </td>
                                         </tr>
+
                                     @empty
                                         <tr>
                                             <td colspan="6" class="text-center text-muted py-3">
@@ -73,6 +77,10 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            {{-- Modales de productos --}}
+                            @foreach ($pedidos as $pedido)
+                                @include('admin.pedidos.show-producto', ['pedido' => $pedido])
+                            @endforeach
                         </div>
                     </div>
                 </div>

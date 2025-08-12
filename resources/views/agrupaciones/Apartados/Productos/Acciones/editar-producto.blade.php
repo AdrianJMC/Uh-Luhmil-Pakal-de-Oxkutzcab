@@ -9,7 +9,7 @@
             @csrf
             @method('PUT')
 
-            <div class="card card-success producto-form-full">
+            <div class="card-2 card-success producto-form-full">
                 <div class="producto-form-card-header">
                     <h2>Editar producto</h2>
                 </div>
@@ -29,18 +29,15 @@
                         <textarea name="descripcion" rows="3" class="form-control">{{ old('descripcion', $producto->descripcion) }}</textarea>
                     </div>
 
-                    {{-- Fila 3: Categoría y Unidad --}}
+                    {{-- Fila 3: Categoría y Precio --}}
                     <div class="row flex-mobile-2">
-
                         <div class="col-md-6 form-group">
-                            <label for="catalogo_id" class="producto-form-label">
-                                Categoria <span class="text-danger">*</span>
-                            </label>
+                            <label for="catalogo_id" class="producto-form-label">Categoría <span
+                                    class="text-danger">*</span></label>
                             <select name="catalogo_id" id="catalogo_id" class="form-control" required>
-                                <option value="">-- Selecciona una categoría --</option>
                                 @foreach ($catalogos as $cat)
-                                    <option value="{{ $cat->id }}"
-                                        {{ old('catalogo_id', $producto->catalogo_id) == $cat->id ? 'selected' : '' }}>
+                                    <option value="{{ $cat->nombre }}"
+                                        {{ old('categoria', $producto->categoria) === $cat->nombre ? 'selected' : '' }}>
                                         {{ $cat->nombre }}
                                     </option>
                                 @endforeach
@@ -51,36 +48,14 @@
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <label for="unidad" class="producto-form-label">Unidad de medida <span
-                                    class="text-danger">*</span></label>
-                            <select name="unidad" class="form-control" required>
-                                <option value="">-- Selecciona unidad --</option>
-                                @foreach ($unidades as $u)
-                                    <option value="{{ $u }}" {{ $producto->unidad == $u ? 'selected' : '' }}>
-                                        {{ $u }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    {{-- Fila 4: Precio y Stock --}}
-                    <div class="row flex-mobile-2">
-                        <div class="col-md-6 form-group">
-                            <label for="precio" class="producto-form-label">Precio por unidad ($ MXN) <span
+                            <label for="precio" class="producto-form-label">Precio por Tonelada<span
                                     class="text-danger">*</span></label>
                             <input type="number" name="precio" class="form-control" step="0.01"
                                 value="{{ old('precio', $producto->precio) }}" required>
                         </div>
-
-                        <div class="col-md-6 form-group">
-                            <label for="stock" class="producto-form-label">Cantidad disponible (stock) <span
-                                    class="text-danger">*</span></label>
-                            <input type="number" name="stock" class="form-control"
-                                value="{{ old('stock', $producto->stock) }}" required>
-                        </div>
                     </div>
 
-                    {{-- Fila 5: Imagen --}}
+                    {{-- Fila 4: Imagen --}}
                     <div class="form-group">
                         <label for="imagen" class="producto-form-label">Imagen del producto (opcional)</label>
                         <input type="file" name="foto" class="form-control-file" accept="image/*">

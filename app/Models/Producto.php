@@ -17,13 +17,11 @@ class Producto extends Model
         'agrupacion_id',
         'nombre',
         'descripcion',
-        'categoria',
         'precio',
-        'stock',
-        'unidad',
         'imagen',
         'estado',
         'motivo_rechazo',
+        'categoria',
     ];
 
     // Relación con la agrupación
@@ -42,5 +40,10 @@ class Producto extends Model
 
         // Si prefieres usar la URL de Cloudinary con transformaciones
         return str_replace('/upload/', '/upload/c_limit,w_270,h_280,f_auto,q_auto/', $this->imagen);
+    }
+
+    public function catalogo()
+    {
+        return $this->belongsTo(Catalogo::class);
     }
 }

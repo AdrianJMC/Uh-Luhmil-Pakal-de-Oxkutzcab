@@ -23,7 +23,10 @@
 
                 {{-- MENSAJE DE ÉXITO --}}
                 @if (session('catalogo_success'))
-                    <div class="catalogo-alert-success">{{ session('catalogo_success') }}</div>
+                    <div class="alert alert-success alert-dismissible fade show agrupaciones-alert-success" role="alert"
+                        id="alertaCatalogo">
+                        {{ session('catalogo_success') }}
+                    </div>
                 @endif
 
                 {{-- TABLA --}}
@@ -125,6 +128,24 @@
 @push('scripts')
     <script>
         $(function() {
+            @if (session('create_error'))
+                $('#modalCrearCatalogo').modal('show');
+            @endif
+
+            @if (session('edit_error_id'))
+                $('#modalEditarCatalogo-{{ session('edit_error_id') }}').modal('show');
+            @endif
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            const alerta = $('#alertaCatalogo');
+            if (alerta.length) {
+                setTimeout(() => {
+                    alerta.alert('close');
+                }, 5000); // se oculta en 4 segundos
+            }
+
             @if (session('create_error'))
                 $('#modalCrearCatalogo').modal('show');
             @endif

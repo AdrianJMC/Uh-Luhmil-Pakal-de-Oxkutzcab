@@ -11,10 +11,14 @@ class PedidoAdminController extends Controller
 {
     public function index()
     {
-        $pedidos = Pedido::orderBy('created_at', 'desc')->paginate(20);
+        // Cargamos las relaciones para que cada pedido tenga sus productos con agrupaciones
+        $pedidos = Pedido::with('productos.producto.agrupacion')
+            ->orderBy('created_at', 'desc')
+            ->paginate(20);
 
         return view('admin.pedidos.index', compact('pedidos'));
     }
+
 
     public function verProductos($id)
     {
@@ -31,6 +35,7 @@ class PedidoAdminController extends Controller
             'path' => request()->url(),
             'query' => request()->query(),
         ]);
+        $pedidos = Pedido::with('productos.producto.agrupacion')->paginate(10);
 
         return view('admin.pedidos.show-producto', compact('pedido', 'paginados'));
     }

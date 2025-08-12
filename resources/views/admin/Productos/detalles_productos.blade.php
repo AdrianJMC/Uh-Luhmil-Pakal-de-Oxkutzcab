@@ -44,7 +44,7 @@
 
                 <div class="col-md-6">
                     <label class="producto-detail-label">
-                        Precio (por {{ Str::title($producto->unidad) }})
+                        Precio por Tonelada
                     </label>
                     <input type="text" class="producto-detail-field" value="${{ number_format($producto->precio, 2) }}"
                         readonly>

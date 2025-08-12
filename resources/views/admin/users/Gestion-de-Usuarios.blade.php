@@ -1,25 +1,25 @@
     @extends('layouts.admin')
 
-        @section('title', 'Gestión de Usuarios y Perfiles')
+    @section('title', 'Gestión de Usuarios y Perfiles')
 
     @section('content')
         <div class="container-fluid py-4">
             {{-- Navegación entre pestañas --}}
             <ul class="nav nav-tabs mb-3" id="gestionUsuariosTabs" role="tablist">
                 @can('ver_usuarios')
-                <li class="nav-item">
-                    <a class="nav-link custom-tab active" id="usuarios-tab" data-toggle="tab" href="#usuarios" role="tab"
-                        aria-controls="usuarios" aria-selected="true">Usuarios</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab active" id="usuarios-tab" data-toggle="tab" href="#usuarios" role="tab"
+                            aria-controls="usuarios" aria-selected="true">Usuarios</a>
+                    </li>
                 @endcan
 
                 @can('gestionar_perfiles')
-                <li class="nav-item">
-                    <a class="nav-link custom-tab" id="perfiles-tab" data-toggle="tab" href="#perfiles" role="tab"
-                        aria-controls="perfiles" aria-selected="false">Perfiles y Permisos</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link custom-tab" id="perfiles-tab" data-toggle="tab" href="#perfiles" role="tab"
+                            aria-controls="perfiles" aria-selected="false">Perfiles y Permisos</a>
+                    </li>
                 @endcan
-            </ul>   
+            </ul>
 
             <div class="tab-content" id="gestionUsuariosTabContent">
                 {{-- TAB USUARIOS --}}
@@ -28,20 +28,20 @@
                     <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
                         <h2 class="gestion-title m-0">Gestión de Usuarios</h2>
                         @can('buscar_usuarios')
-                        <form method="GET" class="position-relative" style="max-width: 450px; width: 100%;">
-                            <div class="input-group">
-                                <input type="text" name="buscar" id="buscarInput" value="{{ request('buscar') }}"
-                                    class="form-control" placeholder="Buscar por ID, nombre, apellido o email"
-                                    autocomplete="off" oninput="mostrarSugerencias(this.value)">
-                                <div class="input-group-append">
-                                    <button class="btn btn-warning" type="submit">Buscar</button>
-                                    <button class="btn btn-secondary" type="button"
-                                        onclick="limpiarBusqueda()">Limpiar</button>
+                            <form method="GET" class="position-relative" style="max-width: 450px; width: 100%;">
+                                <div class="input-group">
+                                    <input type="text" name="buscar" id="buscarInput" value="{{ request('buscar') }}"
+                                        class="form-control" placeholder="Buscar por ID, nombre, apellido o email"
+                                        autocomplete="off" oninput="mostrarSugerencias(this.value)">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-warning" type="submit">Buscar</button>
+                                        <button class="btn btn-secondary" type="button"
+                                            onclick="limpiarBusqueda()">Limpiar</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <ul class="list-group position-absolute w-100 mt-1 shadow" id="sugerencias"
-                                style="z-index: 99; display: none;"></ul>
-                        </form>
+                                <ul class="list-group position-absolute w-100 mt-1 shadow" id="sugerencias"
+                                    style="z-index: 99; display: none;"></ul>
+                            </form>
                         @endcan
                     </div>
 
@@ -133,11 +133,16 @@
                     <button type="button" class="btn btn-sm btn-danger" onclick="closeDropdown()">×</button>
                 </div>
                 <div class="role-dropdown-content mb-2">
+                    <div class="form-check">
+                        <input type="radio" name="roles[]" value="" class="form-check-input" id="radio_none">
+                        <label class="form-check-label text-muted" for="radio_none">Sin rol</label>
+                    </div>
+
                     @foreach ($roles as $role)
                         <div class="form-check">
-                            <input type="checkbox" name="roles[]" value="{{ $role->name }}" class="form-check-input"
-                                id="check_{{ $role->id }}">
-                            <label class="form-check-label" for="check_{{ $role->id }}">{{ $role->name }}</label>
+                            <input type="radio" name="roles[]" value="{{ $role->name }}" class="form-check-input"
+                                id="radio_{{ $role->id }}">
+                            <label class="form-check-label" for="radio_{{ $role->id }}">{{ $role->name }}</label>
                         </div>
                     @endforeach
                 </div>
@@ -154,5 +159,5 @@
         <script>
             window.usuariosData = @json($usuariosData ?? []);
         </script>
-        <script src="{{ asset('js/Gestion-de-usuarios.js') }}"></script>
+        <script src="{{ asset('js/Administrador/Gestion-de-usuarios.js') }}"></script>
     @endpush

@@ -216,3 +216,14 @@ h2 {
     display: flex;
     justify-content: flex-end;
 }
+.link-productos-agrupacion {
+    color: #2f7d32;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.link-productos-agrupacion:hover {
+    color: #eda407;
+    text-decoration: underline;
+}

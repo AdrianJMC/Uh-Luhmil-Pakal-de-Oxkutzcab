@@ -1,0 +1,149 @@
+.small-box-footer.text-white,
+.small-box-footer.text-white:hover {
+    color: #fff !important;
+}
+
+.small-box .icon i {
+    font-size: 3rem !important;
+    /* Reduce de ~60px a ~40px */
+}
+
+.dashboard-table-card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    box-shadow: none !important;
+    transition: none !important;
+}
+
+.dashboard-table-card .card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    padding: 0.75rem 1.25rem;
+}
+
+.dashboard-table-card .card-title {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.dashboard-table-card .card-body {
+    padding: 0;
+}
+/* Estilo de encabezado verde con texto blanco */
+.tabla-personalizada thead tr {
+    background-color: #2f7d32; /* Verde base */
+    color: white;
+}
+
+.tabla-personalizada thead th {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Filas alternadas */
+.tabla-personalizada tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+.tabla-personalizada tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Color del texto en las celdas */
+.tabla-personalizada tbody td {
+    color: #000000; /* Mismo verde que usas en botones */
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Centrar texto de columnas si deseas (opcional) */
+.tabla-personalizada td,
+.tabla-personalizada th {
+    padding: 0.75rem;
+}
+
+.small-box .inner h3 {
+  font-size: 1.8rem;              /* Tamaño adaptable */
+  white-space: nowrap;           /* No hacer saltos de línea */
+  overflow: hidden;              /* Oculta lo que se desborda */
+  text-overflow: ellipsis;      /* Añade "..." si se pasa */
+}
+@media (max-width: 576px) {
+  .small-box .inner h3 {
+    font-size: 1.3rem;
+  }
+}
+.pedido-card-mobile {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+}
+
+
+.pedido-card-mobile p {
+    margin-bottom: 0.2rem;
+}
+
+.pedido-card-mobile strong {
+    color: #2f7d32; /* tu verde base */
+}
+@media (max-width: 768px) {
+    .dashboard-table-card .card-body {
+        background-color: transparent !important;
+    }
+
+    .dashboard-table-card {
+        background-color: transparent !important;
+        border: none !important;
+    }
+
+    .dashboard-table-card .card-header {
+        background-color: transparent !important;
+        border-bottom: none !important;
+    }
+}
+/* dashboard-grafica.css */
+
+.grafica-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.grafica-header {
+    background-color: #f8f9fa;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.grafica-body {
+    padding: 1.5rem;
+    position: relative;
+    height: 300px;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+    .grafica-body {
+        padding: 1rem;
+        height: 250px;
+    }
+}
+
+/* Botón de "Ver todos los pedidos" con estilo personalizado */
+.btn-ver-pedidos {
+    background-color: #2f7d32;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-ver-pedidos:hover {
+    background-color: #eda407;
+    color: #fff;
+}

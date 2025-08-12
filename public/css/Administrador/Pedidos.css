@@ -80,29 +80,16 @@
     }
 }
 
-/* Estilo para el ícono */
-.icono-ver-productos {
+/* estilo para botones de productos */
+.btn-productos-link {
     color: #2f7d32;
-    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
     transition: color 0.2s ease;
 }
 
-/* Hover sobre todo el botón */
-.btn-ver-productos:hover .icono-ver-productos {
+.btn-productos-link:hover {
     color: #eda407;
+    text-decoration: underline;
+    cursor: pointer;
 }
-
-/* Texto debajo del ícono */
-.btn-ver-productos-text {
-    font-size: 0.8rem;
-    color: #333;
-
-    font-weight: 700;
-    margin-top: 2px;
-}
-
-/* Estilo general del botón */
-.btn-ver-productos {
-    text-decoration: none;
-}
-

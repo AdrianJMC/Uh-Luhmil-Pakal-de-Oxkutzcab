@@ -100,6 +100,7 @@ Route::prefix('agrupaciones')
         Route::get('/pedidos/{pedido}/productos', [AgrupacionPedidoController::class, 'verProductos'])->name('pedidos.ver');
     });
 
+    
 // -----------------------------
 // CARRITO Y PEDIDO (USUARIOS AUTENTICADOS)
 // -----------------------------
@@ -202,6 +203,6 @@ Route::prefix('admin')
         // === Pedidos ===
         Route::middleware(['auth', 'permission:ver_pedidos|ver_productos_pedido'])->group(function () {
             Route::get('/pedidos', [PedidoAdminController::class, 'index'])->middleware('permission:ver_pedidos')->name('pedidos.index');
-            Route::get('/pedidos/{pedido}/productos', [PedidoAdminController::class, 'verProductos'])->middleware('permission:ver_productos_pedido')->name('pedidos.ver-productos');
+            //Route::get('/pedidos/{pedido}/productos', [PedidoAdminController::class, 'verProductos'])->middleware('permission:ver_productos_pedido')->name('pedidos.ver-productos');
         });
     });

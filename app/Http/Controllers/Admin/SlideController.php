@@ -26,21 +26,41 @@ class SlideController extends Controller
     // 3) Store: guarda el slide en BD
     public function store(Request $request)
     {
-        // Verifica si ya hay 6 slides
-        if (Slide::count() >= 6) {
-            return redirect()->back()
-                ->with('error', 'Ya has alcanzado el límite máximo de 6 slides.');
-        }
-
+        // Validación
         $data = $request->validate([
             'titulo'      => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
-            'orden'       => 'required|integer',
-            'imagen'      => 'required|image',
+            'descripcion' => 'required|string|max:1000',
+            'orden'       => 'required|integer|min:1|max:100',
+            'imagen'      => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+        ], [
+            'titulo.required'      => 'El título es obligatorio.',
+            'titulo.max'           => 'El título no puede tener más de 255 caracteres.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'descripcion.max'      => 'La descripción no puede tener más de 1000 caracteres.',
+            'orden.required'       => 'El número de orden es obligatorio.',
+            'orden.integer'        => 'El número de orden debe ser un número entero.',
+            'orden.min'            => 'El número de orden debe ser al menos 1.',
+            'orden.max'            => 'El número de orden no puede ser mayor a 100.',
+            'imagen.required'      => 'Debe subir una imagen.',
+            'imagen.image'         => 'El archivo debe ser una imagen válida.',
+            'imagen.mimes'         => 'La imagen debe estar en formato jpeg, png, jpg o webp.',
+            'imagen.max'           => 'La imagen no puede superar los 5MB.',
         ]);
 
-        $data['imagen_ruta'] = $this->subirACloudinary($request->file('imagen'));
 
+        // Verifica si ya hay 6 slides
+        if (Slide::count() >= 6) {
+            return redirect()->back()->with('error', 'Ya has alcanzado el límite máximo de 6 slides.');
+        }
+
+        // Verifica si el número de orden ya existe
+        $ordenExistente = Slide::where('orden', $data['orden'])->exists();
+        if ($ordenExistente) {
+            return back()->withInput()->withErrors(['orden' => 'Ya existe un slide con ese número de orden.']);
+        }
+
+        // Subida de imagen y creación
+        $data['imagen_ruta'] = $this->subirACloudinary($request->file('imagen'));
         Slide::create($data);
 
         return redirect()->route('admin.slides.index')->with('success', 'Slide creado correctamente.');
@@ -57,11 +77,31 @@ class SlideController extends Controller
     {
         $data = $request->validate([
             'titulo'      => 'required|string|max:255',
-            'descripcion' => 'nullable|string',
-            'orden'       => 'required|integer',
-            'imagen'      => 'nullable|image',
+            'descripcion' => 'required|string|max:1000',
+            'orden'       => 'required|integer|min:1|max:100',
+        ], [
+            'titulo.required'      => 'El título es obligatorio.',
+            'titulo.max'           => 'El título no puede tener más de 255 caracteres.',
+            'descripcion.required' => 'La descripción es obligatoria.',
+            'descripcion.max'      => 'La descripción no puede tener más de 1000 caracteres.',
+            'orden.required'       => 'El número de orden es obligatorio.',
+            'orden.integer'        => 'El número de orden debe ser un número entero.',
+            'orden.min'            => 'El número de orden debe ser al menos 1.',
+            'orden.max'            => 'El número de orden no puede ser mayor a 100.',
+            'imagen.required'      => 'Debe subir una imagen.',
+            'imagen.image'         => 'El archivo debe ser una imagen válida.',
+            'imagen.mimes'         => 'La imagen debe estar en formato jpeg, png, jpg o webp.',
+            'imagen.max'           => 'La imagen no puede superar los 5MB.',
         ]);
+        // Verificar si el orden ya está usado por otro slide
+        $ordenExistente = Slide::where('orden', $data['orden'])
+            ->where('id', '!=', $slide->id)
+            ->exists();
+        if ($ordenExistente) {
+            return back()->withInput()->withErrors(['orden' => 'Ya existe un slide con ese número de orden.']);
+        }
 
+        // Subir nueva imagen si se envió
         if ($request->hasFile('imagen')) {
             $this->borrarDeCloudinary($slide->imagen_ruta);
             $data['imagen_ruta'] = $this->subirACloudinary($request->file('imagen'));
@@ -69,9 +109,7 @@ class SlideController extends Controller
 
         $slide->update($data);
 
-        return redirect()
-            ->route('admin.slides.index')
-            ->with('success', 'Slide actualizado correctamente.');
+        return redirect()->route('admin.slides.index')->with('success', 'Slide actualizado correctamente.');
     }
 
     // 6) Destroy: elimina un slide

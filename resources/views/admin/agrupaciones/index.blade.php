@@ -192,5 +192,5 @@
         window.agrupacionesPendientes = @json($agrupacionesPendientesJson);
     </script>
 
-    <script src="{{ asset('js/Gestor-agrupaciones.js') }}"></script>
+    <script src="{{ asset('js/Administrador/Gestor-agrupaciones.js') }}"></script>
 @endpush

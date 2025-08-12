@@ -13,6 +13,7 @@
                 <form action="{{ route('admin.infos.store') }}" method="POST" enctype="multipart/form-data"
                     id="info-form" novalidate>
                     @csrf
+                    <input type="hidden" name="_origin" value="crear">
 
                     {{-- Switch: tipo video --}}
                     <div class="mb-3">

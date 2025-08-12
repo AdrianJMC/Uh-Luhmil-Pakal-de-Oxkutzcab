@@ -14,12 +14,11 @@
             <a href="{{ route('admin.pages.index') }}#pane-inicio" class="back-circle" title="Volver a Secciones Web">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
                     class="bi bi-arrow-left back-arrow-icon" aria-hidden="true">
-                    <path fill-rule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5
-                                                                                                0 1 0-.708-.708l-4 4a.5.5
-                                                                                                0 0 0 0 .708l4 4a.5.5
-                                                                                                0 0 0 .708-.708L2.707
-                                                                                                8.5H14.5A.5.5 0 0 0 15 8z" />
+                    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5
+                                0 1 0-.708-.708l-4 4a.5.5
+                                0 0 0 0 .708l4 4a.5.5
+                                0 0 0 .708-.708L2.707
+                                8.5H14.5A.5.5 0 0 0 15 8z" />
                 </svg>
             </a>
             Información Importante
@@ -33,12 +32,14 @@
         </h2>
 
         @if (session('error'))
-            <div id="error-alert" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div id="error-alert" class="alert alert-danger alert-dismissible fade show agrupaciones-alert-success"
+                role="alert">
                 {{ session('error') }}
             </div>
         @endif
         @if (session('success'))
-            <div id="success-alert" class="alert alert-success alert-dismissible fade show" role="alert">
+            <div id="success-alert" class="alert alert-success alert-dismissible fade show agrupaciones-alert-success"
+                role="alert">
                 {{ session('success') }}
             </div>
         @endif
@@ -159,6 +160,11 @@
                     $alert.alert('close');
                 }, 5000); // ⏱️ 5 segundos
             }
+
+            // Reabrir modal si hubo errores de validación en el formulario de creación
+            @if ($errors->any() && old('_origin') === 'crear')
+                $('#modalCrearInfo').modal('show');
+            @endif
         });
     </script>
 @endsection
