@@ -94,6 +94,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/Web/home.js') }}"></script>
-    <script src="{{ asset('js/loader.js') }}"></script>
+    <script src="@assetAuto('js/Web/home.js')"></script>
+    <script src="@assetAuto('js/loader.js')"></script>
 @endpush

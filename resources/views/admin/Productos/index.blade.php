@@ -173,5 +173,5 @@
     </script>
 
     <!-- Cargamos el bundle solo en esta página -->
-    <script src="{{ asset('js/Administrador/Gestor-Productos.js') }}"></script>
+    <script src="@assetAuto('js/Administrador/Gestor-Productos.js')"></script>
 @endpush

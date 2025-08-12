@@ -233,12 +233,12 @@
             {{-- Logos de alianzas --}}
             <div class="row justify-content-center align-items-center mt-5">
                 <div class="col-6 col-md-3 mb-4">
-                    <img src="{{ asset('images/itssy-logo.png') }}" alt="Logo ITSSY" class="img-fluid"
+                    <img src="@assetAuto('images/itssy-logo.png')" alt="Logo ITSSY" class="img-fluid"
                         style="max-height: 150px;">
                     <p class="mt-2">ITSSY</p>
                 </div>
                 <div class="col-6 col-md-3 mb-4">
-                    <img src="{{ asset('images/sefoe-logo.png') }}" alt="Logo SEFOE" class="img-fluid"
+                    <img src="@assetAuto('images/sefoe-logo.png')" alt="Logo SEFOE" class="img-fluid"
                         style="max-height: 500px;">
                     <p class="mt-2">Secretaría de Fomento Económico</p>
                 </div>
@@ -248,5 +248,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/loader.js') }}"></script>
+    <script src="@assetAuto('js/loader.js')"></script>
 @endpush

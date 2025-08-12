@@ -256,6 +256,6 @@
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="{{ asset('js/Administrador/dashboard.js') }}"></script>
-    <script src="{{ asset('js/loader.js') }}"></script>
+    <script src="@assetAuto('js/Administrador/dashboard.js')"></script>
+    <script src="@assetAuto('js/loader.js')"></script>
 @endpush

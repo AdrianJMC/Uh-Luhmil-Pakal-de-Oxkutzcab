@@ -18,7 +18,7 @@
                             <div class="card-body">
                                 {{-- Imagen de la hoja --}}
                                 <div class="logo-hoja mb-3">
-                                    <img src="{{ asset('images/hoja.png') }}" alt="Logo hoja" class="img-hoja">
+                                    <img src="@assetAuto('images/hoja.png')" alt="Logo hoja" class="img-hoja">
                                 </div>
 
                                 {{-- Nombre agrupación --}}

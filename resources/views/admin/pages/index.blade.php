@@ -118,5 +118,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/Gestiones-web.js') }}"></script>
+    <script src="@assetAuto('js/Gestiones-web.js')"></script>
 @endpush

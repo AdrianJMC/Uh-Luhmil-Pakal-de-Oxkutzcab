@@ -9,42 +9,42 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'AdminLTE')</title>
-    <link rel="icon" href="{{ asset($faviconPath) }}" type="image/png">
+    <link rel="icon" href="@assetAuto($faviconPath)" type="image/png">
 
     <!-- Google Font -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/fontawesome-free/css/all.min.css')">
     <!-- Ionicons (opcional) -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus -->
     <link rel="stylesheet"
-        href="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+        href="@assetAuto('adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')">
     <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')">
     <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/jqvmap/jqvmap.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/jqvmap/jqvmap.min.css')">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/dist/css/adminlte.min.css')">
 
     <!-- Tus estilos personalizados para Admin -->
-    <link rel="stylesheet" href="{{ asset('css/Administrador/admin-custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/Diseño-Index-Create-Edit.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestion-de-usuarios.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestion-de-Perfiles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/gestor-agrupaciones.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/gestor-productos.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/Gestor-Catalogos.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Administrador/Pedidos.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/admin-custom.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/Diseño-Index-Create-Edit.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/Gestion-de-usuarios.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/Gestion-de-Perfiles.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/gestor-agrupaciones.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/gestor-productos.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/Gestor-Catalogos.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Administrador/Pedidos.css')">
+    <link rel="stylesheet" href="@assetAuto('css/loader.css')">
 
     <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/daterangepicker/daterangepicker.css')">
     <!-- Summernote -->
-    <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="@assetAuto('adminlte/plugins/summernote/summernote-bs4.min.css')">
 
     @stack('styles')
 </head>
@@ -72,43 +72,43 @@
 
     {{-- Loader --}}
 
-    <script src="{{ asset('js/loader.js') }}"></script>
+    <script src="@assetAuto('js/loader.js')"></script>
 
 
     <!-- jQuery -->
-    <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/jquery/jquery.min.js')"></script>
     <!-- jQuery UI -->
-    <script src="{{ asset('adminlte/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/jquery-ui/jquery-ui.min.js')"></script>
     <script>
         // Resuelve conflicto jQuery UI tooltip / Bootstrap tooltip
         $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
-    <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')"></script>
     <!-- ChartJS -->
-    <script src="{{ asset('adminlte/plugins/chart.js/Chart.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/chart.js/Chart.min.js')"></script>
     <!-- Sparkline -->
-    <script src="{{ asset('adminlte/plugins/sparklines/sparkline.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/sparklines/sparkline.js')"></script>
     <!-- JQVMap -->
-    <script src="{{ asset('adminlte/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/jqvmap/jquery.vmap.min.js')"></script>
+    <script src="@assetAuto('adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js')"></script>
     <!-- jQuery Knob -->
-    <script src="{{ asset('adminlte/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/jquery-knob/jquery.knob.min.js')"></script>
     <!-- daterangepicker -->
-    <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
-    <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/moment/moment.min.js')"></script>
+    <script src="@assetAuto('adminlte/plugins/daterangepicker/daterangepicker.js')"></script>
     <!-- Tempusdominus -->
-    <script src="{{ asset('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')"></script>
     <!-- Summernote -->
-    <script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/summernote/summernote-bs4.min.js')"></script>
     <!-- overlayScrollbars -->
-    <script src="{{ asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="@assetAuto('adminlte/dist/js/adminlte.min.js')"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
+    <script src="@assetAuto('adminlte/dist/js/demo.js')"></script>
     <!-- AdminLTE dashboard demo (opcional) -->
-    <script src="{{ asset('adminlte/dist/js/pages/dashboard.js') }}"></script>
+    <script src="@assetAuto('adminlte/dist/js/pages/dashboard.js')"></script>
     <!-- Bootstrap CSS (solo si aún no lo tienes) -->
 
     <!-- 4) Scripts específicos de cada vista -->

@@ -9,10 +9,10 @@
             <div class="col-sm-8 col-md-7 col-lg-6 wow fadeInLeft" data-wow-delay="0s">
                 {{-- Banner o contenido fijo --}}
                 <div class="product-banner">
-                    <img src="{{ asset('images/Organic-Vegetables.avif') }}" alt="Productos orgánicos" width="570"
+                    <img src="@assetAuto('images/Organic-Vegetables.avif')" alt="Productos orgánicos" width="570"
                         height="715">
                     <div class="product-banner-content">
-                        <div class="product-banner-inner" style="background-image: url('{{ asset('images/') }}')">
+                        <div class="product-banner-inner" style="background-image: url('@assetAuto('images/')')">
                             <h3 class="text-secondary-1">Frescura</h3>
                             <h2 class="text-primary">Natural</h2>
                         </div>

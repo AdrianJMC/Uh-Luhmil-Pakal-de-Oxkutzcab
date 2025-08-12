@@ -22,7 +22,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'Uh Luhmil Pakal')</title>
-    <link rel="icon" href="{{ asset($faviconPath) }}" type="image/png">
+    <link rel="icon" href="@assetAuto($faviconPath)" type="image/png">
 
     <!-- ============================
          CSS DE TERCEROS
@@ -38,13 +38,13 @@
          FUENTES E ICONOS
     ============================ -->
     <!-- Tus fuentes personalizadas -->
-    <link rel="stylesheet" href="{{ asset('css/fonts.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Web/Agrupaciones-asociadas.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Web/catalogo.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Web/Catalogo-inicio.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Web/Registro-proveedores-page.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/Web/carrito-compras.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+    <link rel="stylesheet" href="@assetAuto('css/fonts.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Web/Agrupaciones-asociadas.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Web/catalogo.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Web/Catalogo-inicio.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Web/Registro-proveedores-page.css')">
+    <link rel="stylesheet" href="@assetAuto('css/Web/carrito-compras.css')">
+    <link rel="stylesheet" href="@assetAuto('css/loader.css')">
 
 
     <!-- Bootstrap Icons -->
@@ -58,13 +58,13 @@
          CSS COMPILADO DE LA APLICACIÓN
     ============================ -->
     <!-- app.css generado por Laravel Mix o tu proceso de build -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="@assetAuto('css/app.css')">
 
     <!-- ============================
         CSS PARA TODO LO RELACIONA CON EL HOME
     ============================ -->
     <!-- CSS RELACIONADO CON LA PLANTILLA -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}">
+    <link rel="stylesheet" href="@assetAuto('css/style.css')?v={{ filemtime(public_path('css/style.css')) }}">
     <!-- MIS CSS PROPIOS-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
@@ -117,7 +117,7 @@
 
     <!-- Loader -->
     @if (!empty($mostrarLoader))
-        <script src="{{ asset('js/loader.js') }}"></script>
+        <script src="@assetAuto('js/loader.js')"></script>
     @endif
     <!-- Leaflet JS para mapas -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -136,10 +136,10 @@
     ============================ -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- app.js: tu bundle principal (Vue, Alpine, utilidades, etc.) -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="@assetAuto('js/app.js')"></script>
     <!-- core.min.js y script.js: librerías adicionales y scripts globales -->
-    <script src="{{ asset('js/core.min.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="@assetAuto('js/core.min.js')"></script>
+    <script src="@assetAuto('js/script.js')"></script>
 
     <!-- ============================
          LAZY-LOAD Y RETINA IMAGENES

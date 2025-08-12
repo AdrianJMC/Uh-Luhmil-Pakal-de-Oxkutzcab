@@ -159,5 +159,5 @@
         <script>
             window.usuariosData = @json($usuariosData ?? []);
         </script>
-        <script src="{{ asset('js/Administrador/Gestion-de-usuarios.js') }}"></script>
+        <script src="@assetAuto('js/Administrador/Gestion-de-usuarios.js')"></script>
     @endpush
