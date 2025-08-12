@@ -37,5 +37,10 @@ class AppServiceProvider extends ServiceProvider
             $productCount = count($cart);
             $view->with('cartCount', $productCount > 5 ? '5+' : $productCount);
         });
+
+        // Registrar helper global Blade
+        Blade::directive('assetAuto', function ($expression) {
+            return "<?php echo app()->environment('production') ? secure_asset($expression) : asset($expression); ?>";
+        });
     }
 }
