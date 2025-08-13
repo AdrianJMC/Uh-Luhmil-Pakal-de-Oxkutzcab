@@ -11,7 +11,7 @@
 
             <div class="info-form-card-body">
                 <form action="{{ route('admin.infos.store') }}" method="POST" enctype="multipart/form-data"
-                    id="info-form" novalidate>
+                    id="info-form" onsubmit="this.querySelector('button[type=submit]').disabled=true;" novalidate>
                     @csrf
                     <input type="hidden" name="_origin" value="crear">
 
@@ -35,16 +35,6 @@
                                     class="form-control-custom @error('titulo') is-invalid @enderror"
                                     value="{{ old('titulo') }}" {{ old('is_video') ? '' : 'required' }}>
                                 @error('titulo')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="orden" class="form-label-highlight">Orden de aparición</label>
-                                <input type="number" id="orden" name="orden"
-                                    class="form-control-custom @error('orden') is-invalid @enderror"
-                                    value="{{ old('orden', 0) }}" required>
-                                @error('orden')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -95,17 +85,18 @@
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
                                 @enderror
                             </div>
-
-                            <div class="col-md-6">
-                                <label for="orden_video" class="form-label-highlight">Orden de aparición</label>
-                                <input type="number" id="orden_video" name="orden"
-                                    class="form-control-custom @error('orden') is-invalid @enderror"
-                                    value="{{ old('orden', 0) }}" required>
-                                @error('orden')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
+                    </div>
+
+                    {{-- Campo ORDEN compartido --}}
+                    <div class="col-md-6">
+                        <label for="orden" class="form-label-highlight">Orden de aparición</label>
+                        <input type="number" id="orden" name="orden"
+                            class="form-control-custom @error('orden') is-invalid @enderror"
+                            value="{{ old('orden', 1) }}" required min="1" max="10">
+                        @error('orden')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="d-flex justify-content-end mt-3">
@@ -120,40 +111,38 @@
 </div>
 
 <script>
+    function setDisabled(container, disabled) {
+        container.querySelectorAll('input, select, textarea').forEach(el => {
+            if (disabled) el.setAttribute('disabled', 'disabled');
+            else el.removeAttribute('disabled');
+        });
+    }
+
     function toggleCamposCreate() {
         const switchVideo = document.getElementById('is_video');
         const campoNormal = document.getElementById('campo-normal');
         const campoVideo = document.getElementById('campo-video');
 
-        if (switchVideo.checked) {
-            campoNormal.classList.add('d-none');
-            campoVideo.classList.remove('d-none');
+        const isVideo = switchVideo.checked;
 
-            // Quitar "required" a los campos de contenido normal
-            document.getElementById('titulo')?.removeAttribute('required');
-            document.getElementById('texto')?.removeAttribute('required');
-            document.getElementById('imagen_normal')?.removeAttribute('required');
+        campoNormal.classList.toggle('d-none', isVideo);
+        campoVideo.classList.toggle('d-none', !isVideo);
 
-            // Agregar "required" al video
-            document.getElementById('video_id')?.setAttribute('required', 'required');
-        } else {
-            campoNormal.classList.remove('d-none');
-            campoVideo.classList.add('d-none');
+        // required dinámicos
+        document.getElementById('titulo')?.toggleAttribute?.('required', !isVideo);
+        document.getElementById('texto')?.toggleAttribute?.('required', !isVideo);
+        document.getElementById('imagen_normal')?.toggleAttribute?.('required', !isVideo);
+        document.getElementById('video_id')?.toggleAttribute?.('required', isVideo);
 
-            // Reagregar "required"
-            document.getElementById('titulo')?.setAttribute('required', 'required');
-            document.getElementById('texto')?.setAttribute('required', 'required');
-            document.getElementById('imagen_normal')?.setAttribute('required', 'required');
-
-            // Quitar "required" al video
-            document.getElementById('video_id')?.removeAttribute('required');
-        }
+        // evitar envío de inputs ocultos
+        setDisabled(campoNormal, isVideo);
+        setDisabled(campoVideo, !isVideo);
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', () => {
         const switchVideo = document.getElementById('is_video');
         if (switchVideo) {
-            toggleCamposCreate(); // Aplica estado inicial
+            toggleCamposCreate();
             switchVideo.addEventListener('change', toggleCamposCreate);
         }
     });
