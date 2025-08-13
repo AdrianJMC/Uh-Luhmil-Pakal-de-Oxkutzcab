@@ -16,7 +16,7 @@ class PedidoAdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(20);
 
-        return view('admin.pedidos.index', compact('pedidos'));
+        return view('admin.Pedidos.index', compact('pedidos'));
     }
 
 
@@ -37,6 +37,6 @@ class PedidoAdminController extends Controller
         ]);
         $pedidos = Pedido::with('productos.producto.agrupacion')->paginate(10);
 
-        return view('admin.pedidos.show-producto', compact('pedido', 'paginados'));
+        return view('admin.Pedidos.show-producto', compact('pedido', 'paginados'));
     }
 }

@@ -165,9 +165,11 @@
         {{ $productosPendientes->links('pagination::bootstrap-4') }}
     </div>
 
-    @include('admin.Productos.modals.modal-elimiar-producto')
-    {{-- Modal de motivo de rechazo para productos individuales --}}
-    @include('admin.Productos.modals.modal-motivo-rechazo')
+    {{-- Modales para productos individuales --}}
+    @foreach ($productosPendientes as $producto)
+        @include('admin.Productos.modals.modal-elimiar-producto', ['producto' => $producto])
+        @include('admin.Productos.modals.modal-motivo-rechazo', ['producto' => $producto])
+    @endforeach
     {{-- Modal de rechazo masivo para eliminar productos seleccionados --}}
     @include('admin.Productos.modals.modal-rechazo-masivo')
 
