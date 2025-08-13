@@ -7,8 +7,13 @@
     @endphp
 
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
-        <img src="{{ Str::startsWith($logoPath, 'http') ? $logoPath : @assetAuto($logoPath) }}" alt="Logo"
-            class="brand-image img-circle elevation-3 bg-white p-1" style="opacity: 1">
+        @if (Str::startsWith($logoPath, ['http://', 'https://']))
+            <img src="{{ $logoPath }}" alt="Logo" class="brand-image img-circle elevation-3 bg-white p-1"
+                style="opacity:1">
+        @else
+            <img src="@assetAuto($logoPath)" alt="Logo" class="brand-image img-circle elevation-3 bg-white p-1"
+                style="opacity:1">
+        @endif
         <span class="brand-text font-weight-light">Administrador</span>
     </a>
 
@@ -18,8 +23,7 @@
         @auth('agrupacion')
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="@assetAuto('adminlte/dist/img/user2-160x160.jpg')" class="img-circle elevation-2"
-                        alt="User Image">
+                    <img src="@assetAuto('adminlte/dist/img/user2-160x160.jpg')" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">

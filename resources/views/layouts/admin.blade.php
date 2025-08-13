@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'AdminLTE')</title>
+    <title>@yield('title', 'Administrador')</title>
     <link rel="icon" href="@assetAuto($faviconPath)" type="image/png">
 
     <!-- Google Font -->

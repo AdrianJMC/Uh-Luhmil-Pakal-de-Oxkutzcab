@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Error')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="@assetAuto($faviconPath)" type="image/png">
 
     {{-- Estilos personalizados --}}
     <style>
