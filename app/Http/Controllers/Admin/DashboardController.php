@@ -13,6 +13,9 @@ use App\Models\PedidoProducto;
 
 class DashboardController extends Controller
 {
+    /**
+     * Muestra el dashboard de administración.
+     */
     public function index()
     {
         $totalPedidos            = \App\Models\Pedido::count();
@@ -20,8 +23,7 @@ class DashboardController extends Controller
         $agrupacionesAprobadas   = \App\Models\Agrupacion::where('estado', 'aprobado')->count();
         $totalProductosAprobados = \App\Models\Producto::where('estado', 'aprobado')->count();
 
-        // ---- Expresiones por motor ----
-        $driver = DB::getDriverName(); // 'sqlite' | 'mysql' | 'pgsql' | 'mariadb'
+        $driver = DB::getDriverName(); // 'sqlite' | 'mysql' | 'pgsql'
 
         if ($driver === 'sqlite') {
             $yearExpr  = "CAST(strftime('%Y', created_at) AS INT)";
@@ -31,13 +33,12 @@ class DashboardController extends Controller
             $yearExpr  = "EXTRACT(YEAR FROM created_at)";
             $monthExpr = "EXTRACT(MONTH FROM created_at)";
             $dayExpr   = "CAST(created_at AS date)";
-        } else { // mysql / mariadb
+        } else { // mysql/mariadb
             $yearExpr  = "YEAR(created_at)";
             $monthExpr = "MONTH(created_at)";
             $dayExpr   = "DATE(created_at)";
         }
 
-        // ---- Ventas por mes (anio, mes) ----
         $ventasPorMes = \App\Models\Pedido::selectRaw("
             $yearExpr  AS anio,
             $monthExpr AS mes,
@@ -47,14 +48,12 @@ class DashboardController extends Controller
             ->orderByRaw("$yearExpr ASC, $monthExpr ASC")
             ->get();
 
-        // ---- Ventas por categoría ----
         $ventasPorCategoria = DB::table('pedido_productos')
             ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
             ->select('productos.categoria', DB::raw('COUNT(*) as total'))
             ->groupBy('productos.categoria')
             ->get();
 
-        // ---- Top 3 agrupaciones por cantidad ----
         $ventasPorAgrupacion = \App\Models\PedidoProducto::selectRaw('agrupaciones.nombre_agrupacion as nombre, SUM(pedido_productos.cantidad) as total')
             ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
             ->join('agrupaciones', 'productos.agrupacion_id', '=', 'agrupaciones.id')
@@ -63,12 +62,20 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
-        // ---- Ventas por día (últimos 7) ----
         $hace7 = Carbon::now()->subDays(7);
         $ventasPorDia = \App\Models\Pedido::selectRaw("$dayExpr AS fecha, SUM(total) AS total")
             ->where('created_at', '>=', $hace7)
             ->groupByRaw("$dayExpr")
             ->orderByRaw("$dayExpr ASC")
+            ->get();
+
+        // 🔹 Esto faltaba:
+        $topProductos = DB::table('pedido_productos')
+            ->join('productos', 'pedido_productos.producto_id', '=', 'productos.id')
+            ->select('productos.nombre', DB::raw('SUM(pedido_productos.cantidad) as total_vendidos'))
+            ->groupBy('productos.nombre')
+            ->orderByDesc('total_vendidos')
+            ->limit(10)
             ->get();
 
         return view('admin.dashboard', compact(
@@ -79,7 +86,8 @@ class DashboardController extends Controller
             'ventasPorMes',
             'ventasPorCategoria',
             'ventasPorAgrupacion',
-            'ventasPorDia'
+            'ventasPorDia',
+            'topProductos' // 👈 agrégalo aquí
         ));
     }
 }
