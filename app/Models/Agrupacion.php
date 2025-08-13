@@ -18,7 +18,7 @@ class Agrupacion extends Authenticatable
         'nombre_agrupacion',
         'nombre_representante',
         'email_representante',
-        'curp_representante',
+        'curp',
         'rfc_agrupacion',
         'direccion_agrupacion',
         'superficie_cosecha',

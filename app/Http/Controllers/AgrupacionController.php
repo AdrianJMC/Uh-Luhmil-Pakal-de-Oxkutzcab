@@ -57,7 +57,7 @@ class AgrupacionController extends Controller
     {
         // Normaliza a mayúsculas para pasar tu regex [A-Z0-9]{18}
         $request->merge([
-            'curp_representante' => strtoupper((string)$request->curp_representante),
+            'curp'            => strtoupper((string)($request->curp ?? $request->curp_representante ?? '')),
             'rfc_agrupacion'     => strtoupper((string)$request->rfc_agrupacion),
         ]);
 
@@ -101,13 +101,7 @@ class AgrupacionController extends Controller
                 'nombre_agrupacion'    => 'required|string|max:255',
                 'nombre_representante' => 'required|string|max:255',
                 'email_representante'  => 'required|email|max:255|unique:agrupaciones,email_representante',
-                'curp_representante'   => [
-                    'required',
-                    'string',
-                    'size:18',
-                    'regex:/^[A-Z0-9]{18}$/',
-                    Rule::unique('agrupaciones', $curpColumn),
-                ],
+                'curp'                 => ['required', 'string', 'size:18', 'regex:/^[A-Z0-9]{18}$/', Rule::unique('agrupaciones', 'curp')],
                 'rfc_agrupacion'       => [
                     'required',
                     'string',

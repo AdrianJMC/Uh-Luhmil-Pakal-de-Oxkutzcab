@@ -32,7 +32,7 @@
 
                 <div class="col-md-6">
                     <label class="agrupacion-form-label">CURP del Representante</label>
-                    <input type="text" class="agrupacion-form-input" value="{{ $agrupacion->curp_representante }}"
+                    <input type="text" class="agrupacion-form-input" value="{{ $agrupacion->curp }}"
                         readonly>
                 </div>
 

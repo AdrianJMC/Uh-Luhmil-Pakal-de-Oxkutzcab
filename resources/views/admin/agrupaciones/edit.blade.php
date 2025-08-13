@@ -31,8 +31,8 @@
 
                 <div class="col-md-6">
                     <label class="agrupacion-form-label" for="curp_representante">CURP del representante</label>
-                    <input type="text" name="curp_representante" class="agrupacion-form-input"
-                        value="{{ $agrupacion->curp_representante }}">
+                    <input type="text" name="curp" class="agrupacion-form-input"
+                        value="{{ $agrupacion->curp }}">
                 </div>
 
                 <div class="col-md-6">
