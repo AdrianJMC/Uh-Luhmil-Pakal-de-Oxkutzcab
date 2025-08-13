@@ -53,10 +53,10 @@
     <div class="wrapper">
 
         {{-- Navbar --}}
-        @include('partials.admin.navbar')
+        @include('partials.Admin.navbar')
 
         {{-- Sidebar --}}
-        @include('partials.admin.sidebar')
+        @include('partials.Admin.sidebar')
 
         @include('components.loader')
 
