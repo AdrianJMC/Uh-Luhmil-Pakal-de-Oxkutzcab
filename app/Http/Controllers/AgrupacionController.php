@@ -144,6 +144,10 @@ class AgrupacionController extends Controller
         // Guardar como string (si prefieres JSON: json_encode($validated['tipo_maquinaria']))
         $validated['tipo_maquinaria'] = implode(', ', $validated['tipo_maquinaria']);
 
+        // MAPEO CLAVE: la DB espera 'curp'
+        $validated['curp'] = $validated['curp_representante'];
+        unset($validated['curp_representante']);
+
         Agrupacion::create($validated);
 
         return redirect()->route('agrupaciones.create')->with('success', true);
