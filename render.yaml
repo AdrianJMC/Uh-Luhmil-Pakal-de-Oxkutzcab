@@ -4,14 +4,16 @@ services:
     env: php
     buildCommand: |
       composer install --no-interaction --prefer-dist --optimize-autoloader
-      mkdir -p storage/logs bootstrap/cache database
-      touch storage/logs/laravel.log database/database.sqlite
+      mkdir -p storage/logs bootstrap/cache
+      touch storage/logs/laravel.log
       chmod -R 775 storage bootstrap/cache
     startCommand: |
-     mkdir -p /opt/render/project/src/database
-      touch /opt/render/project/src/database/database.sqlite
+      set -e
+      mkdir -p /opt/render/project/src/database
+      [ -f /opt/render/project/src/database/database.sqlite ] || touch /opt/render/project/src/database/database.sqlite
+      php artisan config:clear
       php artisan storage:link || true
-       artisan migrate --force || true
+      php artisan migrate --force || true
       php artisan config:cache
       php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
@@ -21,6 +23,12 @@ services:
         value: https://uh-luhmil-pakal.onrender.com
       - key: FORCE_HTTPS
         value: true
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /opt/render/project/src/database/database.sqlite
+      - key: SESSION_DRIVER
+        value: file
 
       # 🔑 Laravel
       # (Define APP_KEY en el panel de Render como Secret; no lo subas al repo)
