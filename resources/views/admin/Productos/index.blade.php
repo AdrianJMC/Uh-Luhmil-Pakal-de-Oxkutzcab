@@ -139,7 +139,7 @@
             </div>
 
             {{-- TAB Pendientes: se incluye desde el parcial --}}
-            @include('admin.productos._productos-pendientes', [
+            @include('admin.Productos._productos-pendientes', [
                 'productosPendientes' => $productosPendientes,
             ])
         </div>

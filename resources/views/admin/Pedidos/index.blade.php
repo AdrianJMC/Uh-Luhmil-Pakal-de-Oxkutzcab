@@ -79,7 +79,7 @@
                             </table>
                             {{-- Modales de productos --}}
                             @foreach ($pedidos as $pedido)
-                                @include('admin.pedidos.show-producto', ['pedido' => $pedido])
+                                @include('admin.Pedidos.show-producto', ['pedido' => $pedido])
                             @endforeach
                         </div>
                     </div>
