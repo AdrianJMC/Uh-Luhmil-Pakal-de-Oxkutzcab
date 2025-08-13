@@ -1,50 +1,31 @@
 services:
   - type: web
     name: Uh-Luhmil-Pakal-de-Oxkutzcab
-    env: php
-    buildCommand: |
-      composer install --no-interaction --prefer-dist --optimize-autoloader
-      mkdir -p storage/logs bootstrap/cache
-      touch storage/logs/laravel.log
-      chmod -R 775 storage bootstrap/cache
-    startCommand: |
-      set -e
-      mkdir -p /opt/render/project/src/database
-      [ -f /opt/render/project/src/database/database.sqlite ] || touch /opt/render/project/src/database/database.sqlite
-      php artisan config:clear
-      php artisan storage:link || true
-      php artisan migrate --force || true
-      php artisan config:cache
-      php artisan serve --host 0.0.0.0 --port $PORT
+    # No 'env: php' aquí; Render usará el Dockerfile automáticamente.
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_URL
-        value: https://uh-luhmil-pakal.onrender.com
+        value: https://uh-luhmil-pakal-de-oxkutzcab.onrender.com
       - key: FORCE_HTTPS
         value: true
-      - key: DB_CONNECTION
-        value: sqlite
-      - key: DB_DATABASE
-        value: /opt/render/project/src/database/database.sqlite
-      - key: SESSION_DRIVER
-        value: file
 
-      # 🔑 Laravel
-      # (Define APP_KEY en el panel de Render como Secret; no lo subas al repo)
+      # 🔐 Define APP_KEY como Secret en el panel de Render
       # - key: APP_KEY
-      #   value: base64:xxxxx
+      #   value: base64:xxxx
 
-      # 🗄️ SQLite (la clave del éxito)
+      # 🗄️ SQLite dentro del contenedor Docker
       - key: DB_CONNECTION
         value: sqlite
       - key: DB_DATABASE
-        value: /opt/render/project/src/database/database.sqlite
+        value: /var/www/html/database/database.sqlite
 
-      # Sesiones/Cache/Queue simples (sin DB externa)
+      # 🧠 Sesiones en archivos (no DB)
       - key: SESSION_DRIVER
         value: file
-      - key: CACHE_STORE
-        value: file
-      - key: QUEUE_CONNECTION
-        value: sync
+
+      # (Opcional) Simplificar cache/colas
+      # - key: CACHE_DRIVER
+      #   value: file
+      # - key: QUEUE_CONNECTION
+      #   value: sync

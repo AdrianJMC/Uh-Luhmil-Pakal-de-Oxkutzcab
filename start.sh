@@ -1,24 +1,24 @@
 #!/bin/bash
+set -e
 
-# Esperar a que la base de datos esté lista (máx. 60s)
-echo "⏳ Esperando a la base de datos..."
-timeout 60 bash -c 'until php artisan migrate:status > /dev/null 2>&1; do sleep 3; done'
+echo "⏳ Preparando SQLite..."
+mkdir -p /var/www/html/database
+[ -f /var/www/html/database/database.sqlite ] || touch /var/www/html/database/database.sqlite
+chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
+chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# 🔧 Asegurar que el archivo de log exista y tenga permisos
-echo "🛠️ Verificando archivo de log..."
-mkdir -p storage/logs
-touch storage/logs/laravel.log
-chmod 664 storage/logs/laravel.log
-chown www-data:www-data storage/logs/laravel.log
-
-# 🔗 Crear enlace simbólico de storage
-php artisan storage:link
-
-# Ejecutar comandos Laravel
+echo "🧹 Limpiando caché de config..."
 php artisan config:clear
-php artisan migrate --seed --force
-php artisan cache:clear
 
-# Iniciar Apache
-echo "🚀 Iniciando Apache..."
+echo "🔗 storage:link"
+php artisan storage:link || true
+
+echo "🗃️ Migraciones"
+php artisan migrate --force || true
+# php artisan db:seed --force || true  # si quieres seeds
+
+echo "🧰 Cacheando config..."
+php artisan config:cache
+
+echo "🚀 Apache"
 apache2-foreground
