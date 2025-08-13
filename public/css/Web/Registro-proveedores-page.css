@@ -387,3 +387,8 @@ label {
     margin-right: 4.5rem;
 }
 
+#dropdownMaquinaria {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

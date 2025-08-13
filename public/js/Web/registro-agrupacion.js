@@ -5,7 +5,9 @@ flatpickr("#picker-siembra", {
     defaultDate: oldFechaSiembra || null,
     onChange: function (selectedDates, dateStr) {
         document.getElementById("fecha_inicio").value = dateStr;
-        document.getElementById("fecha_inicio").dispatchEvent(new Event("change"));
+        document
+            .getElementById("fecha_inicio")
+            .dispatchEvent(new Event("change"));
     },
 });
 
@@ -16,7 +18,9 @@ flatpickr("#picker-cosecha", {
     defaultDate: oldFechaCosecha || null,
     onChange: function (selectedDates, dateStr) {
         document.getElementById("fecha_cosecha").value = dateStr;
-        document.getElementById("fecha_cosecha").dispatchEvent(new Event("change"));
+        document
+            .getElementById("fecha_cosecha")
+            .dispatchEvent(new Event("change"));
     },
 });
 
@@ -236,7 +240,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("tipo_maquinaria");
 
@@ -244,35 +247,83 @@ document.addEventListener("DOMContentLoaded", () => {
         let valor = input.value;
         if (!valor) return;
 
-        const palabras = valor.split(",")
-            .map(p => p.trim())
-            .filter(p => p.length > 0)
-            .map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase());
+        const palabras = valor
+            .split(",")
+            .map((p) => p.trim())
+            .filter((p) => p.length > 0)
+            .map((p) => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase());
 
         input.value = palabras.join(", ");
     });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdownBtn = document.getElementById("dropdownMaquinaria");
+    const checkboxes = document.querySelectorAll(
+        '.dropdown-menu input[type="checkbox"]'
+    );
 
- document.addEventListener('DOMContentLoaded', function () {
-        const dropdownBtn = document.getElementById('dropdownMaquinaria');
-        const checkboxes = document.querySelectorAll('.dropdown-menu input[type="checkbox"]');
+    function actualizarTextoBoton() {
+        const seleccionadas = Array.from(checkboxes)
+            .filter((cb) => cb.checked)
+            .map((cb) => cb.value);
 
-        function actualizarTextoBoton() {
-            const seleccionadas = Array.from(checkboxes)
-                .filter(cb => cb.checked)
-                .map(cb => cb.value);
+        dropdownBtn.textContent =
+            seleccionadas.length > 0
+                ? seleccionadas.join(", ")
+                : "Selecciona tipo de maquinaria";
+    }
 
-            dropdownBtn.textContent = seleccionadas.length > 0
-                ? seleccionadas.join(', ')
-                : 'Selecciona tipo de maquinaria';
+    // Escucha cambios en los checkboxes
+    checkboxes.forEach((cb) => {
+        cb.addEventListener("change", actualizarTextoBoton);
+    });
+
+    // Refresca al cargar (por si hay old() con opciones ya marcadas)
+    actualizarTextoBoton();
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("dropdownMaquinaria");
+    if (!btn) return;
+
+    const labelSpan = document.getElementById("maquinariaLabel");
+    const menu = document.querySelector("#dropdownMaquinaria + .dropdown-menu");
+    if (!menu || !labelSpan) return;
+
+    const checks = Array.from(
+        menu.querySelectorAll('input[name="tipo_maquinaria[]"]')
+    );
+    const MAX_VISIBLE = 3; // <- cámbialo si quieres mostrar más/menos
+
+    function refreshLabel() {
+        const seleccionadas = checks
+            .filter((ch) => ch.checked)
+            .map((ch) =>
+                ch
+                    .closest(".form-check")
+                    .querySelector("label")
+                    .textContent.trim()
+            );
+
+        // Title con la lista completa (tooltip al pasar el mouse)
+        btn.title = seleccionadas.join(", ");
+
+        if (seleccionadas.length === 0) {
+            labelSpan.textContent = "Selecciona tipo de maquinaria";
+            return;
         }
 
-        // Escucha cambios en los checkboxes
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', actualizarTextoBoton);
-        });
+        if (seleccionadas.length <= MAX_VISIBLE) {
+            labelSpan.textContent = seleccionadas.join(", ");
+        } else {
+            const visibles = seleccionadas.slice(0, MAX_VISIBLE).join(", ");
+            const resto = seleccionadas.length - MAX_VISIBLE;
+            labelSpan.textContent = `${visibles} … (+${resto} más)`;
+        }
+    }
 
-        // Refresca al cargar (por si hay old() con opciones ya marcadas)
-        actualizarTextoBoton();
-    });
+    // Escuchar cambios
+    checks.forEach((ch) => ch.addEventListener("change", refreshLabel));
+    // Pintar al cargar (respeta old())
+    refreshLabel();
+});

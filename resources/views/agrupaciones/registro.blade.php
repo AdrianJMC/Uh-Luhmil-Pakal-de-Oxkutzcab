@@ -31,5 +31,5 @@
         const oldFechaSiembra = @json(old('fecha_inicio'));
         const oldFechaCosecha = @json(old('fecha_cosecha'));
     </script>
-    <script src="{{ asset('js/Web/registro-agrupacion.js') }}"></script>
+    <script src="@assetAuto('js/Web/registro-agrupacion.js')"></script>
 @endpush

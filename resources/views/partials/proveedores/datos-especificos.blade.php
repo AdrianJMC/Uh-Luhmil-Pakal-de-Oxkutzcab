@@ -24,7 +24,7 @@
             <div class="dropdown">
                 <button class="form-control text-left dropdown-toggle" type="button" id="dropdownMaquinaria"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Selecciona tipo de maquinaria
+                    <span id="maquinariaLabel">Selecciona tipo de maquinaria</span>
                 </button>
                 <div class="dropdown-menu p-3" aria-labelledby="dropdownMaquinaria"
                     style="max-height: 250px; overflow-y: auto;">
@@ -78,6 +78,10 @@
             @error('tipo_maquinaria')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
+            @php $errItem = $errors->first('tipo_maquinaria.*'); @endphp
+            @if ($errItem)
+                <div class="invalid-feedback d-block">{{ $errItem }}</div>
+            @endif
         </div>
 
 

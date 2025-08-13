@@ -13,7 +13,7 @@ class PageSeeder extends Seeder
         Page::updateOrCreate(
             ['slug' => 'home'],
             [
-                'title'   => '¿Dónde estamos?',
+                'title'   => 'Uh Luhmil Pakal',
                 'content' => <<<HTML
 <h2 class="h-3 mb-3">¿Dónde estamos?</h2>
 <p>

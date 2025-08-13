@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Services\BrevoService; // Asegúrate de que este servicio esté correctamente configurado
 use Illuminate\Support\Facades\Http;
 use App\Services\SupabaseStorageService;
+use Illuminate\Validation\Rule;
 
 class AgrupacionController extends Controller
 {
@@ -53,82 +54,98 @@ class AgrupacionController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(
+        $opcionesMaquinaria = [
+            'Tractores',
+            'Sembradoras',
+            'Cosechadoras',
+            'Arados',
+            'Rastras',
+            'Subsoladores',
+            'Cultivadoras',
+            'Rodillos agrícolas',
+            'Surcadoras',
+            'Empacadoras',
+            'Fumigadoras',
+            'Aspersores',
+            'Pulverizadoras',
+            'Sistemas de riego por goteo',
+            'Sistemas de riego por aspersión',
+            'Mangueras de riego',
+            'Motores de riego',
+            'Tanques de riego',
+            'Camiones',
+            'Remolques agrícolas',
+            'Motocultores',
+            'Desbrozadoras',
+            'Trituradoras de ramas',
+            'Plataformas de recolección',
+            'Elevadores hidráulicos',
+            'Sistemas de fertilización',
+            'Equipos de labranza mínima',
+            'Túneles o invernaderos móviles',
+        ];
+
+        $validated = $request->validate(
             [
                 // Datos Generales
-                'nombre_agrupacion'     => 'required|string|max:255',
-                'nombre_representante'  => 'required|string|max:255',
-                'email_representante' => 'required|email|max:255|unique:agrupaciones,email_representante',
-                'curp_representante' => 'required|string|size:18|regex:/^[A-Z0-9]{18}$/|unique:agrupaciones,curp_representante',
-                'rfc_agrupacion' => 'required|string|size:12|regex:/^[A-Z0-9]{12}$/|unique:agrupaciones,rfc_agrupacion',
-                'direccion_agrupacion'  => 'required|string|max:255',
-                'superficie_cosecha'    => 'required|numeric|min:0.1|max:50',
-                'tipo_suelo'            => 'required|string|max:255',
+                'nombre_agrupacion'    => 'required|string|max:255',
+                'nombre_representante' => 'required|string|max:255',
+                'email_representante'  => 'required|email|max:255|unique:agrupaciones,email_representante',
+                'curp_representante'   => 'required|string|size:18|regex:/^[A-Z0-9]{18}$/|unique:agrupaciones,curp_representante',
+                'rfc_agrupacion'       => 'required|string|size:12|regex:/^[A-Z0-9]{12}$/|unique:agrupaciones,rfc_agrupacion',
+                'direccion_agrupacion' => 'required|string|max:255',
+                'superficie_cosecha'   => 'required|numeric|min:0.1|max:50',
+                'tipo_suelo'           => 'required|string|max:255',
 
                 // Datos Específicos
-                'num_trabajadores'      => 'required|integer|min:1|max:5000',
-                'horas_trabajo'         => 'required|integer|min:1|max:168',
-                'fecha_inicio'          => 'required|date|after_or_equal:2020-01-01|before_or_equal:2030-12-31',
-                'fecha_cosecha'         => 'required|date|after_or_equal:fecha_inicio|before_or_equal:2030-12-31',
-                'tipo_maquinaria' => 'required|array|min:1',
-                'tipo_maquinaria.*' => 'in:Tractores,Aspersores,Sembradoras,Cosechadoras,Fumigadoras,Camiones,Mangueras de riego,Motores de riego',
+                'num_trabajadores'     => 'required|integer|min:1|max:5000',
+                'horas_trabajo'        => 'required|integer|min:1|max:168',
+                'fecha_inicio'         => 'required|date|after_or_equal:2020-01-01|before_or_equal:2030-12-31',
+                'fecha_cosecha'        => 'required|date|after_or_equal:fecha_inicio|before_or_equal:2030-12-31',
+
+                'tipo_maquinaria'      => ['required', 'array', 'min:1'],
+                'tipo_maquinaria.*'    => ['string', Rule::in($opcionesMaquinaria)],
             ],
             [
-                // Mensajes personalizados
                 'required' => 'El :attribute es obligatorio.',
-                'string' => 'El campo :attribute debe ser texto.',
-                'max' => 'El campo :attribute no debe exceder los :max caracteres.',
-                'min' => 'El campo :attribute debe tener al menos :min.',
-                'email' => 'El campo :attribute debe ser un correo válido.',
-                'size' => 'El campo :attribute debe tener exactamente :size caracteres.',
-                'regex' => 'El campo :attribute tiene un formato inválido.',
-                'numeric' => 'El campo :attribute debe ser numérico.',
-                'integer' => 'El campo :attribute debe ser un número entero.',
-                'date' => 'El campo :attribute debe ser una fecha válida.',
-                'after_or_equal' => 'La fecha de cosecha debe ser posterior o igual a la fecha de siembra.',
-
-                // Excepciones femeninas específicas
-                'horas_trabajo.required' => 'Las :attribute es obligatoria.',
-                'fecha_inicio.required' => 'La :attribute es obligatoria.',
-                'fecha_cosecha.required' => 'La :attribute es obligatoria.',
-                'superficie_cosecha.required' => 'La :attribute es obligatoria.',
-                'num_trabajadores.min' => 'Los :attribute no pueden ser menores a :min.',
-                'num_trabajadores.max' => 'Los :attribute no pueden exceder los :max.',
-                'horas_trabajo.min' => 'Las :attribute no pueden ser menores a :min horas.',
-                'horas_trabajo.max' => 'Las :attribute no pueden exceder las :max horas.',
-                'email_representante.unique' => 'El correo electrónico ya ha sido registrado.',
-                'curp_representante.unique' => 'El CURP ya está registrado.',
-                'rfc_agrupacion.unique' => 'El RFC ya está registrado.',
-
-
+                'email'    => 'El campo :attribute debe ser un correo válido.',
+                'size'     => 'El campo :attribute debe tener exactamente :size caracteres.',
+                'regex'    => 'El campo :attribute tiene un formato inválido.',
+                'numeric'  => 'El campo :attribute debe ser numérico.',
+                'integer'  => 'El campo :attribute debe ser un número entero.',
+                'after_or_equal'             => 'La fecha de cosecha debe ser posterior o igual a la fecha de siembra.',
                 'fecha_inicio.after_or_equal' => 'La fecha de siembra no puede ser anterior al año 2020.',
                 'fecha_inicio.before_or_equal' => 'La fecha de siembra no puede ser posterior al año 2030.',
                 'fecha_cosecha.before_or_equal' => 'La fecha de cosecha no puede ser posterior al año 2030.',
+                'email_representante.unique' => 'El correo electrónico ya ha sido registrado.',
+                'curp_representante.unique'  => 'El CURP ya está registrado.',
+                'rfc_agrupacion.unique'      => 'El RFC ya está registrado.',
+
+                'tipo_maquinaria.required' => 'Selecciona al menos un tipo de maquinaria.',
+                'tipo_maquinaria.*.in'     => 'Una o más opciones no son válidas.',
             ],
             [
-                // Atributos personalizados
-                'nombre_agrupacion' => 'nombre de la unidad',
+                'nombre_agrupacion'    => 'nombre de la unidad',
                 'nombre_representante' => 'nombre del representante',
-                'email_representante' => 'correo electrónico',
-                'curp_representante' => 'CURP del representante',
-                'rfc_agrupacion' => 'RFC de la unidad',
+                'email_representante'  => 'correo electrónico',
+                'curp_representante'   => 'CURP del representante',
+                'rfc_agrupacion'       => 'RFC de la unidad',
                 'direccion_agrupacion' => 'dirección de la unidad',
-                'superficie_cosecha' => 'superficie de cosecha',
-                'tipo_suelo' => 'tipo de suelo',
-                'num_trabajadores' => 'número de trabajadores',
-                'tipo_maquinaria' => 'tipo de maquinaria',
-                'horas_trabajo' => 'horas de trabajo semanal',
-                'fecha_inicio' => 'fecha de siembra',
-                'fecha_cosecha' => 'fecha de cosecha',
+                'superficie_cosecha'   => 'superficie de cosecha',
+                'tipo_suelo'           => 'tipo de suelo',
+                'num_trabajadores'     => 'número de trabajadores',
+                'tipo_maquinaria'      => 'tipo de maquinaria',
+                'horas_trabajo'        => 'horas de trabajo semanal',
+                'fecha_inicio'         => 'fecha de siembra',
+                'fecha_cosecha'        => 'fecha de cosecha',
             ]
         );
 
-        // Convertir el array de tipo_maquinaria en string separado por comas
-        $maquinarias = $request->input('tipo_maquinaria', []);
-        $tipoMaquinariaStr = implode(', ', $maquinarias);
-        $request->merge(['tipo_maquinaria' => $tipoMaquinariaStr]);
+        // Guardar como string (si prefieres JSON: json_encode($validated['tipo_maquinaria']))
+        $validated['tipo_maquinaria'] = implode(', ', $validated['tipo_maquinaria']);
 
-        Agrupacion::create($request->all());
+        Agrupacion::create($validated);
+
         return redirect()->route('agrupaciones.create')->with('success', true);
     }
 
