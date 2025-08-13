@@ -10,6 +10,11 @@ services:
       - key: FORCE_HTTPS
         value: true
 
+    disks:
+      - name: app-db
+        mountPath: /var/www/html/database
+        sizeGB: 1
+
       # 🔐 Define APP_KEY como Secret en el panel de Render
       # - key: APP_KEY
       #   value: base64:xxxx
