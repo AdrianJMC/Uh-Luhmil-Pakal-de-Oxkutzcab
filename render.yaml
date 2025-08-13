@@ -18,4 +18,4 @@ services:
       - key: FORCE_HTTPS
         value: true
       - key: DATABASE_URL
-        value: postgres://user:pass@host:5432/db?sslmode=require
+        value: postgres://USER:PASSWORD@dpg-d12c093uibrs73f2om9g-a.ohio-postgres.render.com:5432/DBNAME?sslmode=require
