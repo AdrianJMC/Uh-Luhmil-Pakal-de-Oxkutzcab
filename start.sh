@@ -23,6 +23,9 @@ echo "🗃️ Migraciones"
 php artisan migrate --force || true
 # php artisan db:seed --force || true
 
+echo "🌱 Seeders"
+php artisan db:seed --force || true   # <--- ACTIVADO
+
 echo "🧰 Cacheando config..."
 php artisan config:cache
 
