@@ -3,11 +3,12 @@ services:
     name: Uh-Luhmil-Pakal-de-Oxkutzcab
     env: php
     buildCommand: |
-      composer install
-      mkdir -p storage/logs
-      touch storage/logs/laravel.log
+      composer install --no-interaction --prefer-dist --optimize-autoloader
+      mkdir -p storage/logs bootstrap/cache database
+      touch storage/logs/laravel.log database/database.sqlite
       chmod -R 775 storage bootstrap/cache
     startCommand: |
+      php artisan migrate --force
       php artisan config:cache
       php artisan serve --host 0.0.0.0 --port $PORT
     envVars:
@@ -17,5 +18,22 @@ services:
         value: https://uh-luhmil-pakal.onrender.com
       - key: FORCE_HTTPS
         value: true
-      - key: DATABASE_URL
-        value: postgres://USER:PASSWORD@dpg-d12c093uibrs73f2om9g-a.ohio-postgres.render.com:5432/DBNAME?sslmode=require
+
+      # 🔑 Laravel
+      # (Define APP_KEY en el panel de Render como Secret; no lo subas al repo)
+      # - key: APP_KEY
+      #   value: base64:xxxxx
+
+      # 🗄️ SQLite (la clave del éxito)
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /opt/render/project/src/database/database.sqlite
+
+      # Sesiones/Cache/Queue simples (sin DB externa)
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
