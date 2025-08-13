@@ -13,9 +13,15 @@ php artisan config:clear
 echo "🔗 storage:link"
 php artisan storage:link || true
 
+# 🔎 Diagnóstico de entorno y config reales
+echo "🔎 Revisando entorno y config DB..."
+echo "ENV DB_CONNECTION=$DB_CONNECTION"
+echo "ENV DB_DATABASE=$DB_DATABASE"
+php -r 'require "vendor/autoload.php"; $app=require "bootstrap/app.php"; $kernel=$app->make(Illuminate\Contracts\Console\Kernel::class); $kernel->bootstrap(); echo "CONFIG default=".config("database.default").PHP_EOL; echo "CONFIG sqlite.database=".config("database.connections.sqlite.database").PHP_EOL;'
+
 echo "🗃️ Migraciones"
 php artisan migrate --force || true
-# php artisan db:seed --force || true  # si quieres seeds
+# php artisan db:seed --force || true
 
 echo "🧰 Cacheando config..."
 php artisan config:cache
