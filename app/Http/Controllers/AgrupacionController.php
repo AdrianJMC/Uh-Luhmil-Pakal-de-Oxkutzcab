@@ -11,6 +11,7 @@ use App\Services\BrevoService; // Asegúrate de que este servicio esté correcta
 use Illuminate\Support\Facades\Http;
 use App\Services\SupabaseStorageService;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Schema;
 
 class AgrupacionController extends Controller
 {
@@ -54,6 +55,15 @@ class AgrupacionController extends Controller
 
     public function store(Request $request)
     {
+        // Normaliza a mayúsculas para pasar tu regex [A-Z0-9]{18}
+        $request->merge([
+            'curp_representante' => strtoupper((string)$request->curp_representante),
+            'rfc_agrupacion'     => strtoupper((string)$request->rfc_agrupacion),
+        ]);
+
+        // Descubre la columna real de CURP en esta BD
+        $curpColumn = Schema::hasColumn('agrupaciones', 'curp') ? 'curp' : 'curp_representante';
+
         $opcionesMaquinaria = [
             'Tractores',
             'Sembradoras',
@@ -91,8 +101,20 @@ class AgrupacionController extends Controller
                 'nombre_agrupacion'    => 'required|string|max:255',
                 'nombre_representante' => 'required|string|max:255',
                 'email_representante'  => 'required|email|max:255|unique:agrupaciones,email_representante',
-                'curp_representante'   => 'required|string|size:18|regex:/^[A-Z0-9]{18}$/|unique:agrupaciones,curp_representante',
-                'rfc_agrupacion'       => 'required|string|size:12|regex:/^[A-Z0-9]{12}$/|unique:agrupaciones,rfc_agrupacion',
+                'curp_representante'   => [
+                    'required',
+                    'string',
+                    'size:18',
+                    'regex:/^[A-Z0-9]{18}$/',
+                    Rule::unique('agrupaciones', $curpColumn),
+                ],
+                'rfc_agrupacion'       => [
+                    'required',
+                    'string',
+                    'size:12',
+                    'regex:/^[A-Z0-9]{12}$/',
+                    Rule::unique('agrupaciones', 'rfc_agrupacion'),
+                ],
                 'direccion_agrupacion' => 'required|string|max:255',
                 'superficie_cosecha'   => 'required|numeric|min:0.1|max:50',
                 'tipo_suelo'           => 'required|string|max:255',
