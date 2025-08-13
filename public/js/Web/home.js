@@ -1,72 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const lightbox = document.getElementById("videoLightbox");
-    const backdrop = document.querySelector("#videoLightbox .video-backdrop");
-    const closeButton = document.getElementById("closeVideo");
-    const iframe = document.getElementById("lightboxIframe");
+  const lightbox = document.getElementById("videoLightbox");
+  const backdrop = document.querySelector("#videoLightbox .video-backdrop");
+  const closeButton = document.getElementById("closeVideo");
+  const iframe = document.getElementById("lightboxIframe");
 
-    /**
-     * Extrae el ID de YouTube de una URL o devuelve
-     * directamente la cadena si ya es un ID.
-     */
-    function extractYouTubeId(input) {
-        console.log("Raw input al extractor:", input);
-        // 1) Intentamos URI parsing
-        try {
-            const url = new URL(input);
-            // youtu.be/ID
-            if (url.hostname.includes("youtu.be")) {
-                const id = url.pathname.slice(1);
-                console.log("ID extraído (short link):", id);
-                return id;
-            }
-            // youtube.com/watch?v=ID
-            if (url.searchParams.has("v")) {
-                const id = url.searchParams.get("v");
-                console.log("ID extraído (?v=):", id);
-                return id;
-            }
-        } catch (e) {
-            // no era una URL válida
-            console.log("No era URL válida, tratamos como ID puro");
-        }
-        // 2) Caída a regex genérico (cubre otros formatos)
-        const regex = /(?:youtube\.com\/.*v=|youtu\.be\/)([^&?]+)/;
-        const match = input.match(regex);
-        if (match && match[1]) {
-            console.log("ID extraído (regex):", match[1]);
-            return match[1];
-        }
-        // 3) Si nada, devolvemos lo que nos dieron
-        console.log("Devolvemos input tal cual:", input);
-        return input;
+  // Devuelve SIEMPRE un URL de embed válido (YouTube/Vimeo) a partir de ID o link normal o embed ya listo
+  function toEmbed(input) {
+    if (!input) return null;
+    const s = String(input).trim();
+    let m;
+
+    // Ya es un embed válido → úsalo tal cual
+    if (/^https?:\/\/(www\.)?youtube(-nocookie)?\.com\/embed\//i.test(s)) return s;
+    if (/^https?:\/\/player\.vimeo\.com\/video\//i.test(s)) return s;
+
+    // YouTube (links normales)
+    if ((m = s.match(/^https?:\/\/youtu\.be\/([A-Za-z0-9_-]{11})/i))) return `https://www.youtube-nocookie.com/embed/${m[1]}`;
+    if ((m = s.match(/[?&]v=([A-Za-z0-9_-]{11})/))) return `https://www.youtube-nocookie.com/embed/${m[1]}`;
+    if ((m = s.match(/\/(shorts|embed)\/([A-Za-z0-9_-]{11})/))) return `https://www.youtube-nocookie.com/embed/${m[2]}`;
+
+    // YouTube (ID pelón)
+    if (/^[A-Za-z0-9_-]{11}$/.test(s)) return `https://www.youtube-nocookie.com/embed/${s}`;
+
+    // Vimeo
+    if ((m = s.match(/vimeo\.com\/(?:video\/)?(\d+)/))) return `https://player.vimeo.com/video/${m[1]}`;
+    if (/^\d{6,}$/.test(s)) return `https://player.vimeo.com/video/${s}`;
+
+    return null;
+  }
+
+  function appendParams(url, params) {
+    const qs = new URLSearchParams(params).toString();
+    return url + (url.includes("?") ? "&" : "?") + qs;
+  }
+
+  function openVideo(raw) {
+    const embed = toEmbed(raw);
+    if (!embed) {
+      console.warn("No pude reconocer el link de video:", raw);
+      return;
     }
+    // ⚠️ No antepongas nada: solo añade parámetros
+    iframe.src = appendParams(embed, { autoplay: 1, rel: 0, playsinline: 1 });
+    lightbox.classList.add("active");
+  }
 
-    function openVideo(rawId) {
-        const id = extractYouTubeId(rawId.trim());
-        const src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-        console.log("Iframe SRC final:", src);
-        iframe.src = src;
-        lightbox.classList.add("active");
-    }
+  function closeVideo() {
+    iframe.src = "";
+    lightbox.classList.remove("active");
+  }
 
-    function closeVideo() {
-        iframe.src = "";
-        lightbox.classList.remove("active");
-    }
-
-    // Asociar clic a todas las tarjetas con data-video-id
-    document.querySelectorAll("[data-video-id]").forEach((card) => {
-        card.addEventListener("click", () => {
-            const raw = card.dataset.videoId;
-            console.log("Tarjeta clicada, data-video-id =", raw);
-            openVideo(raw);
-        });
+  // Acepta data-video-src o data-video-id (el que estés usando)
+  document.querySelectorAll("[data-video-src], [data-video-id]").forEach((card) => {
+    card.addEventListener("click", () => {
+      const raw = card.dataset.videoSrc || card.dataset.videoId;
+      openVideo(raw);
     });
+  });
 
-    // Cierra al hacer clic en el fondo o en la “X”
-    backdrop && backdrop.addEventListener("click", closeVideo);
-    closeButton && closeButton.addEventListener("click", closeVideo);
+  backdrop && backdrop.addEventListener("click", closeVideo);
+  closeButton && closeButton.addEventListener("click", closeVideo);
 });
+
 
 let modalAgrupacionesInstance = null;
 

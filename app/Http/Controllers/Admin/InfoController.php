@@ -7,6 +7,7 @@ use App\Models\Info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class InfoController extends Controller
 {
@@ -58,26 +59,25 @@ class InfoController extends Controller
 
         if ($esVideo) {
             $data = $request->validate([
-                'video_id'      => 'required|string|max:255',
-                'imagen_video'  => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
-                'orden'         => 'required|integer|min:1|max:4',
+                'video_id' => ['required', 'url', 'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\//i'],
+                'imagen_video' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
+                'orden' => ['required', 'integer', 'between:1,4', Rule::unique('infos', 'orden')],
             ], [
-                'video_id.required' => 'El ID del video es obligatorio.',
-                'video_id.regex' => 'El formato del ID del video no es válido.',
+                'video_id.required' => 'El enlace del video es obligatorio.',
+                'video_id.url'      => 'Debes pegar un enlace válido.',
+                'video_id.regex'    => 'Solo se aceptan enlaces de YouTube o Vimeo.',
                 'imagen_video.image' => 'La miniatura debe ser una imagen válida.',
                 'imagen_video.max' => 'La miniatura no debe superar los 5 MB.',
                 'imagen_video.mimes' => 'Solo se permiten imágenes JPEG, PNG o WEBP.',
                 'imagen_video.dimensions' => 'La imagen debe tener entre 300x300 y 1500x1500 píxeles.',
                 'orden.required' => 'El campo orden es obligatorio.',
-                'orden.integer' => 'El orden debe ser un número entero.',
-                'orden.min' => 'El orden mínimo permitido es :min.',
-                'orden.max' => 'El orden máximo permitido es :max.',
+                'orden.integer'  => 'El orden debe ser un número entero.',
+                'orden.between'  => 'El orden debe estar entre 1 y 4.',
+                'orden.unique'   => 'Ese orden ya está asignado a otra tarjeta. Elige otro número.',
             ]);
 
-            $embedUrl = $this->toEmbedUrl($data['video_id']); // crea este helper (abajo)
-            if (!$embedUrl) {
-                return back()->withErrors(['video_id' => 'El enlace no es válido de YouTube o Vimeo.'])->withInput();
-            }
+            // Guarda el enlace tal cual:
+            $videoUrl = $data['video_id']; // ahora es un URL, no un ID
 
             $imagenUrl = null;
             if ($request->hasFile('imagen_video')) {
@@ -87,7 +87,7 @@ class InfoController extends Controller
             Info::create([
                 'titulo'      => null,
                 'texto'       => null,
-                'video_id'    => $embedUrl,   // 👈 guardas embed listo
+                'video_id'    => $videoUrl,  // 👈 guardas embed listo
                 'imagen_ruta' => $imagenUrl,  // si hay miniatura
                 'orden'       => $data['orden'],
             ]);
@@ -96,7 +96,12 @@ class InfoController extends Controller
                 'titulo'        => 'required|string|min:5|max:255',
                 'texto'         => 'required|string|min:10',
                 'imagen_normal' => 'required|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
-                'orden'         => 'required|integer|min:1|max:4',
+                'orden' => [
+                    'required',
+                    'integer',
+                    'between:1,4',
+                    Rule::unique('infos', 'orden'),
+                ],
             ], [
                 'titulo.required' => 'El título es obligatorio.',
                 'titulo.min' => 'El título debe tener al menos :min caracteres.',
@@ -111,6 +116,7 @@ class InfoController extends Controller
                 'orden.integer' => 'El orden debe ser un número entero.',
                 'orden.min' => 'El orden mínimo permitido es :min.',
                 'orden.max' => 'El orden máximo permitido es :max.',
+                'orden.unique' => 'Ese orden ya está asignado a otra tarjeta. Elige otro número.',
             ]);
 
 
@@ -139,15 +145,36 @@ class InfoController extends Controller
 
         if ($esVideo) {
             $data = $request->validate([
-                'video_id'     => 'required|string|max:255',
-                'orden'        => 'required|integer|min:1|max:4',
+                'video_id' => [
+                    'required',
+                    'url',
+                    'regex:/^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be|vimeo\.com)\//i'
+                ],
+                'orden' => [
+                    'required',
+                    'integer',
+                    'between:1,4',
+                    Rule::unique('infos', 'orden')->ignore($info->id),
+                ],
                 'imagen_video' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
+            ], [
+                'video_id.required' => 'El enlace del video es obligatorio.',
+                'video_id.url'      => 'Debes pegar un enlace válido.',
+                'video_id.regex'    => 'Solo se aceptan enlaces de YouTube o Vimeo.',
+                'imagen_video.image' => 'La miniatura debe ser una imagen válida.',
+                'imagen_video.max' => 'La miniatura no debe superar los 5 MB.',
+                'imagen_video.mimes' => 'Solo se permiten imágenes JPEG, PNG o WEBP.',
+                'imagen_video.dimensions' => 'La imagen debe tener entre 300x300 y 1500x1500 píxeles.',
+                'orden.required' => 'El campo orden es obligatorio.',
+                'orden.integer' => 'El orden debe ser un número entero.',
+                'orden.min' => 'El orden mínimo permitido es :min.',
+                'orden.max' => 'El orden máximo permitido es :max.',
+                'orden.between' => 'El orden debe estar entre 1 y 4.',
+                'orden.unique'  => 'Ese orden ya está asignado a otra tarjeta. Elige otro número.',
             ]);
 
-            $embedUrl = $this->toEmbedUrl($data['video_id']);
-            if (!$embedUrl) {
-                return back()->withErrors(['video_id' => 'El enlace no es válido de YouTube o Vimeo.'])->withInput();
-            }
+            // Guarda el enlace tal cual:
+            $videoUrl = $data['video_id']; // ahora es un URL, no un ID
 
             $imagenUrl = $info->imagen_ruta;
             if ($request->hasFile('imagen_video')) {
@@ -158,7 +185,7 @@ class InfoController extends Controller
             $info->update([
                 'titulo'      => null,
                 'texto'       => null,
-                'video_id'    => $embedUrl,   // 👈 guardar embed
+                'video_id'    => $videoUrl,   // 👈 guardar embed
                 'imagen_ruta' => $imagenUrl,
                 'orden'       => $data['orden'],
             ]);
@@ -166,8 +193,28 @@ class InfoController extends Controller
             $data = $request->validate([
                 'titulo'        => 'required|string|max:255',
                 'texto'         => 'required|string',
-                'orden'         => 'required|integer',
+                'orden' => [
+                    'required',
+                    'integer',
+                    'between:1,4',
+                    Rule::unique('infos', 'orden')->ignore($info->id),
+                ],
                 'imagen_normal' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
+            ], [
+                'titulo.required' => 'El título es obligatorio.',
+                'titulo.min' => 'El título debe tener al menos :min caracteres.',
+                'texto.required' => 'El texto es obligatorio.',
+                'texto.min' => 'El texto debe tener al menos :min caracteres.',
+                'imagen_normal.required' => 'Debes subir una imagen.',
+                'imagen_normal.image' => 'El archivo debe ser una imagen válida.',
+                'imagen_normal.max' => 'La imagen no debe superar los 5 MB.',
+                'imagen_normal.mimes' => 'Solo se permiten imágenes JPEG, PNG o WEBP.',
+                'imagen_normal.dimensions' => 'La imagen debe tener entre 300x300 y 1500x1500 píxeles.',
+                'orden.required' => 'El campo orden es obligatorio.',
+                'orden.integer' => 'El orden debe ser un número entero.',
+                'orden.min' => 'El orden mínimo permitido es :min.',
+                'orden.max' => 'El orden máximo permitido es :max.',
+                'orden.unique' => 'Ese orden ya está asignado a otra tarjeta. Elige otro número.',
             ]);
 
             $imagenUrl = $info->imagen_ruta;
