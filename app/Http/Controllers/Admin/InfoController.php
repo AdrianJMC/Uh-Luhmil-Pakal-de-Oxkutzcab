@@ -58,9 +58,9 @@ class InfoController extends Controller
 
         if ($esVideo) {
             $data = $request->validate([
-                'video_id'      => 'required|string|regex:/^[a-zA-Z0-9_-]{11}$/',
+                'video_id'      => 'required|string|max:255',
                 'imagen_video'  => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
-                'orden'         => 'required|integer|min:1|max:10',
+                'orden'         => 'required|integer|min:1|max:4',
             ], [
                 'video_id.required' => 'El ID del video es obligatorio.',
                 'video_id.regex' => 'El formato del ID del video no es válido.',
@@ -74,6 +74,10 @@ class InfoController extends Controller
                 'orden.max' => 'El orden máximo permitido es :max.',
             ]);
 
+            $embedUrl = $this->toEmbedUrl($data['video_id']); // crea este helper (abajo)
+            if (!$embedUrl) {
+                return back()->withErrors(['video_id' => 'El enlace no es válido de YouTube o Vimeo.'])->withInput();
+            }
 
             $imagenUrl = null;
             if ($request->hasFile('imagen_video')) {
@@ -83,8 +87,8 @@ class InfoController extends Controller
             Info::create([
                 'titulo'      => null,
                 'texto'       => null,
-                'video_id'    => $data['video_id'],
-                'imagen_ruta' => $imagenUrl,
+                'video_id'    => $embedUrl,   // 👈 guardas embed listo
+                'imagen_ruta' => $imagenUrl,  // si hay miniatura
                 'orden'       => $data['orden'],
             ]);
         } else {
@@ -92,7 +96,7 @@ class InfoController extends Controller
                 'titulo'        => 'required|string|min:5|max:255',
                 'texto'         => 'required|string|min:10',
                 'imagen_normal' => 'required|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
-                'orden'         => 'required|integer|min:1|max:10',
+                'orden'         => 'required|integer|min:1|max:4',
             ], [
                 'titulo.required' => 'El título es obligatorio.',
                 'titulo.min' => 'El título debe tener al menos :min caracteres.',
@@ -136,9 +140,14 @@ class InfoController extends Controller
         if ($esVideo) {
             $data = $request->validate([
                 'video_id'     => 'required|string|max:255',
-                'orden'        => 'required|integer',
+                'orden'        => 'required|integer|min:1|max:4',
                 'imagen_video' => 'nullable|image|max:5120|mimes:jpeg,png,webp|dimensions:min_width=300,min_height=300,max_width=1500,max_height=1500',
             ]);
+
+            $embedUrl = $this->toEmbedUrl($data['video_id']);
+            if (!$embedUrl) {
+                return back()->withErrors(['video_id' => 'El enlace no es válido de YouTube o Vimeo.'])->withInput();
+            }
 
             $imagenUrl = $info->imagen_ruta;
             if ($request->hasFile('imagen_video')) {
@@ -149,7 +158,7 @@ class InfoController extends Controller
             $info->update([
                 'titulo'      => null,
                 'texto'       => null,
-                'video_id'    => $data['video_id'],
+                'video_id'    => $embedUrl,   // 👈 guardar embed
                 'imagen_ruta' => $imagenUrl,
                 'orden'       => $data['orden'],
             ]);
@@ -254,5 +263,58 @@ class InfoController extends Controller
 
             logger('🧨 Cloudinary DELETE response (update): ' . $response->body());
         }
+    }
+
+    private function toEmbedUrl(string $input): ?string
+    {
+        $input = trim($input);
+
+        // ---- YOUTUBE ----
+        // Caso ID directo (11 chars)
+        if (preg_match('/^[A-Za-z0-9_-]{11}$/', $input)) {
+            return "https://www.youtube.com/embed/{$input}";
+        }
+        // URL completas comunes
+        if (preg_match('~(youtu\.be/|youtube\.com)~i', $input)) {
+            $url = $input;
+            // Normaliza
+            $parts = parse_url($url);
+            $host  = $parts['host'] ?? '';
+            $path  = $parts['path'] ?? '';
+            parse_str($parts['query'] ?? '', $q);
+
+            // youtu.be/VIDEOID
+            if (stripos($host, 'youtu.be') !== false) {
+                $id = ltrim($path, '/');
+                $id = preg_replace('/[^A-Za-z0-9_-]/', '', $id);
+                return strlen($id) === 11 ? "https://www.youtube.com/embed/{$id}" : null;
+            }
+
+            // youtube.com/watch?v=VIDEOID
+            if (isset($q['v']) && preg_match('/^[A-Za-z0-9_-]{11}$/', $q['v'])) {
+                return "https://www.youtube.com/embed/{$q['v']}";
+            }
+
+            // /embed/VIDEOID  o  /shorts/VIDEOID
+            if (preg_match('~/(embed|shorts)/([A-Za-z0-9_-]{11})~', $path, $m)) {
+                return "https://www.youtube.com/embed/{$m[2]}";
+            }
+        }
+
+        // ---- VIMEO ----
+        if (preg_match('~vimeo\.com~i', $input)) {
+            $parts = parse_url($input);
+            $path  = $parts['path'] ?? '';
+            // player.vimeo.com/video/ID  o  vimeo.com/ID  o otras rutas que terminan en /ID
+            if (preg_match('~/video/(\d+)~', $path, $m) || preg_match('~/(\d+)$~', $path, $m)) {
+                return "https://player.vimeo.com/video/{$m[1]}";
+            }
+        }
+        // Caso ID numérico de Vimeo “pelón”
+        if (preg_match('/^\d{6,}$/', $input)) {
+            return "https://player.vimeo.com/video/{$input}";
+        }
+
+        return null;
     }
 }
