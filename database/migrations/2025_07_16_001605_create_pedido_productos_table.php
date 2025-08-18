@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Si la tabla ya existe (de un intento anterior), no intentes crearla de nuevo
+        if (Schema::hasTable('pedido_productos')) {
+            return;
+        }
+
         Schema::create('pedido_productos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pedido_id')->constrained()->onDelete('cascade');
             $table->foreignId('producto_id')->constrained()->onDelete('cascade');
             $table->foreignId('agrupacion_id')->constrained('agrupaciones')->onDelete('cascade');
-            $table->decimal('cantidad', 8, 2); // toneladas
+            $table->decimal('cantidad', 8, 2);
             $table->decimal('precio_unitario', 10, 2);
             $table->decimal('total', 12, 2);
             $table->timestamps();
